@@ -50,6 +50,6 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 ## Referensi Belajar
 
 - Dokumentasi Resmi Next [Next Docs](https://nextjs.org/docs)
-- Belajar Next App Directory [Tutorial Next JS Bahasa Indonesia By VIP CODE STUDIO](https://www.youtube.com/playlist?list=PLmF_zPV9ZcP2aYRuoEsMla5gqNjxP-V20https://www.youtube.com/playlist?list=PLmF_zPV9ZcP2aYRuoEsMla5gqNjxP-V20)
+- Belajar Next App Directory [Tutorial Next JS Bahasa Indonesia By VIP CODE STUDIO](https://www.youtube.com/playlist?list=PLmF_zPV9ZcP2aYRuoEsMla5gqNjxP-V20)
 - Dokumentasi Resmi Nestjs [Nestjs Docs](https://docs.nestjs.com/)
 - Belajar Nestjs [Tutorial NestJS Dasar (Bahasa Indonesia) by Programmer Zaman Now](https://www.youtube.com/watch?v=BXTEwuoDkDQ&t=10247s&pp=ygUPbmVzdGpzIHR1dG9yaWFs)
