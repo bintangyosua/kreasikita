@@ -1,6 +1,6 @@
-# Support Creator-Donation
+# Support Creator-Donation ()
 
-Website Support Creator-Donation adalah platform untuk mendukung kreator dan program sosial. Pengguna dapat memberikan donasi, mendukung crowdfunding, dan menjadi member untuk kreator favorit mereka. Pengguna juga dapat berdonasi untuk program sosial, volunteer, dan membantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
+Website Support Creator-Crowdfunding adalah platform untuk mendukung kreator dan program sosial. Pengguna dapat memberikan donasi, mendukung crowdfunding, dan menjadi member untuk kreator favorit mereka. Pengguna juga dapat berdonasi untuk program sosial, volunteer, dan membantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
 
 ## Technologies
 
@@ -13,6 +13,14 @@ Website Support Creator-Donation adalah platform untuk mendukung kreator dan pro
 	<img width="50" src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" alt="Next.js" title="Next.js"/>
 	<img width="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png" alt="MySQL" title="MySQL"/>
 </div>
+
+## Spesifikasi
+
+### Daftar User
+
+- Admin
+- Kreator
+- Sosial
 
 ## Roadmap
 
