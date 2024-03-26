@@ -46,6 +46,7 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 - https://trakteer.id/
 - https://www.fiverr.com/
 - https://www.patreon.com/
+- https://www.buymeacoffee.com/
 
 ## Referensi Belajar
 
