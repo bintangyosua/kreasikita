@@ -1,13 +1,8 @@
-import Navbar from "@/components/home/Navbar";
-import Cloud from "@/components/svgs/Cloud";
-import HeroImage from "@/components/svgs/HeroImage";
-import Search from "@/components/svgs/Search";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
       <div className="bg-purple text-white relative">
         <div className="container mx-auto">
           <div className="flex justify-between pt-20">
@@ -20,7 +15,6 @@ export default function Home() {
               <h3 className="text-3xl font-bold">#HarmoniKarya</h3>
               <div className="flex flex-col gap-3">
                 <div className="flex gap-4 bg-white py-3 px-5 rounded-3xl">
-                  <Search stroke="#000" size={30} />
                   <input
                     className="w-full border-none active:border-none outline-none text-black"
                     type="text"
@@ -42,7 +36,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Cloud />
       <div className="absolute z-10 top-[37rem] left-0 right-0 bottom-0 flex justify-center items-center">
         <div className="shadow-md flex justify-center items-center w-2/3 bg-white rounded-xl">
           <div className="p-10 text-center w-1/3">

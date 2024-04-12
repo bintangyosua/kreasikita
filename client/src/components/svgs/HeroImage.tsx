@@ -7,8 +7,8 @@ export default function HeroImage() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M480.094 27.1505C460.808 23.2249 436.994 20.4491 422.354 21.0929C412.143 21.5421 373.257 18.3155 368.404 36.6419C363.168 56.4218 360.376 100.448 361.287 122.235C362.071 141.034 358.506 199.452 364.984 206.304C376.301 218.272 374.433 220.567 414.314 219.406C427.956 219.009 485.522 219.989 496.337 204.561C501.835 196.719 506.623 188.752 505.934 168.825C505.738 163.155 505.173 120.551 504.045 89.2897C503.297 68.6004 504.391 50.0478 501.681 43.299C497.909 33.9025 487.86 27.3878 480.094 27.1505Z"
         fill="#FFCFC9"
       />
@@ -21,8 +21,8 @@ export default function HeroImage() {
         width="145"
         height="199">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M480.094 27.1505C460.808 23.2249 436.994 20.4491 422.354 21.0929C412.143 21.5421 373.257 18.3155 368.404 36.6419C363.168 56.4218 360.376 100.448 361.287 122.235C362.071 141.034 358.506 199.452 364.984 206.304C376.301 218.272 374.433 220.567 414.314 219.406C427.956 219.009 485.522 219.989 496.337 204.561C501.835 196.719 506.623 188.752 505.934 168.825C505.738 163.155 505.173 120.551 504.045 89.2897C503.297 68.6004 504.391 50.0478 501.681 43.299C497.909 33.9025 487.86 27.3878 480.094 27.1505Z"
           fill="#FFCFC9"
         />
@@ -750,8 +750,8 @@ export default function HeroImage() {
         />
       </g>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M397.423 250.082C376.992 249.481 352.055 251.884 331.023 267.502C310.292 283.121 293.167 311.357 285.054 340.792C277.242 370.229 278.144 400.267 290.163 423.093C302.181 445.922 325.315 461.542 354.758 472.355C384.504 483.468 420.859 490.077 450.903 478.662C481.248 466.949 505.586 437.512 516.702 405.372C527.818 373.233 526.015 338.99 512.797 314.059C499.577 289.129 474.939 274.11 454.508 264.498C434.079 254.886 417.854 250.683 397.423 250.082Z"
         fill="#B8AFD5"
       />
@@ -764,8 +764,8 @@ export default function HeroImage() {
         width="244"
         height="235">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M397.423 250.082C376.992 249.481 352.055 251.884 331.023 267.502C310.292 283.121 293.167 311.357 285.054 340.792C277.242 370.229 278.144 400.267 290.163 423.093C302.181 445.922 325.315 461.542 354.758 472.355C384.504 483.468 420.859 490.077 450.903 478.662C481.248 466.949 505.586 437.512 516.702 405.372C527.818 373.233 526.015 338.99 512.797 314.059C499.577 289.129 474.939 274.11 454.508 264.498C434.079 254.886 417.854 250.683 397.423 250.082Z"
           fill="#B8AFD5"
         />
@@ -1103,8 +1103,8 @@ export default function HeroImage() {
         />
       </g>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M172.611 3.62666C136.367 -4.62529 104.542 1.79361 77.1403 16.9195C49.7355 31.5871 26.3096 55.4232 12.167 107.678C-1.53384 159.933 -6.39633 241.526 12.167 296.072C31.1721 351.076 73.1613 379.498 116.034 389.122C159.348 398.749 203.108 389.58 232.721 371.246C261.89 352.913 276.919 325.407 283.991 271.778C291.062 218.148 290.178 138.391 269.848 87.0497C249.073 35.2532 208.854 12.3369 172.611 3.62666Z"
         fill="#B8AFD5"
       />
@@ -1117,8 +1117,8 @@ export default function HeroImage() {
         width="288"
         height="393">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M172.611 3.62666C136.367 -4.62529 104.542 1.79361 77.1403 16.9195C49.7355 31.5871 26.3096 55.4232 12.167 107.678C-1.53384 159.933 -6.39633 241.526 12.167 296.072C31.1721 351.076 73.1613 379.498 116.034 389.122C159.348 398.749 203.108 389.58 232.721 371.246C261.89 352.913 276.919 325.407 283.991 271.778C291.062 218.148 290.178 138.391 269.848 87.0497C249.073 35.2532 208.854 12.3369 172.611 3.62666Z"
           fill="#B8AFD5"
         />
@@ -2605,8 +2605,8 @@ export default function HeroImage() {
           x2="440.282"
           y2="413.062"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#E38DDD" />
-          <stop offset="1" stop-color="#9571F6" />
+          <stop offset="0.0036" stopColor="#E38DDD" />
+          <stop offset="1" stopColor="#9571F6" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_9_2"
@@ -2615,8 +2615,8 @@ export default function HeroImage() {
           x2="465.88"
           y2="463.317"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#AA80F9" />
-          <stop offset="0.9964" stop-color="#6165D7" />
+          <stop stopColor="#AA80F9" />
+          <stop offset="0.9964" stopColor="#6165D7" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_9_2"
@@ -2625,8 +2625,8 @@ export default function HeroImage() {
           x2="413.564"
           y2="496.926"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#E38DDD" />
-          <stop offset="1" stop-color="#9571F6" />
+          <stop offset="0.0036" stopColor="#E38DDD" />
+          <stop offset="1" stopColor="#9571F6" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_9_2"
@@ -2635,8 +2635,8 @@ export default function HeroImage() {
           x2="416.655"
           y2="556.112"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_9_2"
@@ -2645,16 +2645,16 @@ export default function HeroImage() {
           x2="407.224"
           y2="477.62"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_9_2"
@@ -2663,14 +2663,14 @@ export default function HeroImage() {
           x2="468.94"
           y2="485.022"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint6_linear_9_2"
@@ -2679,8 +2679,8 @@ export default function HeroImage() {
           x2="396.941"
           y2="539.363"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint7_linear_9_2"
@@ -2689,8 +2689,8 @@ export default function HeroImage() {
           x2="390.444"
           y2="485.545"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint8_linear_9_2"
@@ -2699,16 +2699,16 @@ export default function HeroImage() {
           x2="387.509"
           y2="460.871"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint9_linear_9_2"
@@ -2717,14 +2717,14 @@ export default function HeroImage() {
           x2="485.951"
           y2="468.322"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint10_linear_9_2"
@@ -2733,8 +2733,8 @@ export default function HeroImage() {
           x2="413.952"
           y2="522.663"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint11_linear_9_2"
@@ -2743,8 +2743,8 @@ export default function HeroImage() {
           x2="407.455"
           y2="468.845"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint12_linear_9_2"
@@ -2753,16 +2753,16 @@ export default function HeroImage() {
           x2="404.521"
           y2="444.172"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint13_linear_9_2"
@@ -2771,14 +2771,14 @@ export default function HeroImage() {
           x2="496.274"
           y2="451.574"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint14_linear_9_2"
@@ -2787,8 +2787,8 @@ export default function HeroImage() {
           x2="424.275"
           y2="505.914"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint15_linear_9_2"
@@ -2797,8 +2797,8 @@ export default function HeroImage() {
           x2="417.778"
           y2="452.096"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint16_linear_9_2"
@@ -2807,16 +2807,16 @@ export default function HeroImage() {
           x2="414.843"
           y2="427.423"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint17_linear_9_2"
@@ -2825,14 +2825,14 @@ export default function HeroImage() {
           x2="488.655"
           y2="433.503"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint18_linear_9_2"
@@ -2841,8 +2841,8 @@ export default function HeroImage() {
           x2="416.655"
           y2="487.844"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint19_linear_9_2"
@@ -2851,8 +2851,8 @@ export default function HeroImage() {
           x2="410.159"
           y2="434.026"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint20_linear_9_2"
@@ -2861,16 +2861,16 @@ export default function HeroImage() {
           x2="407.224"
           y2="409.353"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint21_linear_9_2"
@@ -2879,14 +2879,14 @@ export default function HeroImage() {
           x2="468.94"
           y2="416.754"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint22_linear_9_2"
@@ -2895,8 +2895,8 @@ export default function HeroImage() {
           x2="396.941"
           y2="471.095"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint23_linear_9_2"
@@ -2905,8 +2905,8 @@ export default function HeroImage() {
           x2="390.444"
           y2="417.277"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint24_linear_9_2"
@@ -2915,16 +2915,16 @@ export default function HeroImage() {
           x2="387.509"
           y2="392.604"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint25_linear_9_2"
@@ -2933,14 +2933,14 @@ export default function HeroImage() {
           x2="485.951"
           y2="400.055"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint26_linear_9_2"
@@ -2949,8 +2949,8 @@ export default function HeroImage() {
           x2="413.952"
           y2="454.395"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint27_linear_9_2"
@@ -2959,8 +2959,8 @@ export default function HeroImage() {
           x2="407.455"
           y2="400.577"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint28_linear_9_2"
@@ -2969,16 +2969,16 @@ export default function HeroImage() {
           x2="404.52"
           y2="375.904"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint29_linear_9_2"
@@ -2987,14 +2987,14 @@ export default function HeroImage() {
           x2="477.103"
           y2="383.306"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint30_linear_9_2"
@@ -3003,8 +3003,8 @@ export default function HeroImage() {
           x2="405.104"
           y2="437.646"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint31_linear_9_2"
@@ -3013,8 +3013,8 @@ export default function HeroImage() {
           x2="398.607"
           y2="383.828"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint32_linear_9_2"
@@ -3023,16 +3023,16 @@ export default function HeroImage() {
           x2="395.672"
           y2="359.155"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#F36F56" />
-          <stop offset="0.3059" stop-color="#F99C4C" />
-          <stop offset="0.545" stop-color="#FDB946" />
-          <stop offset="0.6817" stop-color="#FFC444" />
-          <stop offset="0.8038" stop-color="#FFC244" />
-          <stop offset="0.8667" stop-color="#FEBA46" />
-          <stop offset="0.916" stop-color="#FCAD49" />
-          <stop offset="0.958" stop-color="#F99A4D" />
-          <stop offset="0.9955" stop-color="#F58152" />
-          <stop offset="1" stop-color="#F57E53" />
+          <stop offset="0.0036" stopColor="#F36F56" />
+          <stop offset="0.3059" stopColor="#F99C4C" />
+          <stop offset="0.545" stopColor="#FDB946" />
+          <stop offset="0.6817" stopColor="#FFC444" />
+          <stop offset="0.8038" stopColor="#FFC244" />
+          <stop offset="0.8667" stopColor="#FEBA46" />
+          <stop offset="0.916" stopColor="#FCAD49" />
+          <stop offset="0.958" stopColor="#F99A4D" />
+          <stop offset="0.9955" stopColor="#F58152" />
+          <stop offset="1" stopColor="#F57E53" />
         </linearGradient>
         <linearGradient
           id="paint33_linear_9_2"
@@ -3041,14 +3041,14 @@ export default function HeroImage() {
           x2="333.146"
           y2="339.448"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint34_linear_9_2"
@@ -3057,8 +3057,8 @@ export default function HeroImage() {
           x2="396.453"
           y2="386.013"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint35_linear_9_2"
@@ -3067,14 +3067,14 @@ export default function HeroImage() {
           x2="436.765"
           y2="327.371"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint36_linear_9_2"
@@ -3083,14 +3083,14 @@ export default function HeroImage() {
           x2="474.644"
           y2="392.842"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint37_linear_9_2"
@@ -3099,8 +3099,8 @@ export default function HeroImage() {
           x2="447.301"
           y2="357.955"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFDB44" />
-          <stop offset="1" stop-color="#FEEF06" />
+          <stop stopColor="#FFDB44" />
+          <stop offset="1" stopColor="#FEEF06" />
         </linearGradient>
         <linearGradient
           id="paint38_linear_9_2"
@@ -3109,14 +3109,14 @@ export default function HeroImage() {
           x2="459.823"
           y2="399.593"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCB148" />
-          <stop offset="0.0521" stop-color="#FDBA46" />
-          <stop offset="0.1424" stop-color="#FFC244" />
-          <stop offset="0.3183" stop-color="#FFC444" />
-          <stop offset="0.4849" stop-color="#FDB946" />
-          <stop offset="0.7754" stop-color="#F99C4D" />
-          <stop offset="0.8658" stop-color="#F8924F" />
-          <stop offset="1" stop-color="#F8924F" />
+          <stop stopColor="#FCB148" />
+          <stop offset="0.0521" stopColor="#FDBA46" />
+          <stop offset="0.1424" stopColor="#FFC244" />
+          <stop offset="0.3183" stopColor="#FFC444" />
+          <stop offset="0.4849" stopColor="#FDB946" />
+          <stop offset="0.7754" stopColor="#F99C4D" />
+          <stop offset="0.8658" stopColor="#F8924F" />
+          <stop offset="1" stopColor="#F8924F" />
         </linearGradient>
         <linearGradient
           id="paint39_linear_9_2"
@@ -3125,8 +3125,8 @@ export default function HeroImage() {
           x2="385.177"
           y2="308.484"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#311944" />
-          <stop offset="1" stop-color="#893976" />
+          <stop stopColor="#311944" />
+          <stop offset="1" stopColor="#893976" />
         </linearGradient>
         <linearGradient
           id="paint40_linear_9_2"
@@ -3135,8 +3135,8 @@ export default function HeroImage() {
           x2="374.782"
           y2="337.754"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#311944" />
-          <stop offset="1" stop-color="#893976" />
+          <stop stopColor="#311944" />
+          <stop offset="1" stopColor="#893976" />
         </linearGradient>
         <linearGradient
           id="paint41_linear_9_2"
@@ -3145,8 +3145,8 @@ export default function HeroImage() {
           x2="294.66"
           y2="448.837"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#444B8C" />
-          <stop offset="0.9964" stop-color="#3E4177" />
+          <stop stopColor="#444B8C" />
+          <stop offset="0.9964" stopColor="#3E4177" />
         </linearGradient>
         <linearGradient
           id="paint42_linear_9_2"
@@ -3155,8 +3155,8 @@ export default function HeroImage() {
           x2="294.661"
           y2="448.838"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#444B8C" />
-          <stop offset="0.9964" stop-color="#3E4177" />
+          <stop stopColor="#444B8C" />
+          <stop offset="0.9964" stopColor="#3E4177" />
         </linearGradient>
         <linearGradient
           id="paint43_linear_9_2"
@@ -3165,8 +3165,8 @@ export default function HeroImage() {
           x2="261.101"
           y2="446.238"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#444B8C" />
-          <stop offset="0.9964" stop-color="#3E4177" />
+          <stop stopColor="#444B8C" />
+          <stop offset="0.9964" stopColor="#3E4177" />
         </linearGradient>
         <linearGradient
           id="paint44_linear_9_2"
@@ -3175,8 +3175,8 @@ export default function HeroImage() {
           x2="319.618"
           y2="351.353"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#311944" />
-          <stop offset="1" stop-color="#893976" />
+          <stop stopColor="#311944" />
+          <stop offset="1" stopColor="#893976" />
         </linearGradient>
         <linearGradient
           id="paint45_linear_9_2"
@@ -3185,8 +3185,8 @@ export default function HeroImage() {
           x2="316.913"
           y2="307.437"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#26264F" />
-          <stop offset="1" stop-color="#444B8C" />
+          <stop offset="0.0036" stopColor="#26264F" />
+          <stop offset="1" stopColor="#444B8C" />
         </linearGradient>
         <linearGradient
           id="paint46_linear_9_2"
@@ -3195,8 +3195,8 @@ export default function HeroImage() {
           x2="322.406"
           y2="325.807"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#311944" />
-          <stop offset="1" stop-color="#893976" />
+          <stop stopColor="#311944" />
+          <stop offset="1" stopColor="#893976" />
         </linearGradient>
         <linearGradient
           id="paint47_linear_9_2"
@@ -3205,8 +3205,8 @@ export default function HeroImage() {
           x2="386.447"
           y2="319.268"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#6165D7" />
-          <stop offset="1" stop-color="#AA80F9" />
+          <stop offset="0.0036" stopColor="#6165D7" />
+          <stop offset="1" stopColor="#AA80F9" />
         </linearGradient>
         <linearGradient
           id="paint48_linear_9_2"
@@ -3215,8 +3215,8 @@ export default function HeroImage() {
           x2="324.115"
           y2="329.907"
           gradientUnits="userSpaceOnUse">
-          <stop offset="0.0036" stop-color="#6165D7" />
-          <stop offset="1" stop-color="#AA80F9" />
+          <stop offset="0.0036" stopColor="#6165D7" />
+          <stop offset="1" stopColor="#AA80F9" />
         </linearGradient>
         <linearGradient
           id="paint49_linear_9_2"
@@ -3225,8 +3225,8 @@ export default function HeroImage() {
           x2="290.239"
           y2="332.698"
           gradientUnits="userSpaceOnUse">
-          <stop stop-color="#AA80F9" />
-          <stop offset="0.9964" stop-color="#6165D7" />
+          <stop stopColor="#AA80F9" />
+          <stop offset="0.9964" stopColor="#6165D7" />
         </linearGradient>
       </defs>
     </svg>
