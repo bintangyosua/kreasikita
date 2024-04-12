@@ -14,6 +14,14 @@ Website Kreasi Kita adalah platform untuk mendukung kreator dan program sosial. 
 	<img width="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png" alt="MySQL" title="MySQL"/>
 </div>
 
+## Spesifikasi
+
+### Daftar User
+
+- Admin
+- Kreator
+- Sosial
+
 ## Roadmap
 
 Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
