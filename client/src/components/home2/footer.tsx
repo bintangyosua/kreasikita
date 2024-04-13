@@ -3,9 +3,9 @@ import { FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <div className="flex flex-row justify-between items-center py-6 text-lg">
+    <div className="flex flex-col sm:flex-row justify-between items-center py-6 text-lg text-center sm:text-left">
       <div className="">© Kreasi Kita</div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <Link href="/tentang-kami" name="Tentang Kami" />
         <Link href="/help-center" name="Help Center" />
         <Link href="/privasi" name="Privasi" />
