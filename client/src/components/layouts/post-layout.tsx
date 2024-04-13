@@ -37,7 +37,7 @@ const crowdfundings: CrowdfundingType[] = [
   },
 ];
 
-export default function PostLayout({ cfs }: { cfs: CrowdfundingType[] }) {
+export default function PostLayout() {
   return (
     <div className="mx-auto flex flex-col gap-5">
       <div className="flex flex-row justify-between items-center">
