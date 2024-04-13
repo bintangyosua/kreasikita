@@ -1,3 +1,4 @@
+import Footer from "@/components/home2/footer";
 import Hero from "@/components/home2/hero";
 import Navbar from "@/components/home2/navbar";
 import Reason from "@/components/home2/reason";
@@ -11,6 +12,7 @@ export default function Home2() {
         <Hero />
         <Stats />
         <Reason />
+        <Footer />
       </div>
     </div>
   );
