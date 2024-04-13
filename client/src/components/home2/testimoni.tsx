@@ -28,7 +28,9 @@ export default function Testimoni({
             />
           </svg>
           <blockquote>
-            <p className="text-2xl font-medium text-gray-900">"{text}"</p>
+            <p className="text-2xl font-medium text-gray-900">
+              &quot;{text}&quot;
+            </p>
           </blockquote>
           <figcaption className="flex items-center justify-center mt-6 space-x-3">
             <img
