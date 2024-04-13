@@ -8,12 +8,14 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Response } from 'src/types/response.type';
 import { UsersService } from './users.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Get()
   @HttpCode(HttpStatus.OK)
   async getUsers(): Promise<Response> {
