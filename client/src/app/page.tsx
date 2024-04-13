@@ -4,35 +4,33 @@ export default function Home() {
   return (
     <>
       <div className="bg-purple text-white relative">
-        <div className="container mx-auto">
-          <div className="flex justify-between pt-20">
-            <div className="flex flex-col gap-6 w-3/5">
-              <h2 className="text-6xl font-extrabold">
-                <span>Dukung Bakat,</span>
-                <br />
-                <span>Ciptakan Perubahan</span>
-              </h2>
-              <h3 className="text-3xl font-bold">#HarmoniKarya</h3>
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-4 bg-white py-3 px-5 rounded-3xl">
-                  <input
-                    className="w-full border-none active:border-none outline-none text-black"
-                    type="text"
-                    placeholder="Mencari kreator berdasarkan username"
-                  />
-                </div>
-                <div className="flex justify-center gap-3">
-                  <a href="#">Developer</a>
-                  <a href="#">Youtuber</a>
-                  <a href="#">Musisi</a>
-                  <a href="#">Cosplayer</a>
-                </div>
+        <div className="flex justify-between pt-20">
+          <div className="flex flex-col gap-6 w-3/5">
+            <h2 className="text-6xl font-extrabold">
+              <span>Dukung Bakat,</span>
+              <br />
+              <span>Ciptakan Perubahan</span>
+            </h2>
+            <h3 className="text-3xl font-bold">#HarmoniKarya</h3>
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-4 bg-white py-3 px-5 rounded-3xl">
+                <input
+                  className="w-full border-none active:border-none outline-none text-black"
+                  type="text"
+                  placeholder="Mencari kreator berdasarkan username"
+                />
+              </div>
+              <div className="flex justify-center gap-3">
+                <a href="#">Developer</a>
+                <a href="#">Youtuber</a>
+                <a href="#">Musisi</a>
+                <a href="#">Cosplayer</a>
               </div>
             </div>
-            <div className="w-3/5 flex justify-end">
-              {/* <HeroImage /> */}
-              <img src="/images/hero-image.png" alt="" className="h-[26rem]" />
-            </div>
+          </div>
+          <div className="w-3/5 flex justify-end">
+            {/* <HeroImage /> */}
+            <img src="/images/hero-image.png" alt="" className="h-[26rem]" />
           </div>
         </div>
       </div>
