@@ -29,11 +29,10 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 ### M1 Setup Website
 
 - [x] Setup client dan server
-- [ ] Membuat UI/UX halaman utama
-- [ ] Slicing UI/UX halaman utama ke Client
+- [x] Membuat UI/UX halaman utama
+- [x] Slicing UI/UX halaman utama ke Client
 - [ ] Membuat proses logika bisnis di Server (autentikasi dan manajemen user)
-- [ ] Membuat manajemen client user
-  - Nantinya, user dapat memilih akun tersebut berupa kreator atau program sosial
+- Nantinya, user dapat memilih akun tersebut berupa kreator atau program sosial
 
 ### M2 Fitur Kreator
 
@@ -48,13 +47,6 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 ### M4 Payment Gateway
 
 - [ ] Metode Pembayaran
-
-## Referensi Website
-
-- https://trakteer.id/
-- https://www.fiverr.com/
-- https://www.patreon.com/
-- https://www.buymeacoffee.com/
 
 ## Referensi Belajar
 
