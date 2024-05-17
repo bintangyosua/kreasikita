@@ -11,9 +11,30 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @db.VarChar(100) @unique
-  password String @db.VarChar(255)
-  pfp      String? @db.Text
+  id         Int    @id @default(autoincrement())
+  name       String @db.VarChar(100)
+  email      String @db.VarChar(100) @unique
+  password   String @db.VarChar(255)
+  pfp        String?@db.Text
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  // donationsReceived Donation[] @relation("DonationReceiver")
+  // donationsSent     Donation[] @relation("DonationSender")
 }
 
+model Category {
+  id    Int @id @default(autoincrement())
+  name  String @db.VarChar(100)
+  users User[]
+}
+
+// model Donation {
+//   id         Int    @id @default(autoincrement())
+//   amount     Float
+//   senderId   Int?
+//   senderName String @default("Orang Baik")
+//   receiverId Int
+//   message    String @db.Text
+//   receiver   User   @relation("DonationReceiver", fields: [receiverId], references: [id])
+//   sender     User?  @relation("DonationSender", fields: [senderId], references: [id])
+// }
