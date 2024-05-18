@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Jumlah() {
+export default function JumlahKreator() {
   return (
     <svg
-      width="88"
-      height="82"
+      width="60"
+      height="54"
       viewBox="0 0 88 82"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
