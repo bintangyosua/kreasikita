@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Param,
   Patch,
@@ -37,46 +38,66 @@ export class UsersController {
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   async getUserById(@Param('id') id: number ): Promise<Response> {
-    return {
-      status: HttpStatus.OK,
-      message: 'Data fetched',
-      data: await this.usersService.findOne(id),
-    };
+    if (await this.usersService.findOne(id) === null) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else if(isNaN(id)) {
+      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: await this.usersService.findOne(id),
+      };
+    }
   }
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get('category/:id')
-  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.OK)
   async getUserByCategory(@Param('id') categoryId: number ): Promise<Response> {
-    return {
-      status: HttpStatus.FOUND,
-      message: 'Data fetched',
-      data: await this.usersService.findManyByCategory(categoryId),
-    };
+    if (await this.usersService.findManyByCategory(categoryId) === null) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else if(isNaN(categoryId)) {
+      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: await this.usersService.findManyByCategory(categoryId),
+      };
+    }
   }
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get('name/:name')
-  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.OK)
   async getUserByName(@Param('name') name: string ): Promise<Response> {
-    return {
-      status: HttpStatus.FOUND,
-      message: 'Data fetched',
-      data: await this.usersService.findOneByName(name),
-    };
+    if (await this.usersService.findOneByName(name) === null) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: await this.usersService.findOneByName(name),
+      };
+    }
   }
 
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   async createUser(@Body() createUserDto: CreateUserDto): Promise<Response> {
-    return {
-      status: HttpStatus.CREATED,
-      message: 'User berhasil dibuat',
-      data: await this.usersService.create(createUserDto),
-    };
+    if (createUserDto.name === null || createUserDto.password === null || createUserDto.email === null) {
+      throw new HttpException('Invalid Body', HttpStatus.BAD_REQUEST);
+    } else {
+      return {
+        status: HttpStatus.CREATED,
+        message: 'User berhasil dibuat',
+        data: await this.usersService.create(createUserDto),
+      };
+    }
   }
 
   @UseGuards(AuthGuard)
@@ -84,11 +105,17 @@ export class UsersController {
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   async updateUser(@Param('id') id: number, @Body() createUserDto: CreateUserDto): Promise<Response> {
-    return {
-      status: HttpStatus.OK,
-      message: 'User berhasil diupdate',
-      data: await this.usersService.update(id, createUserDto),
-    };
+    if (await this.usersService.findOne(id) === null) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    }else if(isNaN(id)) {
+      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'User berhasil diupdate',
+        data: await this.usersService.update(id, createUserDto),
+      };
+    }
   }
   
   @UseGuards(AuthGuard)
@@ -96,7 +123,9 @@ export class UsersController {
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   async deleteUser(@Param('id') id: number): Promise<Response> {
-    return {
+    if (await this.usersService.findOne(id) === null) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } return {
       status: HttpStatus.OK,
       message: 'User berhasil dihapus',
       data: await this.usersService.remove(id),
