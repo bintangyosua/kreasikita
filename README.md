@@ -36,13 +36,13 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 
 ### M2 Fitur Kreator
 
-- [ ] Halaman daftar kreator
-- [ ] Halaman Kreator
+- [x] Halaman daftar kreator
+- [x] Halaman Kreator
 
 ### M3 Fitur Donasi
 
-- [ ] Halaman daftar donasi
-- [ ] Halaman per donasi
+- [x] Halaman daftar donasi
+- [x] Halaman per donasi
 
 ### M4 Payment Gateway
 
