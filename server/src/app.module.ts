@@ -7,9 +7,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CategoryModule } from './category/category.module';
 import { DonationModule } from './donation/donation.module';
 import { PayoutModule } from './payout/payout.module';
+import { MilestoneModule } from './milestone/milestone.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, PrismaModule, CategoryModule, DonationModule, PayoutModule],
+  imports: [UsersModule, AuthModule, PrismaModule, CategoryModule, DonationModule, PayoutModule, MilestoneModule],
   controllers: [AppController],
   providers: [AppService],
 })

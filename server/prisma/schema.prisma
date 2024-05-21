@@ -22,6 +22,7 @@ model User {
   donationsReceived Donation[] @relation("DonationReceiver")
   donationsSent     Donation[] @relation("DonationSender")
   payouts           Payout[] @relation("PayoutUser")
+  milestones        Milestones[] @relation("MilestonesUser")
 }
 
 model Category {
@@ -37,14 +38,26 @@ model Donation {
   senderName String @default("Orang Baik")
   receiverId Int
   message    String @db.Text
+  timeCreated DateTime @default(now())
   receiver   User   @relation("DonationReceiver", fields: [receiverId], references: [id])
   sender     User?  @relation("DonationSender", fields: [senderId], references: [id])
+}
+
+model Milestones {
+  id Int @id @default(autoincrement())
+  target Int
+  current Int @default(0)
+  userId Int
+  description String @db.Text
+  timecreated DateTime @default(now())
+  user User @relation("MilestonesUser", fields: [userId], references: [id])
 }
 
 model Payout{
   id Int @id @default(autoincrement())
   amount Int @default(0)
   userId Int
+  timecreated DateTime @default(now())
   user User @relation("PayoutUser", fields: [userId], references: [id])
   status String @default("pending")
 }
