@@ -17,24 +17,34 @@ model User {
   password   String @db.VarChar(255)
   pfp        String?@db.Text
   categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  // donationsReceived Donation[] @relation("DonationReceiver")
-  // donationsSent     Donation[] @relation("DonationSender")
+  balance    Int    @default(0)
+  category   Category @relation("CategoryUser", fields: [categoryId], references: [id])
+  donationsReceived Donation[] @relation("DonationReceiver")
+  donationsSent     Donation[] @relation("DonationSender")
+  payouts           Payout[] @relation("PayoutUser")
 }
 
 model Category {
   id    Int @id @default(autoincrement())
   name  String @db.VarChar(100)
-  users User[]
+  users User[] @relation("CategoryUser")
 }
 
-// model Donation {
-//   id         Int    @id @default(autoincrement())
-//   amount     Float
-//   senderId   Int?
-//   senderName String @default("Orang Baik")
-//   receiverId Int
-//   message    String @db.Text
-//   receiver   User   @relation("DonationReceiver", fields: [receiverId], references: [id])
-//   sender     User?  @relation("DonationSender", fields: [senderId], references: [id])
-// }
+model Donation {
+  id         Int    @id @default(autoincrement())
+  amount     Int    @default(0)  
+  senderId   Int?
+  senderName String @default("Orang Baik")
+  receiverId Int
+  message    String @db.Text
+  receiver   User   @relation("DonationReceiver", fields: [receiverId], references: [id])
+  sender     User?  @relation("DonationSender", fields: [senderId], references: [id])
+}
+
+model Payout{
+  id Int @id @default(autoincrement())
+  amount Int @default(0)
+  userId Int
+  user User @relation("PayoutUser", fields: [userId], references: [id])
+  status String @default("pending")
+}

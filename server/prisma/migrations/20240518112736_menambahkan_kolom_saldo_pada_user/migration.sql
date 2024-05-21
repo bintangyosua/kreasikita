@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `donation` MODIFY `amount` INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE `user` ADD COLUMN `balance` INTEGER NOT NULL DEFAULT 0;
