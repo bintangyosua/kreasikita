@@ -37,10 +37,10 @@ export class UsersController {
   @ApiBearerAuth()
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async getUserById(@Param('id') id: number ): Promise<Response> {
-    if (await this.usersService.findOne(id) === null) {
+  async getUserById(@Param('id') id: number): Promise<Response> {
+    if ((await this.usersService.findOne(id)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if(isNaN(id)) {
+    } else if (isNaN(id)) {
       throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
@@ -55,10 +55,10 @@ export class UsersController {
   @ApiBearerAuth()
   @Get('category/:id')
   @HttpCode(HttpStatus.OK)
-  async getUserByCategory(@Param('id') categoryId: number ): Promise<Response> {
-    if (await this.usersService.findManyByCategory(categoryId) === null) {
+  async getUserByCategory(@Param('id') categoryId: number): Promise<Response> {
+    if ((await this.usersService.findManyByCategory(categoryId)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if(isNaN(categoryId)) {
+    } else if (isNaN(categoryId)) {
       throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
@@ -73,8 +73,8 @@ export class UsersController {
   @ApiBearerAuth()
   @Get('name/:name')
   @HttpCode(HttpStatus.OK)
-  async getUserByName(@Param('name') name: string ): Promise<Response> {
-    if (await this.usersService.findOneByName(name) === null) {
+  async getUserByName(@Param('name') name: string): Promise<Response> {
+    if ((await this.usersService.findOneByName(name)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
     } else {
       return {
@@ -85,11 +85,14 @@ export class UsersController {
     }
   }
 
-
   @Post()
   @HttpCode(HttpStatus.OK)
   async createUser(@Body() createUserDto: CreateUserDto): Promise<Response> {
-    if (createUserDto.name === null || createUserDto.password === null || createUserDto.email === null) {
+    if (
+      createUserDto.name === null ||
+      createUserDto.password === null ||
+      createUserDto.email === null
+    ) {
       throw new HttpException('Invalid Body', HttpStatus.BAD_REQUEST);
     } else {
       return {
@@ -104,10 +107,13 @@ export class UsersController {
   @ApiBearerAuth()
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  async updateUser(@Param('id') id: number, @Body() createUserDto: CreateUserDto): Promise<Response> {
-    if (await this.usersService.findOne(id) === null) {
+  async updateUser(
+    @Param('id') id: number,
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<Response> {
+    if ((await this.usersService.findOne(id)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    }else if(isNaN(id)) {
+    } else if (isNaN(id)) {
       throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
@@ -117,15 +123,16 @@ export class UsersController {
       };
     }
   }
-  
+
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   async deleteUser(@Param('id') id: number): Promise<Response> {
-    if (await this.usersService.findOne(id) === null) {
+    if ((await this.usersService.findOne(id)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } return {
+    }
+    return {
       status: HttpStatus.OK,
       message: 'User berhasil dihapus',
       data: await this.usersService.remove(id),
