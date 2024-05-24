@@ -12,7 +12,7 @@ import {
 
 export default function Page() {
   return (
-    <Layout>
+    <Layout page="home">
       <Section>
         <div className="flex flex-row justify-between">
           <div className="flex flex-row items-center gap-3">

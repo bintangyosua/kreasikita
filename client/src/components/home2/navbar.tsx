@@ -53,7 +53,7 @@ export default function Navbar() {
           className={`flex flex-col gap-2 pt-2 pb-4 sm:flex sm:flex-row sm:gap-3 sm:p-0 ${
             open ? "block" : "hidden"
           }`}>
-          <Link href="/kategori" name="Kategori" icon={<Category />} />
+          <Link href="/category" name="Kategori" icon={<Category />} />
           <Link href="/blog" name="Blog" icon={<PiArticleMedium />} />
           <a href="/signin" className="flex justify-between items-center">
             <button className="flex gap-1 items-center bg-purple px-3 py-1 rounded-full text-white w-full">
@@ -85,7 +85,7 @@ export default function Navbar() {
 }
 
 function CategoryItem({ href, title }: { href: string; title: string }) {
-  return <a href={`/categories/${href}`}>{title}</a>;
+  return <a href={`/category/${href}`}>{title}</a>;
 }
 
 function Link({

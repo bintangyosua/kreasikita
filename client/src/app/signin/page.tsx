@@ -3,10 +3,10 @@ import React from "react";
 
 export default function Page() {
   return (
-    <div className="container mx-auto h-screen">
+    <div className="container mx-auto min-h-screen flex flex-col">
       <Navbar />
       <div className="grid place-items-center w-full mt-52">
-        <div className="flex flex-col gap-4 w-full px-5 max-w-[400px]">
+        <div className="flex flex-col gap-4 w-full max-w-[400px]">
           <h1 className="text-3xl sm:text-4xl mb-6 font-bold text-center">
             Selamat Datang
           </h1>
