@@ -34,7 +34,7 @@ export default function Page() {
           </div>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold">
-          Ro{(345000).toLocaleString("id-ID")},-
+          Rp{(345000).toLocaleString("id-ID")},-
         </h2>
       </Section>
       <Section>
