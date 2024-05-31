@@ -14,75 +14,56 @@ export default function Page() {
   return (
     <Layout page="home">
       <Section>
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row items-center gap-3">
-            <div className="bg-gray-200 h-16 w-16 rounded-full"></div>
-            <div className="flex flex-col">
-              <span>Minuettaro</span>
-              <span className="text-sm text-gray-500">
-                kreasikita.vercel.app/minuettaro
-              </span>
+        <div className="flex flex-col gap-3 pb-10">
+          <div
+            style={{
+              backgroundColor: "#5CCCC6",
+            }}
+            className="h-32 sm:h-48 lg:h-64 w-full rounded-t-3xl"></div>
+          <div className="flex items-center justify-start px-5">
+            <div>
+              <div
+                style={{
+                  backgroundColor: "#5B5BD6",
+                }}
+                className="w-28 h-28 rounded-full ml-16 -mt-12"></div>
+            </div>
+            <div className="-mt-4 justify-between w-full pl-10 pr-2 hidden sm:flex">
+              <div className="flex flex-col text-center">
+                <span className="font-bold text-3xl">Minuettaro</span>
+                <span className="text-gray-500">@Minuettaro</span>
+              </div>
+              <div className="flex flex-col">
+                <button className="rounded-full bg-red-300 px-4 py-1">
+                  Developer
+                </button>
+                <span>345.000 Supporters</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div className="flex gap-3 items-center">
-            <h2 className="text-2xl">Pendapatan</h2>
-            <button className="bg-purple rounded-2xl text-white px-3 py-2">
-              30 Hari Terakhir
-            </button>
+
+          <div className="px-5 lg:ml-20 flex flex-col gap-10">
+            <div className="sm:hidden">
+              <div className="flex items-center gap-3 text-left">
+                <span className="font-bold text-3xl">Minuettaro</span>
+                <span className="text-gray-500">@Minuettaro</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button className="rounded-full bg-red-300 px-4 py-1 w-fit">
+                  Developer
+                </button>
+                <span>345.000 Supporters</span>
+              </div>
+            </div>
+            <p className="md:mt-5 ">
+              Selamat datang di akun penuh kejutan, semoga menyenangkan dan
+              tetap gembira
+            </p>
+            <div className="font-bold flex flex-col gap-2">
+              <h2 className="text-3xl">Pendapatan</h2>
+              <h2 className="text-4xl">IDR 10.000.000,00</h2>
+            </div>
           </div>
-        </div>
-        <h2 className="text-3xl md:text-4xl font-bold">
-          Rp{(345000).toLocaleString("id-ID")},-
-        </h2>
-      </Section>
-      <Section>
-        <h2 className="text-3xl font-bold">Pendukung</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Cards */}
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-purple"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-gray-500"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-gray-500"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-gray-500"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-gray-500"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
-          <Card className="shadow-none border-gray-500 px-3 py-2 flex flex-row items-center gap-2">
-            <div className="w-14 h-14 rounded-full bg-gray-500"></div>
-            <div>
-              <h3 className="text-lg font-bold mb-0">Minuettaro</h3>
-              <span className="text-sm text-gray-500">minuettaro</span>
-            </div>
-          </Card>
         </div>
       </Section>
     </Layout>

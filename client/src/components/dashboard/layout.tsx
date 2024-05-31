@@ -81,12 +81,12 @@ export default function Layout({
       </div>
       {/* Sidebar */}
       <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3">
-        <div className="flex items-center mb-10">
+        <a className="flex items-center mb-10" href="/">
           <KreasiKita size={48} color="black" />
           <h1 className="text-3xl font-bold font-['Poppins'] ml-1">
             KREASIKITA
           </h1>
-        </div>
+        </a>
         <ul className="space-y-5">
           {navs.map((navItem) => (
             <li key={navItem.id}>
