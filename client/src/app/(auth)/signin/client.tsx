@@ -16,6 +16,7 @@ import { postUser } from "@/lib/api/users";
 import { toast } from "react-toastify";
 import { navigate } from "./actions";
 import { signIn } from "@/lib/api/auth";
+import { setSession } from "@/lib/session";
 
 const registrationSchema = z.object({
   email: z.string().email(),
@@ -25,7 +26,6 @@ const registrationSchema = z.object({
 export default function Client() {
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -43,7 +43,7 @@ export default function Client() {
         console.log({ d });
         const { access_token } = await signIn(d.email, d.password);
 
-        localStorage.setItem("access_token", access_token);
+        await setSession(access_token);
         toast.success("Berhasil login");
         navigate();
       })}>
