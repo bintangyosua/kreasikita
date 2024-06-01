@@ -58,7 +58,7 @@ export default function Layout({
   page: string;
 }) {
   return (
-    <div className="w-full flex flex-col md:flex-row bg-gray-200 h-screen">
+    <div className="w-full flex flex-col md:flex-row bg-gray-200 min-h-screen pb-20">
       <div className="md:hidden">&nbsp;</div>
       <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
         <div>asdads</div>
@@ -80,7 +80,7 @@ export default function Layout({
         </div>
       </div>
       {/* Sidebar */}
-      <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3">
+      <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3 h-full left-0 top-0 overflow-x-hidden fixed z-10">
         <a className="flex items-center mb-10" href="/">
           <KreasiKita size={48} color="black" />
           <h1 className="text-3xl font-bold font-['Poppins'] ml-1">
@@ -107,7 +107,9 @@ export default function Layout({
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col gap-5 px-3 w-full mt-16">{children}</div>
+      <div className="flex flex-col gap-5 px-3 w-full mt-16 items-center md:ml-72">
+        {children}
+      </div>
     </div>
   );
 }
