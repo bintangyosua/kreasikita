@@ -19,6 +19,5 @@ export class CreateUserDto {
   @IsNumber()
   categoryId: number;
 
-  @IsNotEmpty()
   category: any;
 }

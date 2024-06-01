@@ -13,7 +13,7 @@ export class UsersService {
   async findOne(id: number) {
     return this.prisma.user.findUnique({
       where: {
-        id : parseInt(id.toString()),
+        id: parseInt(id.toString()),
       },
     });
   }
@@ -34,11 +34,11 @@ export class UsersService {
     });
   }
 
-  async findManyByCategory(categoryId : number) {
+  async findManyByCategory(categoryId: number) {
     return this.prisma.user.findMany({
       where: {
         categoryId: parseInt(categoryId.toString()),
-      }
+      },
     });
   }
 
