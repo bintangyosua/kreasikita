@@ -20,7 +20,7 @@ import { UsersService } from './users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/createuser.dto';
 import { Express } from 'express';
-import { FileInterceptor} from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { BannerStore, PfpStore } from './helper/image.store';
 import fs = require('fs');
 import { join } from 'path';
@@ -150,19 +150,24 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Post(':id/pfp')
-  @UseInterceptors(FileInterceptor('file',PfpStore))
+  @UseInterceptors(FileInterceptor('file', PfpStore))
   @HttpCode(HttpStatus.OK)
-  async uploadPfp(@Param('id') id:number,@UploadedFile() file: Express.Multer.File): Promise<Response> {
+  async uploadPfp(
+    @Param('id') id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Response> {
     try {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
       if (!allowedTypes.includes(file.mimetype)) {
-        throw new BadRequestException('Invalid file type, only JPEG and PNG are allowed');
+        throw new BadRequestException(
+          'Invalid file type, only JPEG and PNG are allowed',
+        );
       }
       const user = await this.usersService.findOne(id);
       if (!user) {
         throw new BadRequestException('User not found');
       }
-      if (user.pfp && user.pfp !== "default") {
+      if (user.pfp && user.pfp !== 'default') {
         fs.unlinkSync(user.pfp);
       }
       const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
@@ -183,19 +188,24 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Post(':id/banner')
-  @UseInterceptors(FileInterceptor('file',BannerStore))
+  @UseInterceptors(FileInterceptor('file', BannerStore))
   @HttpCode(HttpStatus.OK)
-  async uploadBanner(@Param('id') id:number,@UploadedFile() file: Express.Multer.File): Promise<Response> {
+  async uploadBanner(
+    @Param('id') id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Response> {
     try {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
       if (!allowedTypes.includes(file.mimetype)) {
-        throw new BadRequestException('Invalid file type, only JPEG and PNG are allowed');
+        throw new BadRequestException(
+          'Invalid file type, only JPEG and PNG are allowed',
+        );
       }
       const user = await this.usersService.findOne(id);
       if (!user) {
         throw new BadRequestException('User not found');
       }
-      if (user.banner && user.banner !== "default") {
+      if (user.banner && user.banner !== 'default') {
         fs.unlinkSync(user.banner);
       }
       const filePath = join(__dirname, '..', '..', 'uploads', file.filename);

@@ -11,17 +11,18 @@ datasource db {
 }
 
 model User {
-  id                Int        @id @default(autoincrement())
-  name              String     @db.VarChar(100)
-  email             String     @unique @db.VarChar(100)
-  password          String     @db.VarChar(255)
-  pfp               String?    @db.Text
+  id                Int          @id @default(autoincrement())
+  name              String       @db.VarChar(100)
+  email             String       @unique @db.VarChar(100)
+  password          String       @db.VarChar(255)
+  pfp               String?      @db.Text
+  banner            String?      @db.Text
   categoryId        Int
-  balance           Int        @default(0)
-  category          Category   @relation("CategoryUser", fields: [categoryId], references: [id])
-  donationsReceived Donation[] @relation("DonationReceiver")
-  donationsSent     Donation[] @relation("DonationSender")
-  payouts           Payout[] @relation("PayoutUser")
+  balance           Int          @default(0)
+  category          Category     @relation("CategoryUser", fields: [categoryId], references: [id])
+  donationsReceived Donation[]   @relation("DonationReceiver")
+  donationsSent     Donation[]   @relation("DonationSender")
+  payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
 }
 
@@ -32,32 +33,32 @@ model Category {
 }
 
 model Donation {
-  id         Int    @id @default(autoincrement())
-  amount     Int    @default(0)
-  senderId   Int?
-  senderName String @default("Orang Baik")
-  receiverId Int
-  message    String @db.Text
+  id          Int      @id @default(autoincrement())
+  amount      Int      @default(0)
+  senderId    Int?
+  senderName  String   @default("Orang Baik")
+  receiverId  Int
+  message     String   @db.Text
   timeCreated DateTime @default(now())
-  receiver   User   @relation("DonationReceiver", fields: [receiverId], references: [id])
-  sender     User?  @relation("DonationSender", fields: [senderId], references: [id])
+  receiver    User     @relation("DonationReceiver", fields: [receiverId], references: [id])
+  sender      User?    @relation("DonationSender", fields: [senderId], references: [id])
 }
 
 model Milestones {
-  id Int @id @default(autoincrement())
-  target Int
-  current Int @default(0)
-  userId Int @unique
-  description String @db.Text
+  id          Int      @id @default(autoincrement())
+  target      Int
+  current     Int      @default(0)
+  userId      Int      @unique
+  description String   @db.Text
   timecreated DateTime @default(now())
-  user User @relation("MilestonesUser", fields: [userId], references: [id])
+  user        User     @relation("MilestonesUser", fields: [userId], references: [id])
 }
 
-model Payout{
-  id Int @id @default(autoincrement())
-  amount Int @default(0)
-  userId Int
+model Payout {
+  id          Int      @id @default(autoincrement())
+  amount      Int      @default(0)
+  userId      Int
   timecreated DateTime @default(now())
-  user User @relation("PayoutUser", fields: [userId], references: [id])
-  status String @default("pending")
+  user        User     @relation("PayoutUser", fields: [userId], references: [id])
+  status      String   @default("pending")
 }
