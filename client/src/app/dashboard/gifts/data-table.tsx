@@ -57,7 +57,6 @@ export default function GiftsTable() {
     <Table
       // removeWrapper
       aria-label="Example table with client side pagination"
-      isStriped
       className="overflow-hidden"
       bottomContent={
         <div className="flex w-full justify-center">
@@ -76,17 +75,29 @@ export default function GiftsTable() {
         wrapper: "min-h-[222px] overflow-hidden",
       }}>
       <TableHeader>
-        <TableColumn key="datetime">Waktu</TableColumn>
-        <TableColumn key="name">Nama</TableColumn>
-        <TableColumn key="email">Email</TableColumn>
-        <TableColumn key="amount">Jumlah</TableColumn>
-        <TableColumn key="message">Pesan</TableColumn>
+        <TableColumn key="datetime" className="text-md py-4">
+          Waktu
+        </TableColumn>
+        <TableColumn key="name" className="text-md">
+          Nama
+        </TableColumn>
+        <TableColumn key="email" className="text-md">
+          Email
+        </TableColumn>
+        <TableColumn key="amount" className="text-md">
+          Jumlah
+        </TableColumn>
+        <TableColumn key="message" className="text-md">
+          Pesan
+        </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
           <TableRow key={item.name}>
             {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+              <TableCell className="py-4">
+                {getKeyValue(item, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}
