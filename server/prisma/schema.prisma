@@ -18,10 +18,10 @@ model User {
   password          String       @db.VarChar(255)
   pfp               String?      @db.Text
   banner            String?      @db.Text
-  categoryId        Int
-  description       String?       @db.MediumText
+  categoryId        Int?
+  description       String?      @db.MediumText
   balance           Int          @default(0)
-  category          Category     @relation("CategoryUser", fields: [categoryId], references: [id])
+  category          Category?     @relation(fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
   donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
@@ -31,7 +31,7 @@ model User {
 model Category {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(100)
-  users User[] @relation("CategoryUser")
+  users User[] 
 }
 
 model Donation {
