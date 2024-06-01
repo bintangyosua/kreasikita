@@ -7,13 +7,38 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        pfp: true,
+        category: true,
+        banner: true,
+      },
+    });
   }
 
   async findOne(id: number) {
     return this.prisma.user.findUnique({
       where: {
         id: parseInt(id.toString()),
+      },
+    });
+  }
+
+  async findOneByUsername(username: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        username,
+      },
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        pfp: true,
+        category: true,
+        banner: true,
       },
     });
   }
@@ -34,10 +59,12 @@ export class UsersService {
     });
   }
 
-  async findManyByCategory(categoryId: number) {
+  async findManyByCategoryName(name: string) {
     return this.prisma.user.findMany({
       where: {
-        categoryId: parseInt(categoryId.toString()),
+        category: {
+          name,
+        },
       },
     });
   }
