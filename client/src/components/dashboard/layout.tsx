@@ -15,8 +15,6 @@ import LoveIcon from "../svgs/LoveIcon";
 import GiftIcon from "../svgs/GiftIcon";
 import SettingIcon from "../svgs/SettingIcon";
 import Dollar from "../svgs/Dollar";
-import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { NextUIProvider } from "@nextui-org/react";
 
 const navs = [
@@ -100,6 +98,7 @@ export default function Layout({
                   href={`/dashboard/${navItem.link}`}>
                   <navItem.icon
                     color={navItem.id === page ? "purple" : "black"}
+                    size={35}
                   />
                   {navItem.name}
                 </a>
