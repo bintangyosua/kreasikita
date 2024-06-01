@@ -12,29 +12,35 @@ import {
   getKeyValue,
 } from "@nextui-org/react";
 
-type TSupporters = {
+type TDonation = {
   id: number;
+  datetime: string;
   amount: number;
   email: string;
   name: string;
+  message: string;
 };
 
-const donations: TSupporters[] = [
+const donations: TDonation[] = [
   {
     id: 1,
+    datetime: "2022-01-01 10:00:00",
     name: "Danjin",
     email: "danjin@gg.com",
     amount: 10000,
+    message: "Kak",
   },
   {
     id: 2,
+    datetime: "2022-01-01 10:00:00",
     name: "Josephine",
     email: "josephind@outlook.com",
     amount: 24000,
+    message: "Apa kabar?",
   },
 ];
 
-export default function SupportersTable() {
+export default function GiftsTable() {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
@@ -70,9 +76,11 @@ export default function SupportersTable() {
         wrapper: "min-h-[222px] overflow-hidden",
       }}>
       <TableHeader>
+        <TableColumn key="datetime">Waktu</TableColumn>
         <TableColumn key="name">Nama</TableColumn>
         <TableColumn key="email">Email</TableColumn>
-        <TableColumn key="amount">Total</TableColumn>
+        <TableColumn key="amount">Jumlah</TableColumn>
+        <TableColumn key="message">Pesan</TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (

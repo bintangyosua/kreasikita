@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/sheet";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Section from "./section";
-import Icon from "../svgs/Icon";
 import KreasiKita from "../svgs/KreasiKita";
 import HomeIcon from "../svgs/HomeIcon";
 import LoveIcon from "../svgs/LoveIcon";
 import GiftIcon from "../svgs/GiftIcon";
 import SettingIcon from "../svgs/SettingIcon";
 import Dollar from "../svgs/Dollar";
+import { NextUIProvider } from "@nextui-org/react";
 
 const navs = [
   {
@@ -58,55 +58,58 @@ export default function Layout({
   page: string;
 }) {
   return (
-    <div className="w-full flex flex-col md:flex-row bg-gray-200 h-screen">
-      <div className="md:hidden">&nbsp;</div>
-      <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
-        <div>asdads</div>
-        <div className="visible md:hidden">
-          <Sheet>
-            <SheetTrigger>
-              <RxHamburgerMenu size={"30"} />
-            </SheetTrigger>
-            <SheetContent side={"left"}>
-              <SheetHeader>
-                <SheetTitle>Are you absolutely sure?</SheetTitle>
-                <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
+    <NextUIProvider>
+      <div className="w-full flex flex-col md:flex-row bg-gray-200 h-screen">
+        <div className="md:hidden">&nbsp;</div>
+        <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
+          <div>asdads</div>
+          <div className="visible md:hidden">
+            <Sheet>
+              <SheetTrigger>
+                <RxHamburgerMenu size={"30"} />
+              </SheetTrigger>
+              <SheetContent side={"left"}>
+                <SheetHeader>
+                  <SheetTitle>Are you absolutely sure?</SheetTitle>
+                  <SheetDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </SheetDescription>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
-      </div>
-      {/* Sidebar */}
-      <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3">
-        <a className="flex items-center mb-10" href="/">
-          <KreasiKita size={48} color="black" />
-          <h1 className="text-3xl font-bold font-['Poppins'] ml-1">
-            KREASIKITA
-          </h1>
-        </a>
-        <ul className="space-y-5">
-          {navs.map((navItem) => (
-            <li key={navItem.id}>
-              <a
-                className={`flex items-center gap-3 text-[20px] ${
-                  navItem.id === page ? "bg-gray-200 rounded-xl" : ""
-                }`}
-                href={`/dashboard/${navItem.link}`}>
-                <navItem.icon
-                  color={navItem.id === page ? "purple" : "black"}
-                />
-                {navItem.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        {/* Sidebar */}
+        <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3">
+          <a className="flex items-center mb-10" href="/">
+            <KreasiKita size={48} color="black" />
+            <h1 className="text-3xl font-bold font-['Poppins'] ml-1">
+              KREASIKITA
+            </h1>
+          </a>
+          <ul className="space-y-5">
+            {navs.map((navItem) => (
+              <li key={navItem.id}>
+                <a
+                  className={`flex items-center gap-3 text-[20px] ${
+                    navItem.id === page ? "bg-gray-200 rounded-xl" : ""
+                  }`}
+                  href={`/dashboard/${navItem.link}`}>
+                  <navItem.icon
+                    color={navItem.id === page ? "purple" : "black"}
+                    size={35}
+                  />
+                  {navItem.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      {/* Main Content */}
-      <div className="flex flex-col gap-5 px-3 mt-4 w-full">{children}</div>
-    </div>
+        {/* Main Content */}
+        <div className="flex flex-col gap-5 px-3 w-full mt-16">{children}</div>
+      </div>
+    </NextUIProvider>
   );
 }
