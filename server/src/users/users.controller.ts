@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -9,13 +10,20 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Response } from 'src/types/response.type';
 import { UsersService } from './users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/createuser.dto';
+import { Express } from 'express';
+import { FileInterceptor} from '@nestjs/platform-express';
+import { BannerStore, PfpStore } from './helper/image.store';
+import fs = require('fs');
+import { join } from 'path';
 
 @Controller('users')
 export class UsersController {
@@ -137,5 +145,71 @@ export class UsersController {
       message: 'User berhasil dihapus',
       data: await this.usersService.remove(id),
     };
+  }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Post(':id/pfp')
+  @UseInterceptors(FileInterceptor('file',PfpStore))
+  @HttpCode(HttpStatus.OK)
+  async uploadPfp(@Param('id') id:number,@UploadedFile() file: Express.Multer.File): Promise<Response> {
+    try {
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!allowedTypes.includes(file.mimetype)) {
+        throw new BadRequestException('Invalid file type, only JPEG and PNG are allowed');
+      }
+      const user = await this.usersService.findOne(id);
+      if (!user) {
+        throw new BadRequestException('User not found');
+      }
+      if (user.pfp) {
+        fs.unlinkSync(user.pfp);
+      }
+      const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
+      await this.usersService.update(id, { pfp: filePath });
+
+      return {
+        status: HttpStatus.OK,
+        message: 'File uploaded',
+        data: file,
+      };
+    } catch (error) {
+      // Remove the file if validation fails
+      fs.unlinkSync(file.path);
+      throw error;
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Post(':id/banner')
+  @UseInterceptors(FileInterceptor('file',BannerStore))
+  @HttpCode(HttpStatus.OK)
+  async uploadBanner(@Param('id') id:number,@UploadedFile() file: Express.Multer.File): Promise<Response> {
+    try {
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!allowedTypes.includes(file.mimetype)) {
+        throw new BadRequestException('Invalid file type, only JPEG and PNG are allowed');
+      }
+      const user = await this.usersService.findOne(id);
+      if (!user) {
+        throw new BadRequestException('User not found');
+      }
+      if (user.pfp) {
+        fs.unlinkSync(user.pfp);
+      }
+      const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
+      await this.usersService.update(id, { banner: filePath });
+
+      return {
+        status: HttpStatus.OK,
+        message: 'File uploaded',
+        data: file,
+      };
+    } catch (error) {
+      // Remove the file if validation fails
+      fs.unlinkSync(file.path);
+      throw error;
+    }
   }
 }

@@ -16,6 +16,7 @@ model User {
   email      String @db.VarChar(100) @unique
   password   String @db.VarChar(255)
   pfp        String?@db.Text
+  banner     String?@db.Text
   categoryId Int
   balance    Int    @default(0)
   category   Category @relation("CategoryUser", fields: [categoryId], references: [id])
@@ -47,7 +48,7 @@ model Milestones {
   id Int @id @default(autoincrement())
   target Int
   current Int @default(0)
-  userId Int
+  userId Int @unique
   description String @db.Text
   timecreated DateTime @default(now())
   user User @relation("MilestonesUser", fields: [userId], references: [id])
