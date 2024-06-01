@@ -25,7 +25,7 @@ export async function setSession(access_token: string) {
   session.isSignedIn = true;
 
   session.email = user.email;
-  session.id = user!.id;
+  session.id = user.sub;
   session.username = user.username;
   session.name = user.name;
 

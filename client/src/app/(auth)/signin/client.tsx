@@ -43,9 +43,13 @@ export default function Client() {
         console.log({ d });
         const { access_token } = await signIn(d.email, d.password);
 
-        await setSession(access_token);
-        toast.success("Berhasil login");
-        navigate();
+        if (!access_token) {
+          toast.error("Password yang anda masukkan salah");
+        } else {
+          await setSession(access_token);
+          toast.success("Berhasil login");
+          navigate();
+        }
       })}>
       <div className="flex flex-col gap-4 w-full justify-between px-5 max-w-[400px] mt-16">
         <h1 className="text-3xl sm:text-4xl mb-6 font-bold text-center">
