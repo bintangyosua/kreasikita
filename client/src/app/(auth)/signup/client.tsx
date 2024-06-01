@@ -3,9 +3,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Form, Formik } from "formik";
-import { toFormikValidationSchema } from "zod-formik-adapter";
-import Navbar from "@/components/auth/navbar";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -15,10 +12,10 @@ import {
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import { CiMail } from "react-icons/ci";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { postUser } from "@/lib/api/users";
 import { toast } from "react-toastify";
+import { navigate } from "./actions";
+import { signIn } from "@/lib/api/auth";
 
 const registrationSchema = z.object({
   name: z.string().min(5),
@@ -59,6 +56,14 @@ export default function Client({
 
         if (res.status === 201) {
           toast.success(res.message);
+          const { access_token } = await signIn(
+            getValues("email"),
+            getValues("password")
+          );
+
+          console.log(access_token);
+          localStorage.setItem("access_token", access_token);
+          navigate();
         }
       })}>
       <div className="flex flex-col gap-4 w-full justify-between px-5 max-w-[400px] mt-16">
