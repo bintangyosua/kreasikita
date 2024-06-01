@@ -162,7 +162,7 @@ export class UsersController {
       if (!user) {
         throw new BadRequestException('User not found');
       }
-      if (user.pfp) {
+      if (user.pfp && user.pfp !== "default") {
         fs.unlinkSync(user.pfp);
       }
       const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
@@ -195,8 +195,8 @@ export class UsersController {
       if (!user) {
         throw new BadRequestException('User not found');
       }
-      if (user.pfp) {
-        fs.unlinkSync(user.pfp);
+      if (user.banner && user.banner !== "default") {
+        fs.unlinkSync(user.banner);
       }
       const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
       await this.usersService.update(id, { banner: filePath });
