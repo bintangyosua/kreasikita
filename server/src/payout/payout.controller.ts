@@ -65,6 +65,8 @@ export class PayoutController {
         }
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async newPayout(@Body() createPayoutDto: CreatePayoutDto): Promise<Response> {

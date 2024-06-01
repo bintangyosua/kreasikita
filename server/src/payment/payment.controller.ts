@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+import { Body, Controller, Post } from '@nestjs/common';
+=======
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/createpayment.dto';
+>>>>>>> main
 
 @Controller('payment')
 export class PaymentController {
@@ -25,4 +29,9 @@ export class PaymentController {
     const data = await res.json();
     return { data };
   }
+<<<<<<< HEAD
+
 }
+=======
+}
+>>>>>>> main

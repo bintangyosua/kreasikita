@@ -5,12 +5,14 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Response } from 'src/types/response.type';
 import { CreateDonationDto } from './dto/createdonation.dto';
+import { MilestoneService } from 'src/milestone/milestone.service';
 
 @Controller('donations')
 export class DonationController {
     constructor(
         private donationService: DonationService,
-        private userService: UsersService
+        private userService: UsersService,
+        private milestoneService: MilestoneService
     ) {}
 
     @UseGuards(AuthGuard)
@@ -90,6 +92,10 @@ export class DonationController {
             throw new HttpException('Invalid amount', HttpStatus.BAD_REQUEST);
         } else {
             await this.userService.update(receiver.id, { balance: receiver.balance + donation.amount })
+            const milestone = await this.milestoneService.findByUser(receiver.id);
+            if (milestone !== undefined) {
+                await this.milestoneService.update(milestone.id, { current: milestone.current + donation.amount });
+            }
             return {
                 status: HttpStatus.CREATED,
                 message: 'Donation created',
