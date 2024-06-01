@@ -7,8 +7,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CategoryModule } from './category/category.module';
 import { DonationModule } from './donation/donation.module';
 import { PayoutModule } from './payout/payout.module';
-import { MilestoneModule } from './milestone/milestone.module';
 import { PaymentModule } from './payment/payment.module';
+import { MilestoneModule } from './milestone/milestone.module';
 
 @Module({
   imports: [
