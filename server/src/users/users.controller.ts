@@ -96,19 +96,11 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async createUser(@Body() createUserDto: CreateUserDto): Promise<Response> {
-    if (
-      createUserDto.name === null ||
-      createUserDto.password === null ||
-      createUserDto.email === null
-    ) {
-      throw new HttpException('Invalid Body', HttpStatus.BAD_REQUEST);
-    } else {
-      return {
-        status: HttpStatus.CREATED,
-        message: 'User berhasil dibuat',
-        data: await this.usersService.create(createUserDto),
-      };
-    }
+    return {
+      status: HttpStatus.CREATED,
+      message: 'User berhasil dibuat',
+      data: await this.usersService.create(createUserDto),
+    };
   }
 
   @UseGuards(AuthGuard)

@@ -1,6 +1,16 @@
+import { IsNotEmpty, IsNumber } from 'class-validator';
+
 export class CreateMilestoneDto {
-    target : number
-    userId : number
-    description : string
-    user : any
+  @IsNotEmpty()
+  @IsNumber()
+  target: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  userId: number;
+
+  @IsNotEmpty()
+  description: string;
+
+  user: any;
 }

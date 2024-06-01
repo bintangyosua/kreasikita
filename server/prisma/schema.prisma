@@ -12,12 +12,14 @@ datasource db {
 
 model User {
   id                Int          @id @default(autoincrement())
+  username          String       @unique @db.VarChar(50)
   name              String       @db.VarChar(100)
   email             String       @unique @db.VarChar(100)
   password          String       @db.VarChar(255)
   pfp               String?      @db.Text
   banner            String?      @db.Text
   categoryId        Int
+  description       String?       @db.MediumText
   balance           Int          @default(0)
   category          Category     @relation("CategoryUser", fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
