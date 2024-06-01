@@ -51,7 +51,6 @@ export default function SupportersTable() {
     <Table
       // removeWrapper
       aria-label="Example table with client side pagination"
-      isStriped
       className="overflow-hidden"
       bottomContent={
         <div className="flex w-full justify-center">
@@ -70,15 +69,23 @@ export default function SupportersTable() {
         wrapper: "min-h-[222px] overflow-hidden",
       }}>
       <TableHeader>
-        <TableColumn key="name">Nama</TableColumn>
-        <TableColumn key="email">Email</TableColumn>
-        <TableColumn key="amount">Total</TableColumn>
+        <TableColumn key="name" className="text-md py-4">
+          Nama
+        </TableColumn>
+        <TableColumn key="email" className="text-md py-4">
+          Email
+        </TableColumn>
+        <TableColumn key="amount" className="text-md py-4">
+          Total
+        </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
           <TableRow key={item.name}>
             {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+              <TableCell className="py-4">
+                {getKeyValue(item, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}
