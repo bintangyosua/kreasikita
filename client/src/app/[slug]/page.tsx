@@ -1,8 +1,22 @@
+"use server";
+
 import HomeLayout from "@/components/layouts/home-layout";
 import Payment from "@/components/profile/payment";
+import { getUserByUsername } from "@/lib/api/users";
+import { getSession } from "@/lib/session";
+import { notFound, redirect } from "next/navigation";
+import { useRouter } from "next/router";
 import React from "react";
+import { navigate } from "../(auth)/signin/actions";
 
-export default function Page() {
+export default async function Page({ params }: { params: { slug: string } }) {
+  const user = await getUserByUsername(params.slug);
+
+  console.log({ user });
+  if (!user.data) {
+    notFound();
+  }
+
   return (
     <HomeLayout>
       <main className="flex flex-col md:flex-row gap-10">
@@ -20,8 +34,8 @@ export default function Page() {
             className="w-28 h-28 rounded-full mx-auto -mt-12"></div>
           <div className="-mt-12 flex justify-between xl:justify-evenly pl-10 pr-2">
             <div className="flex flex-col text-center">
-              <span className="font-bold text-3xl">Minuettaro</span>
-              <span className="text-gray-500">@Minuettaro</span>
+              <span className="font-bold text-3xl">{user.data.name}</span>
+              <span className="text-gray-500">@{user.data.username}</span>
             </div>
             <div className="flex flex-col">
               <button className="rounded-full bg-red-300 px-4 py-1">

@@ -27,3 +27,13 @@ export async function getUser(access_token: string) {
 
   return await res.json();
 }
+
+export async function getUserByUsername(username: string) {
+  const res = await fetch(`${process.env.API_URL}/users?username=${username}`);
+  return await res.json();
+}
+
+export async function getUsersByCategoryName(name: string) {
+  const res = await fetch(`${process.env.API_URL}/users/category/${name}`, {});
+  return await res.json();
+}
