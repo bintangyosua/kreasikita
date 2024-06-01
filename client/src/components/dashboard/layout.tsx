@@ -17,6 +17,7 @@ import SettingIcon from "../svgs/SettingIcon";
 import Dollar from "../svgs/Dollar";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { NextUIProvider } from "@nextui-org/react";
 
 const navs = [
   {
@@ -59,7 +60,7 @@ export default function Layout({
   page: string;
 }) {
   return (
-    <PrimeReactProvider>
+    <NextUIProvider>
       <div className="w-full flex flex-col md:flex-row bg-gray-200 h-screen">
         <div className="md:hidden">&nbsp;</div>
         <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
@@ -110,6 +111,6 @@ export default function Layout({
         {/* Main Content */}
         <div className="flex flex-col gap-5 px-3 w-full mt-16">{children}</div>
       </div>
-    </PrimeReactProvider>
+    </NextUIProvider>
   );
 }

@@ -1,34 +1,7 @@
 import Layout from "@/components/dashboard/layout";
 import Section from "@/components/dashboard/section";
 import React from "react";
-// import { DataTable } from "./data-table";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-
-type Donation = {
-  id: number;
-  amount: number;
-  email: string;
-  name: string;
-  message: string;
-};
-
-const donations: Donation[] = [
-  {
-    id: 1,
-    name: "Danjin",
-    email: "danjin@gg.com",
-    amount: 10000,
-    message: "Kak",
-  },
-  {
-    id: 2,
-    name: "Josephine",
-    email: "josephind@outlook.com",
-    amount: 24000,
-    message: "Apa kabar?",
-  },
-];
+import SupportersTable from "./data-table";
 
 export default function Page() {
   return (
@@ -46,21 +19,8 @@ export default function Page() {
             <CardLayout name="All-time" num={"Rp412.000,-"} />
           </div>
 
-          {/* Table */}
-          <DataTable
-            size="small"
-            value={donations}
-            paginator
-            rows={5}
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            tableStyle={{ minWidth: "50rem" }}>
-            <Column field="id" header="ID"></Column>
-            <Column field="name" header="Nama"></Column>
-            <Column field="email" header="Email"></Column>
-            <Column field="amount" header="Total Donasi"></Column>
-          </DataTable>
+          <SupportersTable />
         </div>
-        {/* <DataTable columns={columns} data={donations}></DataTable> */}
       </Section>
     </Layout>
   );
