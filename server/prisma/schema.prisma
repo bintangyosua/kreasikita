@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  id         Int    @id @default(autoincrement())
-  name       String @db.VarChar(100)
-  email      String @db.VarChar(100) @unique
-  password   String @db.VarChar(255)
-  pfp        String?@db.Text
-  categoryId Int
-  balance    Int    @default(0)
-  category   Category @relation("CategoryUser", fields: [categoryId], references: [id])
+  id                Int        @id @default(autoincrement())
+  name              String     @db.VarChar(100)
+  email             String     @unique @db.VarChar(100)
+  password          String     @db.VarChar(255)
+  pfp               String?    @db.Text
+  categoryId        Int
+  balance           Int        @default(0)
+  category          Category   @relation("CategoryUser", fields: [categoryId], references: [id])
   donationsReceived Donation[] @relation("DonationReceiver")
   donationsSent     Donation[] @relation("DonationSender")
   payouts           Payout[] @relation("PayoutUser")
@@ -26,14 +26,14 @@ model User {
 }
 
 model Category {
-  id    Int @id @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   name  String @db.VarChar(100)
   users User[] @relation("CategoryUser")
 }
 
 model Donation {
   id         Int    @id @default(autoincrement())
-  amount     Int    @default(0)  
+  amount     Int    @default(0)
   senderId   Int?
   senderName String @default("Orang Baik")
   receiverId Int

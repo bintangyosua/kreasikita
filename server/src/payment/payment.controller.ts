@@ -1,11 +1,14 @@
+<<<<<<< HEAD
 import { Body, Controller, Post } from '@nestjs/common';
+=======
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreatePaymentDto } from './dto/createpayment.dto';
+>>>>>>> main
 
 @Controller('payment')
 export class PaymentController {
   @Post('invoice')
-  async createInvoice(
-    @Body() body: { order_id: string; gross_amount: number },
-  ) {
+  async createInvoice(@Body() body: CreatePaymentDto) {
     const hashedMidtransServerKey = btoa(`${process.env.MIDTRANS_SERVER_KEY}:`);
 
     const res = await fetch(process.env.MIDTRANS_SANDBOX_URL, {
@@ -26,5 +29,9 @@ export class PaymentController {
     const data = await res.json();
     return { data };
   }
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> main

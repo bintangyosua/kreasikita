@@ -11,7 +11,16 @@ import { MilestoneModule } from './milestone/milestone.module';
 import { PaymentModule } from './payment/payment.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, PrismaModule, CategoryModule, DonationModule, PayoutModule, MilestoneModule, PaymentModule],
+  imports: [
+    UsersModule,
+    AuthModule,
+    PrismaModule,
+    CategoryModule,
+    DonationModule,
+    PayoutModule,
+    MilestoneModule,
+    PaymentModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
