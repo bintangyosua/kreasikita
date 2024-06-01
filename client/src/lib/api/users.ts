@@ -17,3 +17,13 @@ export async function postUser(
 
   return res.json();
 }
+
+export async function getUser(access_token: string) {
+  const res = await fetch(`${process.env.API_URL}/auth/profile`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  return await res.json();
+}

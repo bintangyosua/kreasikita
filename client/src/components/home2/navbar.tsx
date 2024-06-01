@@ -1,15 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import Icon from "../svgs/Icon";
 import Category from "../svgs/Category";
-import { PiArticleMedium } from "react-icons/pi";
+import {
+  PiArrowFatLineLeft,
+  PiArticleMedium,
+  PiCarProfile,
+} from "react-icons/pi";
 import { SlLogin } from "react-icons/sl";
 import ScrollAreaLayout from "../radix/scroll-area";
 import SearchButton from "../button/search-button";
 import KreasiKita from "../svgs/KreasiKita";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
+import { deleteSession, SessionType } from "@/lib/session";
+import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
+import { IoIosLogOut, IoMdLogOut } from "react-icons/io";
+import { CiLogout } from "react-icons/ci";
 
-export default function Navbar() {
+export default function Navbar({ session }: { session: SessionType }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="border-b-gray-0 border-b-[1px] py-1">
@@ -55,12 +70,16 @@ export default function Navbar() {
           }`}>
           <Link href="/category" name="Kategori" icon={<Category />} />
           <Link href="/blog" name="Blog" icon={<PiArticleMedium />} />
-          <a href="/signin" className="flex justify-between items-center">
-            <button className="flex gap-1 items-center bg-purple px-3 py-1 rounded-full text-white w-full">
-              <SlLogin />
-              <span>Sign In</span>
-            </button>
-          </a>
+          {session.isSignedIn ? (
+            <Profile session={session} />
+          ) : (
+            <a href="/signin" className="flex justify-between items-center">
+              <button className="flex gap-1 items-center bg-purple px-3 py-1 rounded-full text-white w-full">
+                <SlLogin />
+                <span>Sign In</span>
+              </button>
+            </a>
+          )}
         </nav>
       </div>
       <div className="block lg:hidden mb-2">
@@ -104,5 +123,49 @@ function Link({
       <div className="mb-0.5">{icon}</div>
       <div className="block">{name}</div>
     </a>
+  );
+}
+
+function Profile({ session }: { session: SessionType }) {
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        {/* <Button variant="bordered">Open Menu</Button> */}
+        <div className="flex flex-row items-center gap-2 hover:cursor-pointer">
+          <Avatar size="md" />
+          <div>
+            <div className="block text-[15px]">{session.name}</div>
+            <div className="block text-gray-400 text-[13px]">
+              @{session.username}
+            </div>
+          </div>
+        </div>
+      </DropdownTrigger>
+      <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="new">
+          <a
+            href={`/${session.username}`}
+            className="w-full flex items-center gap-2">
+            <AvatarIcon width={22} height={22} /> Profile
+          </a>
+        </DropdownItem>
+        <DropdownItem key="copy">
+          <a href={`/dashboard`} className="w-full flex items-center gap-2">
+            <DashboardIcon width={18} height={18} /> Dashboard
+          </a>
+        </DropdownItem>
+        <DropdownItem
+          key="delete"
+          className="text-danger w-full"
+          color="danger"
+          onClick={async () => {
+            await deleteSession();
+          }}>
+          <span className="flex items-center gap-2">
+            <IoIosLogOut size={22} /> <span>Sign out</span>
+          </span>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 }

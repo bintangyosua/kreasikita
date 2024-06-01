@@ -1,3 +1,5 @@
+"use server";
+
 import Footer from "@/components/home2/footer";
 import Hero from "@/components/home2/hero";
 import Navbar from "@/components/home2/navbar";
@@ -32,7 +34,7 @@ const testimonis: {
   },
 ];
 
-export default function Home2() {
+export default async function Page() {
   return (
     <HomeLayout>
       <>
@@ -51,7 +53,7 @@ export default function Home2() {
           </p>
         </section>
         <Reason />
-        <PostLayout></PostLayout>
+        {/* <PostLayout></PostLayout> */}
         <div>
           <SwiperLayout>
             {testimonis.map((value, key) => (

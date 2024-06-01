@@ -1,6 +1,5 @@
-import React from "react";
-import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function Layout({
   children,
@@ -8,7 +7,8 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  if (session.isSignedIn) redirect("/dashboard");
+
+  if (!session.isSignedIn) redirect("/signin");
 
   return <>{children}</>;
 }
