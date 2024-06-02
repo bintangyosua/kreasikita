@@ -1,3 +1,5 @@
+"use server";
+
 import Layout from "@/components/dashboard/layout";
 import Section from "@/components/dashboard/section";
 import React from "react";
@@ -5,17 +7,22 @@ import SupportersTable from "./data-table";
 import LoveIcon from "@/components/svgs/LoveIcon";
 import CalendarIcon from "@/components/svgs/CalendarIcon";
 import DollarIcon from "@/components/svgs/Dollar";
+import { getSession } from "@/lib/session";
+import { getDonationsBySenderUsername } from "@/lib/api/donation";
+import { Code } from "@nextui-org/react";
 
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+  const donations = await getDonationsBySenderUsername();
   return (
     <Layout page="supporters">
-      <h1 className="text-5xl font-bold w-full lg:w-2/3 xl:1/2 mx-auto mb-3">
-        Supporters
+      <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">
+        My Supporters
       </h1>
 
       {/* Statistics */}
       <Section>
-        <div className="p-5">
+        <div>
           <div className="w-full flex flex-col gap-3 sm:flex-row mb-4">
             <CardLayout
               name="Supporters"
@@ -34,7 +41,15 @@ export default function Page() {
             />
           </div>
 
-          <SupportersTable />
+          {donations.data.length > 0 ? (
+            <div>
+              <SupportersTable supporters={donations.data} />
+            </div>
+          ) : (
+            <Code color="danger" className="h-10 flex items-center">
+              Belum ada dukungan yang diterima
+            </Code>
+          )}
         </div>
       </Section>
     </Layout>

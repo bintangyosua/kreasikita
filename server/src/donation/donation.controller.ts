@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { DonationService } from './donation.service';
@@ -34,6 +35,17 @@ export class DonationController {
       status: HttpStatus.OK,
       message: 'Data fetched',
       data: await this.donationService.findAll(),
+    };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('groupby/sender')
+  @HttpCode(HttpStatus.OK)
+  async getDonationsGroupBySender(): Promise<Response> {
+    return {
+      status: HttpStatus.OK,
+      message: 'Data fetched',
+      data: await this.donationService.findDonationsBySender(),
     };
   }
 

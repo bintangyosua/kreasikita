@@ -42,6 +42,8 @@ export default function Client({
     resolver: zodResolver(registrationSchema),
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [categoryId, setCategoryId] = useState<number | string>();
 
   const [isVisible, setIsVisible] = React.useState<any>(false);
@@ -52,6 +54,7 @@ export default function Client({
     <form
       className="grid place-items-center w-full h-full"
       onSubmit={handleSubmit(async (d) => {
+        setLoading(true);
         const { class: _, ...newUser } = d;
         const res = await postUser(newUser, Number(categoryId));
 
@@ -64,6 +67,9 @@ export default function Client({
 
           await setSession(access_token);
           navigate();
+        } else {
+          toast.error("Password yang anda masukkan salah");
+          setLoading(false);
         }
       })}>
       <div className="flex flex-col gap-4 w-full justify-between px-5 max-w-[400px] mt-16">
@@ -176,7 +182,10 @@ export default function Client({
             sini
           </a>
         </span>
-        <Button type="submit" className="bg-purple text-white">
+        <Button
+          type="submit"
+          className="bg-purple text-white"
+          isLoading={loading}>
           Button
         </Button>
       </div>

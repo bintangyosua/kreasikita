@@ -1,5 +1,11 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -7,6 +13,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private prisma: PrismaService,
   ) {}
 
   async signIn(email: string, pass: string): Promise<{ access_token: string }> {
@@ -25,5 +32,25 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
+  }
+
+  async changePassword({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) {
+    const user = await this.prisma.user.update({
+      where: {
+        username,
+      },
+      data: {
+        password,
+      },
+    });
+
+    const { password: temp, ...newUser } = user;
+    return newUser;
   }
 }

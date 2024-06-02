@@ -1,22 +1,67 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-async function main() {
-  await prisma.category.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      // id: 1,
-      name: 'Youtuber',
-    },
-  });
 
-  await prisma.category.upsert({
-    where: { id: 2 },
-    update: {},
-    create: {
-      // id: 2,
-      name: 'Vtuber',
-    },
+type category = {
+  id: number;
+  name: string;
+};
+
+const categories: category[] = [
+  {
+    id: 1,
+    name: 'Youtuber',
+  },
+  {
+    id: 2,
+    name: 'Vtuber',
+  },
+  {
+    id: 3,
+    name: 'Design',
+  },
+  {
+    id: 4,
+    name: 'Fashion',
+  },
+  {
+    id: 5,
+    name: 'Film',
+  },
+  {
+    id: 6,
+    name: 'Music',
+  },
+  {
+    id: 7,
+    name: 'Food',
+  },
+  {
+    id: 8,
+    name: 'Game',
+  },
+  {
+    id: 9,
+    name: 'Anime',
+  },
+  {
+    id: 10,
+    name: 'Photography',
+  },
+  {
+    id: 11,
+    name: 'Technology',
+  },
+];
+
+async function main() {
+  categories.forEach(async (value) => {
+    await prisma.category.upsert({
+      where: { id: value.id },
+      update: {},
+      create: {
+        name: value.name,
+      },
+    });
   });
 
   const bintang = await prisma.user.upsert({
@@ -30,6 +75,7 @@ async function main() {
       categoryId: 1,
     },
   });
+
   const zia = await prisma.user.upsert({
     where: { email: 'zia@gg.com' },
     update: {},
@@ -41,7 +87,8 @@ async function main() {
       categoryId: 1,
     },
   });
-  const luthgi = await prisma.user.upsert({
+
+  const luthfi = await prisma.user.upsert({
     where: { email: 'luthgi@gg.com' },
     update: {},
     create: {

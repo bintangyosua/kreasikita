@@ -30,29 +30,23 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string) {
-    return this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: {
         username,
       },
-      select: {
-        id: true,
-        username: true,
-        name: true,
-        pfp: true,
-        category: true,
-        banner: true,
-        balance: true,
-        email: true,
-      },
     });
+    let { password, ...newUser } = user;
+    return newUser;
   }
 
   async findOneByEmail(email: string) {
-    return this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         email,
       },
     });
+
+    return user;
   }
 
   async findOneByName(name: string) {
@@ -77,6 +71,15 @@ export class UsersService {
     return this.prisma.user.update({
       where: {
         id: parseInt(id.toString()),
+      },
+      data: data,
+    });
+  }
+
+  async updateByUsername(username: string, data: Prisma.UserUpdateInput) {
+    return this.prisma.user.update({
+      where: {
+        username,
       },
       data: data,
     });

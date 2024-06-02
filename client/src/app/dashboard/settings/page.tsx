@@ -1,19 +1,26 @@
+"use server";
+
 import Layout from "@/components/dashboard/layout";
 import Section from "@/components/dashboard/section";
+import { getUser, getUserByUsername } from "@/lib/api/users";
+import { getSession } from "@/lib/session";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import ProfileSettings from "./profile";
+import Password from "./password";
 
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+  let user = await getUserByUsername(session.username);
+  user = user.data;
   return (
     <Layout page="settings">
-      {/* <h1 className="text-5xl font-bold w-full lg:w-2/3 xl:1/2 mx-auto mb-3">
-        Settings
-      </h1> */}
-
       <Section>
         <div className="flex flex-col gap-3">
           <div
             style={{
               backgroundColor: "#5CCCC6",
+              backgroundImage: `url('https://t4.ftcdn.net/jpg/04/04/73/39/360_F_404733910_2mIXr6RbC5G3WZJFjopVsBaR3EOM6Bqy.jpg')`,
+              backgroundPosition: "center",
             }}
             className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
           <div className="flex items-center justify-start px-5">
@@ -21,62 +28,18 @@ export default function Page() {
               <div
                 style={{
                   backgroundColor: "#5B5BD6",
+                  backgroundImage: `url('https://i.pinimg.com/236x/8d/9f/09/8d9f095f1c59bba933ce67c7cf7fe508.jpg')`,
+                  backgroundPosition: "center",
                 }}
                 className="w-28 h-28 rounded-full ml-16 -mt-12"></div>
             </div>
             <div className="-mt-4 justify-between w-full pl-10 pr-2 hidden sm:flex"></div>
           </div>
 
-          <div className="p-5 gap-5 grid grid-cols-1 sm:grid-cols-3">
-            <Input
-              type="text"
-              label="Name"
-              labelPlacement="outside"
-              variant="underlined"
-            />
-            <Input
-              labelPlacement="outside"
-              type="text"
-              label="Username"
-              variant="underlined"
-            />
-            <Input
-              type="email"
-              label="Email"
-              labelPlacement="outside"
-              variant="underlined"
-            />
+          <div className="flex flex-col md:flex-row">
+            <ProfileSettings user={user} />
+            <Password />
           </div>
-          <Textarea
-            className="p-5"
-            type="email"
-            label="Description"
-            labelPlacement="outside"
-            variant="underlined"
-          />
-          <Button size="md" className="bg-purple text-white mx-5 mb-5">
-            Save Changes
-          </Button>
-        </div>
-      </Section>
-      <Section>
-        <div className="flex flex-col gap-5 p-5">
-          <h2 className="text-2xl font-bold">Change Password</h2>
-          <Input
-            type="password"
-            label="New Password"
-            labelPlacement="outside"
-            variant="underlined"
-          />
-          <Input
-            type="password"
-            label="Confirm New Password"
-            labelPlacement="outside"
-            variant="underlined"
-          />
-          <Button size="md" className="bg-purple text-white">
-            Save Changes
-          </Button>
         </div>
       </Section>
     </Layout>

@@ -13,39 +13,33 @@ import {
 } from "@nextui-org/react";
 
 type TSupporters = {
-  id: number;
-  amount: number;
+  total_donation: number;
   email: string;
   name: string;
+  senderUsername: string;
+  pfp: string | undefined;
 };
 
-const donations: TSupporters[] = [
-  {
-    id: 1,
-    name: "Danjin",
-    email: "danjin@gg.com",
-    amount: 10000,
-  },
-  {
-    id: 2,
-    name: "Josephine",
-    email: "josephind@outlook.com",
-    amount: 24000,
-  },
-];
+export default function SupportersTable({
+  supporters,
+}: {
+  supporters: TSupporters[];
+}) {
+  if (!supporters) {
+    return <p>No Data</p>;
+  }
 
-export default function SupportersTable() {
   const [page, setPage] = React.useState(1);
-  const rowsPerPage = 4;
+  const rowsPerPage = 10;
 
-  const pages = Math.ceil(donations.length / rowsPerPage);
+  const pages = Math.ceil(supporters.length / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return donations.slice(start, end);
-  }, [page, donations]);
+    return supporters.slice(start, end);
+  }, [page, supporters]);
 
   return (
     <Table
@@ -53,12 +47,12 @@ export default function SupportersTable() {
       aria-label="Example table with client side pagination"
       className="overflow-hidden"
       bottomContent={
-        <div className="flex w-full justify-center">
+        <div
+          className={`flex w-full justify-center ${
+            pages <= 1 ? "hidden" : ""
+          }`}>
           <Pagination
-            // isCompact
-            // showControls
-            // showShadow
-            // color=""
+            color="secondary"
             page={page}
             total={pages}
             onChange={(page) => setPage(page)}
@@ -66,25 +60,39 @@ export default function SupportersTable() {
         </div>
       }
       classNames={{
-        wrapper: "min-h-[222px] overflow-hidden",
+        wrapper:
+          "min-h-[222px] overflow-auto overflow-y-hidden p-0 rounded-none",
       }}>
       <TableHeader>
-        <TableColumn key="name" className="text-md py-4">
+        <TableColumn
+          key="senderUsername"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Username
+        </TableColumn>
+        <TableColumn
+          key="name"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Nama
         </TableColumn>
-        <TableColumn key="email" className="text-md py-4">
+        <TableColumn
+          key="email"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Email
         </TableColumn>
-        <TableColumn key="amount" className="text-md py-4">
-          Total
+        <TableColumn
+          key="total_donation"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Jumlah (IDR)
         </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
-          <TableRow key={item.name}>
+          <TableRow key={item.senderUsername}>
             {(columnKey) => (
-              <TableCell className="py-4">
-                {getKeyValue(item, columnKey)}
+              <TableCell className="py-3 border-b-1 border-b-gray-200">
+                {!(columnKey === "total_donation")
+                  ? getKeyValue(item, columnKey)
+                  : getKeyValue(item, columnKey)}
               </TableCell>
             )}
           </TableRow>

@@ -18,6 +18,8 @@ const registrationSchema = z.object({
 });
 
 export default function Client() {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -34,13 +36,15 @@ export default function Client() {
     <form
       className="grid place-items-center w-full h-full"
       onSubmit={handleSubmit(async (d) => {
+        setLoading(true);
         const { access_token } = await signIn(d.email, d.password);
 
         if (!access_token) {
           toast.error("Password yang anda masukkan salah");
+          setLoading(false);
         } else {
           await setSession(access_token);
-          toast.success("Berhasil login");
+          toast.success("Berhasil sign in");
           navigate();
         }
       })}>
@@ -89,7 +93,10 @@ export default function Client() {
             sini
           </a>
         </span>
-        <Button type="submit" className="bg-purple text-white">
+        <Button
+          type="submit"
+          className="bg-purple text-white"
+          isLoading={loading}>
           Sign In
         </Button>
       </div>

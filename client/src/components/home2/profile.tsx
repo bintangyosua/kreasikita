@@ -11,6 +11,7 @@ import {
 import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { IoIosLogOut } from "react-icons/io";
+import { toast } from "react-toastify";
 
 export default function Profile({ session }: { session: SessionType }) {
   return (
@@ -45,6 +46,7 @@ export default function Profile({ session }: { session: SessionType }) {
           color="danger"
           onClick={async () => {
             await deleteSession();
+            toast.error("Berhasil sign out");
           }}>
           <span className="flex items-center gap-2">
             <IoIosLogOut size={22} /> <span>Sign out</span>
