@@ -18,6 +18,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  User,
 } from "@nextui-org/react";
 import { deleteSession, SessionType } from "@/lib/session";
 import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
@@ -123,11 +124,11 @@ function CategoryItem({
   return (
     <>
       {href === currentCategory ? (
-        <Button variant="solid" className="bg-purple/90 text-white text-md">
+        <Button variant="solid" className="bg-purple/90 text-white text-[16px]">
           {title}
         </Button>
       ) : (
-        <a href={`/category/${href}`} className="items-center flex">
+        <a href={`/category/${href}`} className="items-center flex text-[16px]">
           {title}
         </a>
       )}
@@ -159,15 +160,14 @@ function Profile({ session }: { session: SessionType }) {
     <Dropdown>
       <DropdownTrigger>
         {/* <Button variant="bordered">Open Menu</Button> */}
-        <div className="flex flex-row items-center gap-2 hover:cursor-pointer">
-          <Avatar size="md" />
-          <div>
-            <div className="block text-[15px]">{session.name}</div>
-            <div className="block text-gray-400 text-[13px]">
-              @{session.username}
-            </div>
-          </div>
-        </div>
+        <User
+          className="hover:cursor-pointer"
+          name={session.name}
+          description={`@${session.username}`}
+          avatarProps={{
+            src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+          }}
+        />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="new">

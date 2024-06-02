@@ -1,40 +1,92 @@
 "use client";
 
-import { SessionType } from "@/lib/session";
-import { Card, CardBody, Input, Button } from "@nextui-org/react";
-import React, { useState } from "react";
+import { createPayment } from "@/lib/api/payment";
+import { createSessionPayment, SessionType } from "@/lib/session";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-export default function Payment({ session }: { session: SessionType }) {
-  const [amount, setAmount] = useState<number>();
+const registrationSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional().default("orangbaik@gmail.com"),
+  gross_amount: z.number().min(5000),
+});
+
+export default function Payment({
+  session,
+  creator,
+}: {
+  session: SessionType;
+  creator: any;
+}) {
+  const [name, setName] = useState(session.name);
+  const [email, setEmail] = useState(session.email);
+  const [gross_amount, setAmount] = useState<number>();
+  const [triggerred, setTriggerred] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const myMidtransClientKey = `${process.env.MIDTRANS_CLIENT_KEY}`;
+    const script = document.createElement("script");
+    script.src = snapSrcUrl;
+    script.setAttribute("data-client-key", myMidtransClientKey);
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const { handleSubmit } = useForm({
+    resolver: zodResolver(registrationSchema),
+  });
+
   return (
-    <>
-      <Card shadow="none" className="border border-gray-300">
-        <CardBody className="flex flex-col gap-3">
+    <Card shadow="none" className="border border-gray-300">
+      <CardBody>
+        <form
+          method="POST"
+          className="flex flex-col gap-3"
+          onSubmit={handleSubmit(async (d, e) => {
+            e?.preventDefault();
+          })}>
           <Input
             type="text"
+            onChange={(e) => setName(e.target.value)}
             placeholder="Nama"
+            name="name"
             labelPlacement="inside"
             className={`${session.isSignedIn ? "hidden" : ""}`}
           />
           <Input
             type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
             placeholder="Email"
             labelPlacement="inside"
             className={`${session.isSignedIn ? "hidden" : ""}`}
           />
           <Input
             type="number"
+            onChange={(e) => setAmount(parseInt(e.target.value))}
+            name="gross_amount"
             placeholder="000,00"
-            onChange={(value) => setAmount(parseInt(value.target.value))}
             labelPlacement="outside"
-            value={amount?.toString()}
+            isInvalid={triggerred && !gross_amount}
+            errorMessage="Nominal harus diisi"
+            value={gross_amount?.toString()}
             startContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-default-400 text-small">IDR</span>
               </div>
             }
           />
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 xl:grid-cols-4 gap-2">
             <Button
               size="sm"
               className="bg-gray-300"
@@ -51,9 +103,68 @@ export default function Payment({ session }: { session: SessionType }) {
               100k
             </Button>
           </div>
-          <Button className="bg-purple text-white">Berikan Dukungan</Button>
-        </CardBody>
-      </Card>
-    </>
+          <Textarea
+            maxRows={3}
+            onChange={(e) => setMessage(e.target.value)}
+            minRows={2}
+            placeholder="Masukkan pesan"
+            maxLength={125}
+          />
+          <Button
+            type="submit"
+            className="bg-purple text-white"
+            onClick={async () => {
+              setTriggerred(true);
+              if (!gross_amount) {
+                return;
+              }
+
+              const order_id = `${creator.username}-${Math.random()
+                .toString(36)
+                .slice(2)}`;
+              const res = await createPayment({
+                order_id,
+                gross_amount: gross_amount!,
+                name: name === "" ? "Orang baik" : name,
+                email,
+                item_details: {
+                  id: creator.username,
+                  name: creator.name,
+                  category: creator.category.name,
+                  url: `${process.env.BASE_URL}/${creator.username}`,
+                  price: gross_amount,
+                  quantity: 1,
+                },
+              });
+
+              await createSessionPayment(
+                order_id,
+                creator.username,
+                name,
+                email
+              );
+
+              window.snap.pay(res.data.token, {
+                onSuccess: () => {
+                  console.log("success");
+                },
+                onPending: (result: any) => {
+                  console.log("pending transaction", result);
+                },
+                onError: (result: any) => {
+                  console.log("error transaction", result);
+                },
+                onClose: () => {
+                  console.log(
+                    "customer close the popup window without the finishing the payment"
+                  );
+                },
+              });
+            }}>
+            Berikan Dukungan
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 }

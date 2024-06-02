@@ -15,7 +15,6 @@ export default async function HomeLayout({
 }) {
   const session = await getSession();
   const categories = await getCategories();
-  console.log(session);
 
   return (
     <div className="container mx-auto min-h-screen flex flex-col justify-between">

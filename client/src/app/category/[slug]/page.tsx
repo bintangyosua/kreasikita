@@ -15,7 +15,6 @@ import React from "react";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const users = await getUsersByCategoryName(params.slug);
-  console.log(users);
 
   return (
     <HomeLayout category={params.slug}>

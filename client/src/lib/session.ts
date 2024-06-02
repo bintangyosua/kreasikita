@@ -11,6 +11,15 @@ export type SessionType = {
   email: string;
   username: string;
   name: string;
+  order_id: string;
+  creator_username: string;
+};
+
+export type PaymentSessionType = {
+  order_id: string;
+  creator_username: string;
+  name: string;
+  email: string;
 };
 
 export async function setSession(access_token: string) {
@@ -32,22 +41,26 @@ export async function setSession(access_token: string) {
   await session.save();
 }
 
-export async function getSession() {
-  const session = getIronSession<SessionType>(cookies(), {
+export async function getSession(): Promise<
+  Omit<SessionType, "order_id" | "creator_username">
+> {
+  const session = await getIronSession<SessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita",
   });
 
-  const data: SessionType = {
-    id: (await session).id,
-    email: (await session).email,
-    access_token: (await session).access_token,
-    name: (await session).name,
-    username: (await session).username,
-    isSignedIn: (await session).isSignedIn,
-  };
+  if (!session) {
+    throw new Error("Session not found");
+  }
 
-  return data;
+  return {
+    name: session.name || "",
+    username: session.username || "",
+    email: session.email || "",
+    id: session.id || 0,
+    access_token: session.access_token || "",
+    isSignedIn: session.isSignedIn || false,
+  };
 }
 
 export async function deleteSession() {
@@ -57,4 +70,37 @@ export async function deleteSession() {
   });
 
   session.destroy();
+}
+
+export async function createSessionPayment(
+  order_id: string,
+  creator_username: string,
+  name: string,
+  email: string
+) {
+  const session = await getIronSession<SessionType>(cookies(), {
+    password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
+    cookieName: "kreasikita",
+  });
+
+  session.order_id = order_id;
+  session.creator_username = creator_username;
+  session.name = name;
+  session.email = email;
+
+  await session.save();
+}
+
+export async function getSessionPayment(): Promise<PaymentSessionType> {
+  const session = await getIronSession<SessionType>(cookies(), {
+    password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
+    cookieName: "kreasikita",
+  });
+
+  return {
+    order_id: session.order_id,
+    creator_username: session.creator_username,
+    name: session.name,
+    email: session.email,
+  };
 }

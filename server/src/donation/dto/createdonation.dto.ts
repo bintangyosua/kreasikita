@@ -8,9 +8,10 @@ export class CreateDonationDto {
   @IsNumber()
   senderId?: number;
 
-  @IsNotEmpty()
+  senderEmail: string;
+
   @IsString()
-  senderName: string;
+  senderName?: string;
 
   @IsNotEmpty()
   @IsNumber()

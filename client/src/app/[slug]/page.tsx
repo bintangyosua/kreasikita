@@ -22,7 +22,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   const session = await getSession();
 
-  console.log({ user });
   if (!user.data) {
     notFound();
   }
@@ -71,7 +70,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div className="flex flex-col md:w-2/5 gap-5">
           {/* Payment */}
-          <Payment session={session} />
+          <Payment
+            session={JSON.parse(JSON.stringify(session))}
+            creator={user.data}
+          />
           <div className="flex flex-col items-start md:items-center rounded-3xl gap-5">
             <CardMessage2 />
             <CardMessage2 />
@@ -112,7 +114,7 @@ function CardMessage({
 
 function CardMessage2() {
   return (
-    <Card className="max-w-[400px] p-0 border border-gray-300" shadow="none">
+    <Card className="w-full p-0 border border-gray-300" shadow="none">
       <CardHeader className="flex gap-3">
         <Image
           alt="nextui logo"
