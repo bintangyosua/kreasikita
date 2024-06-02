@@ -25,10 +25,6 @@ export default function SupportersTable({
 }: {
   supporters: TSupporters[];
 }) {
-  if (!supporters) {
-    return <p>No Data</p>;
-  }
-
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -40,6 +36,10 @@ export default function SupportersTable({
 
     return supporters.slice(start, end);
   }, [page, supporters]);
+
+  if (!supporters) {
+    return <p>No Data</p>;
+  }
 
   return (
     <Table

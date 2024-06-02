@@ -25,10 +25,6 @@ type TDonation = {
 };
 
 export default function GiftsTable({ donations }: { donations: TDonation[] }) {
-  if (!donations) {
-    return <p>No Data</p>;
-  }
-
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -40,6 +36,10 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
 
     return donations.slice(start, end);
   }, [page, donations]);
+
+  if (!donations) {
+    return <p>No Data</p>;
+  }
 
   return (
     <Table
