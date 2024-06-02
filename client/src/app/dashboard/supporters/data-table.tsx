@@ -14,38 +14,50 @@ import {
 
 type TSupporters = {
   id: number;
-  amount: number;
+  total: number;
   email: string;
   name: string;
+  username: string;
 };
 
-const donations: TSupporters[] = [
+const supporters: TSupporters[] = [
   {
     id: 1,
+    username: "danjin",
     name: "Danjin",
     email: "danjin@gg.com",
-    amount: 10000,
+    total: 10000,
   },
   {
     id: 2,
+    username: "josephine",
     name: "Josephine",
     email: "josephind@outlook.com",
-    amount: 24000,
+    total: 24000,
   },
 ];
 
-export default function SupportersTable() {
-  const [page, setPage] = React.useState(1);
-  const rowsPerPage = 4;
+export default function SupportersTable({
+  supporters_example,
+}: {
+  supporters_example: TSupporters[];
+}) {
+  if (!supporters) {
+    return <p>No Data</p>;
+  }
 
-  const pages = Math.ceil(donations.length / rowsPerPage);
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 10;
+
+  console.log({ supporters });
+  const pages = Math.ceil(supporters.length / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return donations.slice(start, end);
-  }, [page, donations]);
+    return supporters.slice(start, end);
+  }, [page, supporters]);
 
   return (
     <Table
@@ -53,8 +65,12 @@ export default function SupportersTable() {
       aria-label="Example table with client side pagination"
       className="overflow-hidden"
       bottomContent={
-        <div className="flex w-full justify-center">
+        <div
+          className={`flex w-full justify-center ${
+            pages <= 1 ? "hidden" : ""
+          }`}>
           <Pagination
+            color="secondary"
             // isCompact
             // showControls
             // showShadow
@@ -66,24 +82,36 @@ export default function SupportersTable() {
         </div>
       }
       classNames={{
-        wrapper: "min-h-[222px] overflow-hidden",
+        wrapper:
+          "min-h-[222px] overflow-auto overflow-y-hidden p-0 rounded-none",
       }}>
       <TableHeader>
-        <TableColumn key="name" className="text-md py-4">
+        <TableColumn
+          key="username"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Username
+        </TableColumn>
+        <TableColumn
+          key="name"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Nama
         </TableColumn>
-        <TableColumn key="email" className="text-md py-4">
+        <TableColumn
+          key="email"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Email
         </TableColumn>
-        <TableColumn key="amount" className="text-md py-4">
-          Total
+        <TableColumn
+          key="total"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Jumlah
         </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
-          <TableRow key={item.name}>
+          <TableRow key={item.id}>
             {(columnKey) => (
-              <TableCell className="py-4">
+              <TableCell className="py-3 border-b-1 border-b-gray-200">
                 {getKeyValue(item, columnKey)}
               </TableCell>
             )}

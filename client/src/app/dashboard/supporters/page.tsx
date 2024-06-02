@@ -9,13 +9,13 @@ import DollarIcon from "@/components/svgs/Dollar";
 export default function Page() {
   return (
     <Layout page="supporters">
-      <h1 className="text-5xl font-bold w-full lg:w-2/3 xl:1/2 mx-auto mb-3">
-        Supporters
+      <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">
+        My Supporters
       </h1>
 
       {/* Statistics */}
       <Section>
-        <div className="p-5">
+        <div>
           <div className="w-full flex flex-col gap-3 sm:flex-row mb-4">
             <CardLayout
               name="Supporters"
