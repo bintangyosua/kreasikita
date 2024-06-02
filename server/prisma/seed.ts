@@ -52,7 +52,6 @@ async function main() {
       categoryId: 2,
     },
   });
-  console.log({ bintang, zia });
 }
 main()
   .then(async () => {

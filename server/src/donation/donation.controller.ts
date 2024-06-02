@@ -29,7 +29,7 @@ export class DonationController {
   @ApiBearerAuth()
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getUsers(): Promise<Response> {
+  async getDonations(): Promise<Response> {
     return {
       status: HttpStatus.OK,
       message: 'Data fetched',

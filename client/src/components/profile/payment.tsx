@@ -164,8 +164,6 @@ export default function Payment({
                 session
               );
 
-              console.log({ donation });
-
               window.snap.pay(res.data.token, {
                 onSuccess: (result: any) => {
                   console.log("success", result);

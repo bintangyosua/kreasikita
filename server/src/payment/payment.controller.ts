@@ -12,8 +12,6 @@ export class PaymentController {
   async createDonation(
     @Body() notificationPaymentDto: NotificationPaymentDto,
   ): Promise<Response> {
-    console.log({ notificationPaymentDto });
-
     if (notificationPaymentDto.transaction_status === 'expire') {
       return {
         status: HttpStatus.OK,

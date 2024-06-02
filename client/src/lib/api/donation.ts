@@ -1,10 +1,9 @@
 "use server";
 
-import { SessionType } from "../session";
+import { getSession, SessionType } from "../session";
 
 export async function createDonation(data: any, session: SessionType) {
   try {
-    console.log({ session, data });
     const res = await fetch(`${process.env.API_URL}/payment/notification`, {
       method: "POST",
       headers: {
@@ -23,10 +22,24 @@ export async function createDonation(data: any, session: SessionType) {
       }),
     });
 
-    const json = await res.json();
-
-    console.log({ json });
+    // const json = await res.json();
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function getDonationsByReceiver(username: string) {
+  const session = await getSession();
+
+  const res = await fetch(
+    `${process.env.API_URL}/donations/receiver/${username}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      },
+    }
+  );
+
+  return await res.json();
 }

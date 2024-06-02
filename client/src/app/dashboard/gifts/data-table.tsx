@@ -13,34 +13,18 @@ import {
 } from "@nextui-org/react";
 
 type TDonation = {
-  id: number;
-  datetime: string;
-  amount: number;
-  email: string;
-  name: string;
-  message: string;
+  order_id: number;
+  transaction_time: string;
+  gross_amount: number;
+  senderUsername?: string;
+  senderEmail?: string;
+  senderName?: string;
+  message?: string;
+  receiverUsername: string;
+  transaction_status: string;
 };
 
-const donations: TDonation[] = [
-  {
-    id: 1,
-    datetime: "2022-01-01 10:00:00",
-    name: "Danjin",
-    email: "danjin@gg.com",
-    amount: 10000,
-    message: "Kak",
-  },
-  {
-    id: 2,
-    datetime: "2022-01-01 10:00:00",
-    name: "Josephine",
-    email: "josephind@outlook.com",
-    amount: 24000,
-    message: "Apa kabar?",
-  },
-];
-
-export default function GiftsTable() {
+export default function GiftsTable({ donations }: { donations: TDonation[] }) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
@@ -72,19 +56,22 @@ export default function GiftsTable() {
         </div>
       }
       classNames={{
-        wrapper: "min-h-[222px] overflow-hidden",
+        wrapper: "min-h-[222px] overflow-auto p-0",
       }}>
       <TableHeader>
-        <TableColumn key="datetime" className="text-md py-4">
+        <TableColumn key="transaction_time" className="text-md py-4">
           Waktu
         </TableColumn>
-        <TableColumn key="name" className="text-md">
+        <TableColumn key="senderUsername" className="text-md">
+          Username
+        </TableColumn>
+        <TableColumn key="senderName" className="text-md">
           Nama
         </TableColumn>
-        <TableColumn key="email" className="text-md">
+        <TableColumn key="senderEmail" className="text-md">
           Email
         </TableColumn>
-        <TableColumn key="amount" className="text-md">
+        <TableColumn key="gross_amount" className="text-md">
           Jumlah
         </TableColumn>
         <TableColumn key="message" className="text-md">
@@ -93,7 +80,7 @@ export default function GiftsTable() {
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
-          <TableRow key={item.name}>
+          <TableRow key={item.order_id}>
             {(columnKey) => (
               <TableCell className="py-4">
                 {getKeyValue(item, columnKey)}
