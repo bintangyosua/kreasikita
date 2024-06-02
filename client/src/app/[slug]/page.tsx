@@ -28,9 +28,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <HomeLayout>
-      <main className="flex flex-col md:flex-row gap-10">
+      <main className="flex flex-col md:flex-row gap-6">
         {/* Profile */}
-        <div className="border-gray-300 border rounded-3xl pb-20">
+        <div className="border-gray-300 border rounded-3xl">
           <div
             style={{
               // backgroundColor: "#5CCCC6",
@@ -74,15 +74,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
             session={JSON.parse(JSON.stringify(session))}
             creator={user.data}
           />
-          <div className="flex flex-col items-start md:items-center rounded-3xl gap-5">
-            <CardMessage2 />
-            <CardMessage2 />
-            <CardMessage2 />
-            <CardMessage2 />
-            <CardMessage2 />
-          </div>
         </div>
       </main>
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <CardMessage2 />
+        <CardMessage2 />
+        <CardMessage2 />
+        <CardMessage2 />
+      </section>
     </HomeLayout>
   );
 }

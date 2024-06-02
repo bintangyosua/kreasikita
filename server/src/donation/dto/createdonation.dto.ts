@@ -2,6 +2,9 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateDonationDto {
   @IsNotEmpty()
+  order_id: string;
+
+  @IsNotEmpty()
   @IsNumber()
   amount: number;
 

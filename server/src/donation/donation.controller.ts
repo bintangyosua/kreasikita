@@ -57,36 +57,38 @@ export class DonationController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Get('receiver/:id')
+  @Get('receiver/:username')
   @HttpCode(HttpStatus.OK)
-  async getDonationsByReceiver(@Param('id') id: number): Promise<Response> {
-    if ((await this.donationService.findManyByReceiver(id)) === undefined) {
+  async getDonationsByReceiver(
+    @Param('username') username: string,
+  ): Promise<Response> {
+    if (
+      (await this.donationService.findManyByReceiver(username)) === undefined
+    ) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(id)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'Data fetched',
-        data: await this.donationService.findManyByReceiver(id),
+        data: await this.donationService.findManyByReceiver(username),
       };
     }
   }
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Get('sender/:id')
+  @Get('sender/:username')
   @HttpCode(HttpStatus.OK)
-  async getDonationsBySender(@Param('id') id: number): Promise<Response> {
-    if ((await this.donationService.findManyBySender(id)) === undefined) {
+  async getDonationsBySender(
+    @Param('username') username: string,
+  ): Promise<Response> {
+    if ((await this.donationService.findManyBySender(username)) === undefined) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(id)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'Data fetched',
-        data: await this.donationService.findManyBySender(id),
+        data: await this.donationService.findManyBySender(username),
       };
     }
   }
@@ -97,19 +99,21 @@ export class DonationController {
     @Body() createDonationDto: CreateDonationDto,
   ): Promise<Response> {
     const donation = await this.donationService.create(createDonationDto);
-    const receiver = await this.userService.findOne(donation.receiverId);
+    const receiver = await this.userService.findOneByUsername(
+      donation.receiverUsername,
+    );
     if (receiver === undefined) {
       throw new HttpException('Receiver not found', HttpStatus.NOT_FOUND);
-    } else if (donation.amount < 0) {
+    } else if (donation.gross_amount < 0) {
       throw new HttpException('Invalid amount', HttpStatus.BAD_REQUEST);
     } else {
       await this.userService.update(receiver.id, {
-        balance: receiver.balance + donation.amount,
+        balance: receiver.balance + donation.gross_amount,
       });
       const milestone = await this.milestoneService.findByUser(receiver.id);
       if (milestone !== undefined) {
         await this.milestoneService.update(milestone.id, {
-          current: milestone.current + donation.amount,
+          current: milestone.current + donation.gross_amount,
         });
       }
       return {

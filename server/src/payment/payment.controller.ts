@@ -1,8 +1,47 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/createpayment.dto';
+import { Response } from 'src/types/response.type';
+import { NotificationPaymentDto } from './dto/notificationayment.dto';
+import { DonationService } from 'src/donation/donation.service';
 
 @Controller('payment')
 export class PaymentController {
+  constructor(private readonly donationService: DonationService) {}
+
+  @Post('notification')
+  async createDonation(
+    @Body() notificationPaymentDto: NotificationPaymentDto,
+  ): Promise<Response> {
+    console.log({ notificationPaymentDto });
+
+    if (notificationPaymentDto.transaction_status === 'expire') {
+      return {
+        status: HttpStatus.OK,
+        message: 'Donation deleted',
+        data: this.donationService.delete(notificationPaymentDto.order_id),
+      };
+    }
+
+    return {
+      status: HttpStatus.OK,
+      message: 'Notification received',
+      data: this.donationService.notification({
+        order_id: notificationPaymentDto.order_id,
+        gross_amount: parseInt(notificationPaymentDto.gross_amount),
+        receiverUsername: notificationPaymentDto.receiverUsername,
+        message: notificationPaymentDto.message,
+        payment_type: notificationPaymentDto.payment_type,
+        senderUsername: notificationPaymentDto.senderUsername,
+        senderEmail: notificationPaymentDto.senderEmail,
+        senderName: notificationPaymentDto.senderName,
+        transaction_status: notificationPaymentDto.transaction_status,
+        transaction_time:
+          notificationPaymentDto.settlement_time ||
+          notificationPaymentDto.transaction_time,
+      }),
+    };
+  }
+
   @Get('status/:order_id')
   async getPaymentStatus(@Param('order_id') order_id: string) {
     const hashedMidtransServerKey = btoa(`${process.env.MIDTRANS_SERVER_KEY}:`);

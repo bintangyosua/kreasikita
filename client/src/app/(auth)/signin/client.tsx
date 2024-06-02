@@ -34,7 +34,10 @@ export default function Client() {
     <form
       className="grid place-items-center w-full h-full"
       onSubmit={handleSubmit(async (d) => {
+        console.log("hello");
         const { access_token } = await signIn(d.email, d.password);
+
+        console.log({ access_token });
 
         if (!access_token) {
           toast.error("Password yang anda masukkan salah");

@@ -7,7 +7,7 @@ import { MilestoneService } from 'src/milestone/milestone.service';
 
 @Module({
   controllers: [DonationController],
-  providers: [DonationService,UsersService,MilestoneService],
+  providers: [DonationService, UsersService, MilestoneService],
   exports: [DonationService],
   imports: [PrismaModule],
 })

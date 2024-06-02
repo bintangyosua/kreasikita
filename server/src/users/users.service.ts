@@ -15,6 +15,8 @@ export class UsersService {
         pfp: true,
         category: true,
         banner: true,
+        balance: true,
+        email: true,
       },
     });
   }
@@ -39,6 +41,8 @@ export class UsersService {
         pfp: true,
         category: true,
         banner: true,
+        balance: true,
+        email: true,
       },
     });
   }

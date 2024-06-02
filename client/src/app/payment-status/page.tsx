@@ -81,11 +81,9 @@ export default async function PaymentStatusPage() {
 
   const paymentStatus = await getPaymentStatus(payment.order_id);
 
-  if (!paymentStatus) {
+  if (!paymentStatus || paymentStatus.status_code === "404") {
     return renderNoPaymentMade();
   }
-
-  console.log({ paymentStatus, session });
 
   return renderPaymentSuccessful(paymentStatus, payment);
 }

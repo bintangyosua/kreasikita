@@ -1,9 +1,12 @@
 "use client";
 
+import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
 import { createSessionPayment, SessionType } from "@/lib/session";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
+import { redirect } from "next/navigation";
+import { exit } from "process";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -26,6 +29,7 @@ export default function Payment({
   const [gross_amount, setAmount] = useState<number>();
   const [triggerred, setTriggerred] = useState(false);
   const [message, setMessage] = useState("");
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -111,11 +115,15 @@ export default function Payment({
             maxLength={125}
           />
           <Button
+            isLoading={load}
             type="submit"
             className="bg-purple text-white"
             onClick={async () => {
               setTriggerred(true);
+
+              setLoad(true);
               if (!gross_amount) {
+                setLoad(false);
                 return;
               }
 
@@ -144,20 +152,35 @@ export default function Payment({
                 email
               );
 
+              const donation = await createDonation(
+                {
+                  order_id,
+                  gross_amount,
+                  message,
+                  email,
+                  name,
+                  receiverUsername: creator.username,
+                },
+                session
+              );
+
+              console.log({ donation });
+
               window.snap.pay(res.data.token, {
-                onSuccess: () => {
-                  console.log("success");
+                onSuccess: (result: any) => {
+                  console.log("success", result);
+                  window.location.href = "/payment-status";
                 },
                 onPending: (result: any) => {
                   console.log("pending transaction", result);
+                  window.location.href = "/payment-status";
                 },
                 onError: (result: any) => {
                   console.log("error transaction", result);
+                  window.location.href = "/payment-status";
                 },
-                onClose: () => {
-                  console.log(
-                    "customer close the popup window without the finishing the payment"
-                  );
+                onClose: (result: any) => {
+                  setLoad(false);
                 },
               });
             }}>

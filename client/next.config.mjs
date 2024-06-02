@@ -5,7 +5,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: [""],
+      allowedOrigins: [],
     },
   },
 };
