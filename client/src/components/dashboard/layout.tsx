@@ -68,7 +68,9 @@ export default async function Layout({
     <div className="w-full flex flex-col md:flex-row min-h-screen pb-20">
       <div className="md:hidden">&nbsp;</div>
       <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
-        <div>asdads</div>
+        <div className="font-medium">
+          {page.charAt(0).toUpperCase() + page.slice(1)}
+        </div>
         <div className="visible md:hidden">
           <Sheet>
             <SheetTrigger>
@@ -115,8 +117,8 @@ export default async function Layout({
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col gap-5 w-full items-center md:ml-64 p-5 px-20">
-        <div className="w-full h-10 flex justify-end border-b-gray-200 border-b-2 pb-5">
+      <div className="flex flex-col gap-5 w-full items-center md:ml-64 p-5 lg:px-20 xl:px-60">
+        <div className="w-full h-10 md:flex justify-end border-b-gray-200 border-b-2 pb-5 hidden">
           <Profile session={session} />
         </div>
         {children}

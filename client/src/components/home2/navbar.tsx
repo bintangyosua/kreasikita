@@ -37,6 +37,7 @@ export default function Navbar({
   categories: { name: string; id: string }[];
 }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <header className="border-b-gray-0 border-b-[1px] py-1">
       <div className="bg-white sm:flex sm:justify-between sm:items-center gap-3 sm:py-3 ">
@@ -85,10 +86,13 @@ export default function Navbar({
             <Profile session={session} />
           ) : (
             <a href="/signin" className="flex justify-between items-center">
-              <button className="flex gap-1 items-center bg-purple px-3 py-1 rounded-full text-white w-full">
+              <Button
+                className="flex gap-1 items-center bg-purple px-3 py-1 rounded-full text-white w-full"
+                isLoading={loading}
+                onClick={() => setLoading(true)}>
                 <SlLogin />
                 <span>Sign In</span>
-              </button>
+              </Button>
             </a>
           )}
         </nav>

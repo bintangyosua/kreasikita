@@ -6,6 +6,7 @@ import Hero1 from "../svgs/hero/hero1";
 import Hero2 from "../svgs/hero/hero2";
 import Hero3 from "../svgs/hero/hero3";
 import { getSession } from "@/lib/session";
+import GoToDashboard from "./client/goto-dashboard";
 
 export default async function Hero() {
   const { isSignedIn } = await getSession();
@@ -23,15 +24,9 @@ export default async function Hero() {
           Terima dukungan. Mulai keanggotaan. Siapkan karya. Ini lebih mudah
           dari yang Anda kira.
         </p>
-        {!isSignedIn ? (
-          <a href="/signup">
-            <Button name="Mulai Halaman Ku" />
-          </a>
-        ) : (
-          <a href="/dashboard">
-            <Button name="Pergi ke Dashboard" />
-          </a>
-        )}
+
+        <GoToDashboard isSignedIn={isSignedIn} />
+
         <span>It’s free and takes less than a minute!</span>
       </div>
       <div className="hidden h-full lg:flex justify-between gap-10 items-center flex-col">
