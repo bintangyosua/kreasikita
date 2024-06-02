@@ -32,7 +32,6 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
-  console.log({ donations });
   const pages = Math.ceil(donations.length / rowsPerPage);
 
   const items = React.useMemo(() => {
@@ -92,7 +91,7 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
         <TableColumn
           key="gross_amount"
           className="text-md bg-white border-b-2 border-b-zinc-200">
-          Jumlah
+          Jumlah (IDR)
         </TableColumn>
         <TableColumn
           key="message"

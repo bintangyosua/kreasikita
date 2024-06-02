@@ -25,6 +25,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { BannerStore, PfpStore } from './helper/image.store';
 import fs = require('fs');
 import { join } from 'path';
+import { UpdateUserDto } from './dto/updateuser.dto';
 
 @Controller('users')
 export class UsersController {
@@ -110,21 +111,19 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Patch(':id')
+  @Patch(':username')
   @HttpCode(HttpStatus.OK)
   async updateUser(
-    @Param('id') id: number,
-    @Body() createUserDto: CreateUserDto,
+    @Param('username') username: string,
+    @Body() updateUserDto: UpdateUserDto,
   ): Promise<Response> {
-    if ((await this.usersService.findOne(id)) === null) {
+    if ((await this.usersService.findOneByUsername(username)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(id)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'User berhasil diupdate',
-        data: await this.usersService.update(id, createUserDto),
+        data: await this.usersService.updateByUsername(username, updateUserDto),
       };
     }
   }

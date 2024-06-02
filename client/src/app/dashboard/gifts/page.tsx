@@ -16,7 +16,7 @@ export default async function Page() {
     <Layout page="gifts">
       <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">My Gifts</h1>
       <Section>
-        {donations.data.length > 0 ? (
+        {donations.data && donations.data.length > 0 ? (
           <div>
             <GiftsTable donations={donations.data} />
           </div>

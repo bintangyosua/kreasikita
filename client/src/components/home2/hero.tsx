@@ -11,7 +11,7 @@ import GoToDashboard from "./client/goto-dashboard";
 export default async function Hero() {
   const { isSignedIn } = await getSession();
   return (
-    <div className="flex flex-row items-center justify-between">
+    <div className="flex flex-row items-center justify-center">
       <div className="hidden lg:flex">
         <Hero1 />
       </div>

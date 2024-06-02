@@ -13,34 +13,17 @@ import {
 } from "@nextui-org/react";
 
 type TSupporters = {
-  id: number;
-  total: number;
+  total_donation: number;
   email: string;
   name: string;
-  username: string;
+  senderUsername: string;
+  pfp: string | undefined;
 };
 
-const supporters: TSupporters[] = [
-  {
-    id: 1,
-    username: "danjin",
-    name: "Danjin",
-    email: "danjin@gg.com",
-    total: 10000,
-  },
-  {
-    id: 2,
-    username: "josephine",
-    name: "Josephine",
-    email: "josephind@outlook.com",
-    total: 24000,
-  },
-];
-
 export default function SupportersTable({
-  supporters_example,
+  supporters,
 }: {
-  supporters_example: TSupporters[];
+  supporters: TSupporters[];
 }) {
   if (!supporters) {
     return <p>No Data</p>;
@@ -49,7 +32,6 @@ export default function SupportersTable({
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
-  console.log({ supporters });
   const pages = Math.ceil(supporters.length / rowsPerPage);
 
   const items = React.useMemo(() => {
@@ -71,10 +53,6 @@ export default function SupportersTable({
           }`}>
           <Pagination
             color="secondary"
-            // isCompact
-            // showControls
-            // showShadow
-            // color=""
             page={page}
             total={pages}
             onChange={(page) => setPage(page)}
@@ -87,7 +65,7 @@ export default function SupportersTable({
       }}>
       <TableHeader>
         <TableColumn
-          key="username"
+          key="senderUsername"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Username
         </TableColumn>
@@ -102,17 +80,19 @@ export default function SupportersTable({
           Email
         </TableColumn>
         <TableColumn
-          key="total"
+          key="total_donation"
           className="text-md bg-white border-b-2 border-b-zinc-200">
-          Jumlah
+          Jumlah (IDR)
         </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.senderUsername}>
             {(columnKey) => (
               <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {getKeyValue(item, columnKey)}
+                {!(columnKey === "total_donation")
+                  ? getKeyValue(item, columnKey)
+                  : getKeyValue(item, columnKey)}
               </TableCell>
             )}
           </TableRow>

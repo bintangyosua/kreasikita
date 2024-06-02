@@ -43,3 +43,16 @@ export async function getDonationsByReceiver(username: string) {
 
   return await res.json();
 }
+
+export async function getDonationsBySenderUsername() {
+  const session = await getSession();
+
+  const res = await fetch(`${process.env.API_URL}/donations/groupby/sender`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
+
+  return await res.json();
+}
