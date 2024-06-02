@@ -3,16 +3,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  Autocomplete,
-  AutocompleteItem,
-  Button,
-  Input,
-} from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import { CiMail } from "react-icons/ci";
-import { postUser } from "@/lib/api/users";
 import { toast } from "react-toastify";
 import { navigate } from "./actions";
 import { signIn } from "@/lib/api/auth";
@@ -40,7 +34,6 @@ export default function Client() {
     <form
       className="grid place-items-center w-full h-full"
       onSubmit={handleSubmit(async (d) => {
-        console.log({ d });
         const { access_token } = await signIn(d.email, d.password);
 
         if (!access_token) {

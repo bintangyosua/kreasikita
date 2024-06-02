@@ -18,13 +18,24 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  User,
 } from "@nextui-org/react";
 import { deleteSession, SessionType } from "@/lib/session";
 import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
 import { IoIosLogOut, IoMdLogOut } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
+import { Badge, Button as RadixButton } from "@radix-ui/themes";
+import Profile from "./profile";
 
-export default function Navbar({ session }: { session: SessionType }) {
+export default function Navbar({
+  currentCategory,
+  session,
+  categories,
+}: {
+  currentCategory?: string;
+  session: any;
+  categories: { name: string; id: string }[];
+}) {
   const [open, setOpen] = useState(false);
   return (
     <header className="border-b-gray-0 border-b-[1px] py-1">
@@ -87,24 +98,43 @@ export default function Navbar({ session }: { session: SessionType }) {
       </div>
       <ScrollAreaLayout>
         <div className="flex flex-row gap-3 text-lg justify-center lg:justify-center pb-3">
-          <CategoryItem href="art" title="Art" />
-          <CategoryItem href="design" title="Design" />
-          <CategoryItem href="fashion" title="Fashion" />
-          <CategoryItem href="film" title="Film" />
-          <CategoryItem href="food" title="Food" />
-          <CategoryItem href="games" title="Games" />
-          <CategoryItem href="music" title="Music" />
-          <CategoryItem href="photography" title="Photography" />
-          <CategoryItem href="Technology" title="Technology" />
-          <CategoryItem href="vtuber" title="Vtuber" />
+          {categories.map((value) => (
+            <CategoryItem
+              currentCategory={currentCategory}
+              key={value.id}
+              href={value.name.toLowerCase()}
+              title={value.name}
+            />
+          ))}
         </div>
       </ScrollAreaLayout>
     </header>
   );
 }
 
-function CategoryItem({ href, title }: { href: string; title: string }) {
-  return <a href={`/category/${href}`}>{title}</a>;
+function CategoryItem({
+  href,
+  title,
+  currentCategory,
+}: {
+  href: string;
+  title: string;
+  currentCategory?: string;
+}) {
+  // return <a href={`/category/${href}`}>{title}</a>;
+  return (
+    <>
+      {href === currentCategory ? (
+        <Button variant="solid" className="bg-purple/90 text-white text-[16px]">
+          {title}
+        </Button>
+      ) : (
+        <a href={`/category/${href}`} className="items-center flex text-[16px]">
+          {title}
+        </a>
+      )}
+    </>
+  );
 }
 
 function Link({
@@ -123,49 +153,5 @@ function Link({
       <div className="mb-0.5">{icon}</div>
       <div className="block">{name}</div>
     </a>
-  );
-}
-
-function Profile({ session }: { session: SessionType }) {
-  return (
-    <Dropdown>
-      <DropdownTrigger>
-        {/* <Button variant="bordered">Open Menu</Button> */}
-        <div className="flex flex-row items-center gap-2 hover:cursor-pointer">
-          <Avatar size="md" />
-          <div>
-            <div className="block text-[15px]">{session.name}</div>
-            <div className="block text-gray-400 text-[13px]">
-              @{session.username}
-            </div>
-          </div>
-        </div>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="new">
-          <a
-            href={`/${session.username}`}
-            className="w-full flex items-center gap-2">
-            <AvatarIcon width={22} height={22} /> Profile
-          </a>
-        </DropdownItem>
-        <DropdownItem key="copy">
-          <a href={`/dashboard`} className="w-full flex items-center gap-2">
-            <DashboardIcon width={18} height={18} /> Dashboard
-          </a>
-        </DropdownItem>
-        <DropdownItem
-          key="delete"
-          className="text-danger w-full"
-          color="danger"
-          onClick={async () => {
-            await deleteSession();
-          }}>
-          <span className="flex items-center gap-2">
-            <IoIosLogOut size={22} /> <span>Sign out</span>
-          </span>
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
   );
 }

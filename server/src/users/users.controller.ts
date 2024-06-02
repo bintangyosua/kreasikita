@@ -10,6 +10,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -29,11 +30,18 @@ import { join } from 'path';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getUsers(): Promise<Response> {
+  async getUsers(@Query('username') username): Promise<Response> {
+    if (username)
+      return {
+        status: HttpStatus.OK,
+        message: 'Success fetched data',
+        data: await this.usersService.findOneByUsername(username),
+      };
+
     return {
       status: HttpStatus.OK,
       message: 'Data fetched',
@@ -59,20 +67,17 @@ export class UsersController {
     }
   }
 
-  @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Get('category/:id')
+  @Get('category/:name')
   @HttpCode(HttpStatus.OK)
-  async getUserByCategory(@Param('id') categoryId: number): Promise<Response> {
-    if ((await this.usersService.findManyByCategory(categoryId)) === null) {
+  async getUserByCategory(@Param('name') name: string): Promise<Response> {
+    if ((await this.usersService.findManyByCategoryName(name)) === null) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(categoryId)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'Data fetched',
-        data: await this.usersService.findManyByCategory(categoryId),
+        data: await this.usersService.findManyByCategoryName(name),
       };
     }
   }

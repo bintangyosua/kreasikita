@@ -1,67 +1,191 @@
 "use client";
 
-import React, { useState } from "react";
+import { createDonation } from "@/lib/api/donation";
+import { createPayment } from "@/lib/api/payment";
+import { createSessionPayment, SessionType } from "@/lib/session";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
+import { redirect } from "next/navigation";
+import { exit } from "process";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-export default function Payment() {
-  const [amount, setAmount] = useState<string>("");
+const registrationSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional().default("orangbaik@gmail.com"),
+  gross_amount: z.number().min(5000),
+});
+
+export default function Payment({
+  session,
+  creator,
+}: {
+  session: SessionType;
+  creator: any;
+}) {
+  const [name, setName] = useState(session.name);
+  const [email, setEmail] = useState(session.email);
+  const [gross_amount, setAmount] = useState<number>();
+  const [triggerred, setTriggerred] = useState(false);
+  const [message, setMessage] = useState("");
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const myMidtransClientKey = `${process.env.MIDTRANS_CLIENT_KEY}`;
+    const script = document.createElement("script");
+    script.src = snapSrcUrl;
+    script.setAttribute("data-client-key", myMidtransClientKey);
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const { handleSubmit } = useForm({
+    resolver: zodResolver(registrationSchema),
+  });
+
   return (
-    <div className="border-gray-300 border rounded-3xl p-5 flex flex-col text-black gap-5">
-      <div className="flex items-center gap-3">
-        <span className="w-1/5 text-3xl block font-bold">IDR</span>
-        <input
-          placeholder="Jumlah"
-          className="bg-blackA2 text-xl shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] py-5 px-[12px] text-[15px] leading-none text-black outline-none w-full outline-gray-300"
-          value={amount}
-          onChange={(e) => {
-            if (/^\d*$/.test(e.currentTarget.value)) {
-              setAmount(e.currentTarget.value);
+    <Card shadow="none" className="border border-gray-300">
+      <CardBody>
+        <form
+          method="POST"
+          className="flex flex-col gap-3"
+          onSubmit={handleSubmit(async (d, e) => {
+            e?.preventDefault();
+          })}>
+          <Input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nama"
+            name="name"
+            labelPlacement="inside"
+            className={`${session.isSignedIn ? "hidden" : ""}`}
+          />
+          <Input
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            placeholder="Email"
+            labelPlacement="inside"
+            className={`${session.isSignedIn ? "hidden" : ""}`}
+          />
+          <Input
+            type="number"
+            onChange={(e) => setAmount(parseInt(e.target.value))}
+            name="gross_amount"
+            placeholder="000,00"
+            labelPlacement="outside"
+            isInvalid={triggerred && !gross_amount}
+            errorMessage="Nominal harus diisi"
+            value={gross_amount?.toString()}
+            startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">IDR</span>
+              </div>
             }
-          }}
-          style={{
-            appearance: "textfield",
-            WebkitAppearance: "none",
-            margin: "none",
-            MozAppearance: "none",
-          }}
-          pattern="[0-9]*"
-          type="text"
-          id="firstName"
-        />
-      </div>
-      <div className="flex items-center gap-3 h-fit">
-        <button
-          value={10000}
-          className="rounded-xl bg-[#5CCCC6] p-2 w-full text-xl font-bold text-center hover:bg-[#55B6B3] cursor-pointer"
-          onClick={(e) => setAmount(e.currentTarget.value)}>
-          10K
-        </button>
-        <button
-          value={25000}
-          onClick={(e) => setAmount(e.currentTarget.value)}
-          className="rounded-xl bg-[#5CCCC6] p-2 w-full text-xl font-bold text-center hover:bg-[#55B6B3] cursor-pointer">
-          25K
-        </button>
-        <button
-          value={50000}
-          onClick={(e) => setAmount(e.currentTarget.value)}
-          className="rounded-xl bg-[#5CCCC6] p-2 w-full text-xl font-bold text-center hover:bg-[#55B6B3] cursor-pointer">
-          50K
-        </button>
-        <button
-          value={100000}
-          onClick={(e) => setAmount(e.currentTarget.value)}
-          className="rounded-xl bg-[#5CCCC6] p-2 w-full text-xl font-bold text-center hover:bg-[#55B6B3] cursor-pointer">
-          100K
-        </button>
-      </div>
-      <textarea
-        placeholder="Pesan kamu"
-        className="inline-flex h-32 appearance-none items-center justify-center rounded-[4px] py-[12px] px-[12px] text-[15px]text-black outline-none w-full outline-gray-300 "
-        required
-      />
-      <button className=" w-full text-violet11 shadow-blackA4 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-[#5CCCC6] px-[15px] font-medium leading-none mt-[10px] border py-5 hover:bg-[#55B6B3]">
-        Donasi
-      </button>
-    </div>
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 xl:grid-cols-4 gap-2">
+            <Button
+              size="sm"
+              className="bg-gray-300"
+              onClick={() => setAmount(10000)}>
+              10k
+            </Button>
+            <Button size="sm" onClick={() => setAmount(25000)}>
+              25k
+            </Button>
+            <Button size="sm" onClick={() => setAmount(50000)}>
+              50k
+            </Button>
+            <Button size="sm" onClick={() => setAmount(100000)}>
+              100k
+            </Button>
+          </div>
+          <Textarea
+            maxRows={3}
+            onChange={(e) => setMessage(e.target.value)}
+            minRows={2}
+            placeholder="Masukkan pesan"
+            maxLength={125}
+          />
+          <Button
+            isLoading={load}
+            type="submit"
+            className="bg-purple text-white"
+            onClick={async () => {
+              setTriggerred(true);
+
+              setLoad(true);
+              if (!gross_amount) {
+                setLoad(false);
+                return;
+              }
+
+              const order_id = `${creator.username}-${Math.random()
+                .toString(36)
+                .slice(2)}`;
+              const res = await createPayment({
+                order_id,
+                gross_amount: gross_amount!,
+                name: name === "" ? "Orang baik" : name,
+                email,
+                item_details: {
+                  id: creator.username,
+                  name: creator.name,
+                  category: creator.category.name,
+                  url: `${process.env.BASE_URL}/${creator.username}`,
+                  price: gross_amount,
+                  quantity: 1,
+                },
+              });
+
+              await createSessionPayment(
+                order_id,
+                creator.username,
+                name,
+                email
+              );
+
+              const donation = await createDonation(
+                {
+                  order_id,
+                  gross_amount,
+                  message,
+                  email,
+                  name,
+                  receiverUsername: creator.username,
+                },
+                session
+              );
+
+              window.snap.pay(res.data.token, {
+                onSuccess: (result: any) => {
+                  console.log("success", result);
+                  window.location.href = "/payment-status";
+                },
+                onPending: (result: any) => {
+                  console.log("pending transaction", result);
+                  window.location.href = "/payment-status";
+                },
+                onError: (result: any) => {
+                  console.log("error transaction", result);
+                  window.location.href = "/payment-status";
+                },
+                onClose: (result: any) => {
+                  setLoad(false);
+                },
+              });
+            }}>
+            Berikan Dukungan
+          </Button>
+        </form>
+      </CardBody>
+    </Card>
   );
 }

@@ -16,6 +16,7 @@ import { postUser } from "@/lib/api/users";
 import { toast } from "react-toastify";
 import { navigate } from "./actions";
 import { signIn } from "@/lib/api/auth";
+import { setSession } from "@/lib/session";
 
 const registrationSchema = z.object({
   name: z.string().min(5),
@@ -61,8 +62,7 @@ export default function Client({
             getValues("password")
           );
 
-          console.log(access_token);
-          localStorage.setItem("access_token", access_token);
+          await setSession(access_token);
           navigate();
         }
       })}>

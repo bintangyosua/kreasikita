@@ -10,6 +10,12 @@ export class CategoryService {
     return this.prisma.category.findMany();
   }
 
+  async findOneByName(name: string) {
+    return this.prisma.category.findMany({
+      where: { name },
+    });
+  }
+
   async findOne(id: number) {
     return this.prisma.category.findUnique({
       where: { id: parseInt(id.toString()) },

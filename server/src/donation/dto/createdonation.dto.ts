@@ -2,15 +2,19 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateDonationDto {
   @IsNotEmpty()
+  order_id: string;
+
+  @IsNotEmpty()
   @IsNumber()
   amount: number;
 
   @IsNumber()
   senderId?: number;
 
-  @IsNotEmpty()
+  senderEmail: string;
+
   @IsString()
-  senderName: string;
+  senderName?: string;
 
   @IsNotEmpty()
   @IsNumber()

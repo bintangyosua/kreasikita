@@ -1,10 +1,14 @@
+"use server";
+
 import React from "react";
 import Button from "../button/button";
 import Hero1 from "../svgs/hero/hero1";
 import Hero2 from "../svgs/hero/hero2";
 import Hero3 from "../svgs/hero/hero3";
+import { getSession } from "@/lib/session";
 
-export default function Hero() {
+export default async function Hero() {
+  const { isSignedIn } = await getSession();
   return (
     <div className="flex flex-row items-center justify-between">
       <div className="hidden lg:flex">
@@ -19,7 +23,15 @@ export default function Hero() {
           Terima dukungan. Mulai keanggotaan. Siapkan karya. Ini lebih mudah
           dari yang Anda kira.
         </p>
-        <Button name="Mulai Halaman Ku" />
+        {!isSignedIn ? (
+          <a href="/signup">
+            <Button name="Mulai Halaman Ku" />
+          </a>
+        ) : (
+          <a href="/dashboard">
+            <Button name="Pergi ke Dashboard" />
+          </a>
+        )}
         <span>It’s free and takes less than a minute!</span>
       </div>
       <div className="hidden h-full lg:flex justify-between gap-10 items-center flex-col">
