@@ -42,9 +42,7 @@ export default async function Page() {
           </div>
 
           {donations.data.length > 0 ? (
-            <div>
-              <SupportersTable supporters={donations.data} />
-            </div>
+            <SupportersTable supporters={donations.data} />
           ) : (
             <Code color="danger" className="h-10 flex items-center">
               Belum ada dukungan yang diterima

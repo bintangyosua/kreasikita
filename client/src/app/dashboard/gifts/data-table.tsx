@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -29,12 +29,12 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
     return <p>No Data</p>;
   }
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
   const rowsPerPage = 10;
 
   const pages = Math.ceil(donations.length / rowsPerPage);
 
-  const items = React.useMemo(() => {
+  const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
