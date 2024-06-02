@@ -25,9 +25,14 @@ type TDonation = {
 };
 
 export default function GiftsTable({ donations }: { donations: TDonation[] }) {
-  const [page, setPage] = React.useState(1);
-  const rowsPerPage = 4;
+  if (!donations) {
+    return <p>No Data</p>;
+  }
 
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 10;
+
+  console.log({ donations });
   const pages = Math.ceil(donations.length / rowsPerPage);
 
   const items = React.useMemo(() => {
@@ -43,8 +48,12 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
       aria-label="Example table with client side pagination"
       className="overflow-hidden"
       bottomContent={
-        <div className="flex w-full justify-center">
+        <div
+          className={`flex w-full justify-center ${
+            pages <= 1 ? "hidden" : ""
+          }`}>
           <Pagination
+            color="secondary"
             // isCompact
             // showControls
             // showShadow
@@ -56,25 +65,38 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
         </div>
       }
       classNames={{
-        wrapper: "min-h-[222px] overflow-auto p-0",
+        wrapper:
+          "min-h-[222px] overflow-auto overflow-y-hidden p-0 rounded-none",
       }}>
       <TableHeader>
-        <TableColumn key="transaction_time" className="text-md py-4">
+        <TableColumn
+          key="transaction_time"
+          className="text-md py-4 bg-white border-b-2 border-b-zinc-200">
           Waktu
         </TableColumn>
-        <TableColumn key="senderUsername" className="text-md">
+        <TableColumn
+          key="senderUsername"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Username
         </TableColumn>
-        <TableColumn key="senderName" className="text-md">
+        <TableColumn
+          key="senderName"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Nama
         </TableColumn>
-        <TableColumn key="senderEmail" className="text-md">
+        <TableColumn
+          key="senderEmail"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Email
         </TableColumn>
-        <TableColumn key="gross_amount" className="text-md">
+        <TableColumn
+          key="gross_amount"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Jumlah
         </TableColumn>
-        <TableColumn key="message" className="text-md">
+        <TableColumn
+          key="message"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
           Pesan
         </TableColumn>
       </TableHeader>
@@ -82,7 +104,7 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
         {(item) => (
           <TableRow key={item.order_id}>
             {(columnKey) => (
-              <TableCell className="py-4">
+              <TableCell className="py-3 border-b-1 border-b-gray-200">
                 {getKeyValue(item, columnKey)}
               </TableCell>
             )}

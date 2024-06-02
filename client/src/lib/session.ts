@@ -41,9 +41,7 @@ export async function setSession(access_token: string) {
   await session.save();
 }
 
-export async function getSession(): Promise<
-  Omit<SessionType, "order_id" | "creator_username">
-> {
+export async function getSession() {
   const session = await getIronSession<SessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita",
@@ -60,6 +58,8 @@ export async function getSession(): Promise<
     id: session.id || 0,
     access_token: session.access_token || "",
     isSignedIn: session.isSignedIn || false,
+    order_id: "",
+    creator_username: "",
   };
 }
 

@@ -1,3 +1,5 @@
+"use server";
+
 import React from "react";
 import {
   Sheet,
@@ -16,6 +18,9 @@ import GiftIcon from "../svgs/GiftIcon";
 import SettingIcon from "../svgs/SettingIcon";
 import Dollar from "../svgs/Dollar";
 import NextUIProvider from "../providers/nextui";
+import { Divider } from "@nextui-org/react";
+import Profile from "../home2/profile";
+import { getSession } from "@/lib/session";
 
 const navs = [
   {
@@ -50,15 +55,17 @@ const navs = [
   },
 ];
 
-export default function Layout({
+export default async function Layout({
   children,
   page,
 }: {
   children: React.ReactNode;
   page: string;
 }) {
+  const session = await getSession();
+
   return (
-    <div className="w-full flex flex-col md:flex-row bg-gray-200 min-h-screen pb-20">
+    <div className="w-full flex flex-col md:flex-row min-h-screen pb-20">
       <div className="md:hidden">&nbsp;</div>
       <div className="flex flex-row justify-between px-8 py-2 bg-white rounded-full mx-3 h-12 items-center md:hidden">
         <div>asdads</div>
@@ -80,24 +87,25 @@ export default function Layout({
         </div>
       </div>
       {/* Sidebar */}
-      <nav className="bg-white w-72 hidden md:flex md:flex-col px-6 py-5 gap-3 h-full left-0 top-0 overflow-x-hidden fixed z-10">
+      <nav className="bg-white w-64 hidden md:flex md:flex-col px-6 py-5 gap-3 h-full left-0 top-0 overflow-x-hidden fixed z-10 border-r-2 border-gray-200">
         <a className="flex items-center mb-10" href="/">
-          <KreasiKita size={48} color="black" />
-          <h1 className="text-3xl font-bold font-['Poppins'] ml-1">
+          <KreasiKita size={35} color="black" />
+          <h1 className="text-xl font-bold font-['Poppins'] ml-1">
             KREASIKITA
           </h1>
         </a>
-        <ul className="space-y-5">
+        <Divider />
+        <ul className="space-y-4">
           {navs.map((navItem) => (
             <li key={navItem.id}>
               <a
-                className={`flex items-center gap-3 text-[20px] ${
-                  navItem.id === page ? "bg-gray-200 rounded-xl" : ""
+                className={`flex items-center gap-3 text-xl ${
+                  navItem.id === page ? "bg-gray-200 p-1 rounded-xl" : ""
                 }`}
                 href={`/dashboard/${navItem.link}`}>
                 <navItem.icon
                   color={navItem.id === page ? "purple" : "black"}
-                  size={35}
+                  size={25}
                 />
                 {navItem.name}
               </a>
@@ -107,7 +115,10 @@ export default function Layout({
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col gap-5 px-3 w-full mt-16 items-center md:ml-72">
+      <div className="flex flex-col gap-5 w-full items-center md:ml-64 p-5 px-20">
+        <div className="w-full h-10 flex justify-end border-b-gray-200 border-b-2 pb-5">
+          <Profile session={session} />
+        </div>
         {children}
       </div>
     </div>
