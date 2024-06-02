@@ -11,6 +11,12 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
+
 const registrationSchema = z.object({
   name: z.string().optional(),
   email: z.string().email().optional().default("orangbaik@gmail.com"),
