@@ -18,6 +18,8 @@ export default function Profile({ user }: { user: any }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  console.log({ user });
+
   const {
     register,
     handleSubmit,

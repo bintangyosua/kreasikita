@@ -24,14 +24,16 @@ const registrationSchema = z.object({
 });
 
 export default function Payment({
-  session,
+  profile,
   creator,
+  session,
 }: {
-  session: SessionType;
+  profile: any;
   creator: any;
+  session: SessionType;
 }) {
-  const [name, setName] = useState(session.name);
-  const [email, setEmail] = useState(session.email);
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState(profile.email);
   const [gross_amount, setAmount] = useState<number>();
   const [triggerred, setTriggerred] = useState(false);
   const [message, setMessage] = useState("");

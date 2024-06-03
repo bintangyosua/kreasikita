@@ -11,7 +11,6 @@ import Password from "./password";
 export default async function Page() {
   const session = await getSession();
   let user = await getProfile(session.access_token);
-  user = user.data;
   return (
     <Layout page="settings">
       <Section>

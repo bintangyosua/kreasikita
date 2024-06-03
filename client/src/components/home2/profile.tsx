@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 export default function Profile({ profile }: { profile: any }) {
   return (
     <Dropdown>
-      <DropdownTrigger>
+      <DropdownTrigger className="h-fit">
         {/* <Button variant="bordered">Open Menu</Button> */}
         <User
           className="hover:cursor-pointer"
@@ -27,28 +27,28 @@ export default function Profile({ profile }: { profile: any }) {
           }}
         />
       </DropdownTrigger>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="new">
+      <DropdownMenu aria-label="Static Actions" className="p-1">
+        <DropdownItem key="new" className="p-0">
           <a
             href={`/${profile.username}`}
-            className="w-full flex items-center gap-2">
+            className="w-full flex items-center gap-2 p-2">
             <AvatarIcon width={22} height={22} /> Profile
           </a>
         </DropdownItem>
-        <DropdownItem key="copy">
-          <a href={`/dashboard`} className="w-full flex items-center gap-2">
+        <DropdownItem key="copy" className="p-0">
+          <a href={`/dashboard`} className="w-full flex items-center gap-2 p-2">
             <DashboardIcon width={18} height={18} /> Dashboard
           </a>
         </DropdownItem>
         <DropdownItem
           key="delete"
-          className="text-danger w-full"
+          className="text-danger w-full p-0"
           color="danger"
           onClick={async () => {
             await deleteSession();
             toast.error("Berhasil sign out");
           }}>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 p-2">
             <IoIosLogOut size={22} /> <span>Sign out</span>
           </span>
         </DropdownItem>

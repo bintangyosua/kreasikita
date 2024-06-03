@@ -39,7 +39,8 @@ export async function getProfile(access_token: string) {
     },
   });
 
-  return await res.json();
+  const data = await res.json();
+  return data.data;
 }
 
 export async function getUserByUsername(username: string) {
@@ -55,7 +56,8 @@ export async function updateUserByUsername({
   description: string;
 }) {
   const session = await getSession();
-  const res = await fetch(`${process.env.API_URL}/users/${session.username}`, {
+  const profile = await getProfile(session.access_token);
+  const res = await fetch(`${process.env.API_URL}/users/${profile.username}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

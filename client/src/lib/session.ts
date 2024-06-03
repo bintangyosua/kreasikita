@@ -66,9 +66,9 @@ export async function createSessionPayment(
   name: string,
   email: string
 ) {
-  const session = await getIronSession<SessionType>(cookies(), {
+  const session = await getIronSession<PaymentSessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
-    cookieName: "kreasikita",
+    cookieName: "kreasikita_payment",
   });
 
   session.order_id = order_id;
@@ -80,7 +80,7 @@ export async function createSessionPayment(
 }
 
 export async function getSessionPayment(): Promise<PaymentSessionType> {
-  const session = await getIronSession<SessionType>(cookies(), {
+  const session = await getIronSession<PaymentSessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita",
   });

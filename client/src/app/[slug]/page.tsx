@@ -2,12 +2,11 @@
 
 import HomeLayout from "@/components/layouts/home-layout";
 import Payment from "@/components/profile/payment";
-import { getUserByUsername } from "@/lib/api/users";
+import { getProfile, getUserByUsername } from "@/lib/api/users";
 import { getSession } from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import React from "react";
-import { navigate } from "../(auth)/signin/actions";
 import {
   Button,
   Card,
@@ -19,8 +18,9 @@ import {
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const user = await getUserByUsername(params.slug);
-
   const session = await getSession();
+
+  const profile = await getProfile(session.access_token);
 
   if (!user.data) {
     notFound();
@@ -70,10 +70,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div className="flex flex-col md:w-2/5 gap-5">
           {/* Payment */}
-          <Payment
-            session={JSON.parse(JSON.stringify(session))}
-            creator={user.data}
-          />
+          <Payment profile={profile} creator={user.data} session={session} />
         </div>
       </main>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
