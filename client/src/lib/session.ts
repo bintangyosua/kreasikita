@@ -14,9 +14,6 @@ export type SessionType = {
 
 export type PaymentSessionType = {
   order_id: string;
-  creator_username: string;
-  name: string;
-  email: string;
 };
 
 export async function setSession(access_token: string) {
@@ -60,21 +57,13 @@ export async function deleteSession() {
   session.destroy();
 }
 
-export async function createSessionPayment(
-  order_id: string,
-  creator_username: string,
-  name: string,
-  email: string
-) {
+export async function createSessionPayment(order_id: string) {
   const session = await getIronSession<PaymentSessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita_payment",
   });
 
   session.order_id = order_id;
-  session.creator_username = creator_username;
-  session.name = name;
-  session.email = email;
 
   await session.save();
 }
@@ -82,13 +71,10 @@ export async function createSessionPayment(
 export async function getSessionPayment(): Promise<PaymentSessionType> {
   const session = await getIronSession<PaymentSessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
-    cookieName: "kreasikita",
+    cookieName: "kreasikita_payment",
   });
 
   return {
     order_id: session.order_id,
-    creator_username: session.creator_username || "anonymous",
-    name: session.name || "",
-    email: session.email || "",
   };
 }

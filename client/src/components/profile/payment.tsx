@@ -155,14 +155,9 @@ export default function Payment({
                 },
               });
 
-              await createSessionPayment(
-                order_id,
-                creator.username,
-                name,
-                email
-              );
+              await createSessionPayment(order_id);
 
-              const donation = await createDonation(
+              await createDonation(
                 {
                   order_id,
                   gross_amount,
@@ -189,6 +184,7 @@ export default function Payment({
                 },
                 onClose: (result: any) => {
                   setLoad(false);
+                  window.location.href = "/payment-status";
                 },
               });
             }}>

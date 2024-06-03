@@ -31,6 +31,10 @@ export class DonationService {
     return this.prisma.donation.findMany({
       where: {
         receiverUsername: receiverUsername,
+        transaction_status: 'settlement',
+      },
+      orderBy: {
+        transaction_time: 'desc',
       },
     });
   }
@@ -81,6 +85,7 @@ export class DonationService {
       },
       where: {
         receiverUsername,
+        transaction_status: 'settlement',
       },
     });
   }
