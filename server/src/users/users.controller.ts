@@ -136,7 +136,6 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
     @Req() req,
   ): Promise<Response> {
-    console.log({ updateUserDto, req: req.user });
     if (
       (await this.usersService.findOneByUsername(req.user.username)) === null
     ) {
