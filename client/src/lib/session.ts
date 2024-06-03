@@ -27,12 +27,8 @@ export async function setSession(access_token: string) {
 
   let user = await getProfile(access_token);
 
-  console.log({ user });
-
   session.access_token = access_token;
   session.isSignedIn = true;
-
-  console.log({ session });
 
   await session.save();
 }

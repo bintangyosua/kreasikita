@@ -55,7 +55,6 @@ export async function updateUserByUsername({
   description: string;
 }) {
   const session = await getSession();
-  console.log({ access_token: session.access_token });
   const res = await fetch(`${process.env.API_URL}/users/${session.username}`, {
     method: "PATCH",
     headers: {

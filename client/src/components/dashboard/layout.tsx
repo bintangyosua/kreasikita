@@ -66,8 +66,6 @@ export default async function Layout({
   const session = await getSession();
   const profile = await getProfile(session.access_token);
 
-  console.log({ profile });
-
   return (
     <div className="w-full flex flex-col md:flex-row min-h-screen pb-20">
       <div className="md:hidden">&nbsp;</div>
