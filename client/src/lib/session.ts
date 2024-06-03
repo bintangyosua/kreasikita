@@ -2,15 +2,12 @@
 
 import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
-import { getUser } from "./api/users";
+import { getProfile, getUser } from "./api/users";
+import { signIn } from "./api/auth";
 
 export type SessionType = {
   access_token: string;
   isSignedIn: boolean;
-  id: number;
-  email: string;
-  username: string;
-  name: string;
   order_id: string;
   creator_username: string;
 };
@@ -28,15 +25,14 @@ export async function setSession(access_token: string) {
     cookieName: "kreasikita",
   });
 
-  const user = await getUser(access_token);
+  let user = await getProfile(access_token);
+
+  console.log({ user });
 
   session.access_token = access_token;
   session.isSignedIn = true;
 
-  session.email = user.email;
-  session.id = user.sub;
-  session.username = user.username;
-  session.name = user.name;
+  console.log({ session });
 
   await session.save();
 }
@@ -52,11 +48,7 @@ export async function getSession() {
   }
 
   return {
-    name: session.name || "",
-    username: session.username || "",
-    email: session.email || "",
-    id: session.id || 0,
-    access_token: session.access_token || "",
+    access_token: session.access_token,
     isSignedIn: session.isSignedIn || false,
     order_id: "",
     creator_username: "",

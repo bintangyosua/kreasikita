@@ -21,6 +21,7 @@ import NextUIProvider from "../providers/nextui";
 import { Divider } from "@nextui-org/react";
 import Profile from "../home2/profile";
 import { getSession } from "@/lib/session";
+import { getProfile } from "@/lib/api/users";
 
 const navs = [
   {
@@ -63,6 +64,9 @@ export default async function Layout({
   page: string;
 }) {
   const session = await getSession();
+  const profile = await getProfile(session.access_token);
+
+  console.log({ profile });
 
   return (
     <div className="w-full flex flex-col md:flex-row min-h-screen pb-20">
@@ -119,7 +123,7 @@ export default async function Layout({
       {/* Main Content */}
       <div className="flex flex-col gap-5 w-full items-center md:ml-64 p-5 lg:px-20 xl:px-60">
         <div className="w-full h-10 md:flex justify-end border-b-gray-200 border-b-2 pb-5 hidden">
-          <Profile session={session} />
+          <Profile profile={profile.data} />
         </div>
         {children}
       </div>

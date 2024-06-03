@@ -14,7 +14,7 @@ export class DonationService {
   async findOne(id: number) {
     return this.prisma.donation.findUnique({
       where: {
-        id: parseInt(id.toString()),
+        id: id,
       },
     });
   }
@@ -70,31 +70,15 @@ export class DonationService {
     });
   }
 
-  async findDonationsBySender() {
-    // return this.prisma.donation.groupBy({
-    //   by: ['senderUsername'],
-    //   orderBy: { gross_amount: 'desc' },
-    //   _sum: {
-    //     gross_amount: true,
-    //   },
-    // });
-
-    return this.prisma.$queryRaw(Prisma.sql`
-SELECT 
-    donation.senderUsername, 
-    SUM(donation.gross_amount) AS total_donation,
-    user.name,
-    user.email,
-    user.pfp
-FROM 
-    donation
-JOIN 
-    user 
-ON 
-    donation.senderUsername = user.username
-GROUP BY 
-    donation.senderUsername, 
-    user.name;
-`);
+  async findDonationsByReceiver(receiverUsername: string) {
+    return this.prisma.donation.groupBy({
+      by: ['senderUsername'],
+      _sum: {
+        gross_amount: true,
+      },
+      where: {
+        receiverUsername,
+      },
+    });
   }
 }

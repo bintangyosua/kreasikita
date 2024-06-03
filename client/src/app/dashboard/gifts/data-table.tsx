@@ -10,6 +10,7 @@ import {
   TableCell,
   Pagination,
   getKeyValue,
+  Avatar,
 } from "@nextui-org/react";
 
 type TDonation = {
@@ -22,6 +23,7 @@ type TDonation = {
   message?: string;
   receiverUsername: string;
   transaction_status: string;
+  pfp: string;
 };
 
 export default function GiftsTable({ donations }: { donations: TDonation[] }) {
@@ -103,8 +105,22 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
         {(item) => (
           <TableRow key={item.order_id}>
             {(columnKey) => (
+              // <TableCell className="py-3 border-b-1 border-b-gray-200">
+              //   {getKeyValue(item, columnKey)}
+              // </TableCell>
               <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {getKeyValue(item, columnKey)}
+                {columnKey === "username" ? (
+                  <div className="flex items-center gap-2">
+                    {item.pfp ? (
+                      <Avatar src={item.pfp} size="sm" />
+                    ) : (
+                      <Avatar size="sm" />
+                    )}
+                    {getKeyValue(item, columnKey)}
+                  </div>
+                ) : (
+                  <>{getKeyValue(item, columnKey)}</>
+                )}
               </TableCell>
             )}
           </TableRow>

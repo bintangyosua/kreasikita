@@ -13,15 +13,15 @@ import React from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 
-export default function Profile({ session }: { session: SessionType }) {
+export default function Profile({ profile }: { profile: any }) {
   return (
     <Dropdown>
       <DropdownTrigger>
         {/* <Button variant="bordered">Open Menu</Button> */}
         <User
           className="hover:cursor-pointer"
-          name={session.name}
-          description={`@${session.username}`}
+          name={profile.name}
+          description={`@${profile.username}`}
           avatarProps={{
             src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
           }}
@@ -30,7 +30,7 @@ export default function Profile({ session }: { session: SessionType }) {
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="new">
           <a
-            href={`/${session.username}`}
+            href={`/${profile.username}`}
             className="w-full flex items-center gap-2">
             <AvatarIcon width={22} height={22} /> Profile
           </a>
