@@ -7,7 +7,6 @@ import {
   HttpStatus,
   Param,
   Post,
-  Query,
   UseGuards,
 } from '@nestjs/common';
 import { DonationService } from './donation.service';

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/createpayment.dto';
 import { Response } from 'src/types/response.type';
-import { NotificationPaymentDto } from './dto/notificationayment.dto';
+import { NotificationPaymentDto } from './dto/notificationpayment.dto';
 import { DonationService } from 'src/donation/donation.service';
 
 @Controller('payment')

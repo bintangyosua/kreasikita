@@ -16,6 +16,9 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreatePayoutDto } from './dto/createpayout.dto';
 import { UsersService } from 'src/users/users.service';
+import { Roles } from 'src/auth/role/roles.decorator';
+import { Role } from 'src/auth/role/roles.enum';
+import { RolesGuard } from 'src/auth/role/roles.guard';
 
 class PayoutStatus {
   status: string;
@@ -27,11 +30,13 @@ export class PayoutController {
     private readonly userService: UsersService,
   ) {}
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @ApiBearerAuth()
+  @Roles(Role.admin)
   @Get()
   @HttpCode(HttpStatus.OK)
   async getPayout(): Promise<Response> {
+    
     return {
       status: HttpStatus.OK,
       message: 'Data Fetched',

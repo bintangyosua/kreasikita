@@ -21,6 +21,7 @@ model User {
   categoryId        Int?
   description       String?      @db.MediumText
   balance           Int          @default(0)
+  role              Role         @default(client)
   category          Category?    @relation(fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
   donationsSent     Donation[]   @relation("DonationSender")
@@ -28,6 +29,11 @@ model User {
   milestones        Milestones[] @relation("MilestonesUser")
 }
 
+
+enum Role {
+  client
+  admin
+}
 model Category {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(100)

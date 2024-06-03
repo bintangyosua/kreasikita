@@ -1,6 +1,4 @@
 import {
-  BadRequestException,
-  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -28,6 +26,7 @@ export class AuthService {
       email: user.email,
       username: user.username,
       name: user.name,
+      role: user.role,
     };
     return {
       access_token: await this.jwtService.signAsync(payload),
@@ -50,6 +49,7 @@ export class AuthService {
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: temp, ...newUser } = user;
     return newUser;
   }
