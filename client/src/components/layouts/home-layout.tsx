@@ -18,6 +18,7 @@ export default async function HomeLayout({
   const categories = await getCategories();
   if (session.isSignedIn) {
     const profile = await getProfile(session.access_token);
+    console.log({ profile });
 
     return (
       <div className="container mx-auto min-h-screen flex flex-col justify-between">

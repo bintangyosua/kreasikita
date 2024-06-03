@@ -87,8 +87,8 @@ export async function getSessionPayment(): Promise<PaymentSessionType> {
 
   return {
     order_id: session.order_id,
-    creator_username: session.creator_username,
-    name: session.name,
-    email: session.email,
+    creator_username: session.creator_username || "anonymous",
+    name: session.name || "",
+    email: session.email || "",
   };
 }

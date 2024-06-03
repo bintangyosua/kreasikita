@@ -14,7 +14,7 @@ export async function createDonation(data: any, session: SessionType) {
       body: JSON.stringify({
         order_id: data.order_id,
         gross_amount: data.gross_amount,
-        senderUsername: profile.username || "anonymous",
+        senderUsername: profile?.username || "anonymous",
         receiverUsername: data.receiverUsername,
         message: data.message,
         senderEmail: data.email,

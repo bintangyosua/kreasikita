@@ -28,12 +28,12 @@ export default function Payment({
   creator,
   session,
 }: {
-  profile: any;
+  profile?: any;
   creator: any;
   session: SessionType;
 }) {
-  const [name, setName] = useState(profile.name);
-  const [email, setEmail] = useState(profile.email);
+  const [name, setName] = useState(profile?.name || "");
+  const [email, setEmail] = useState(profile?.email || "");
   const [gross_amount, setAmount] = useState<number>();
   const [triggerred, setTriggerred] = useState(false);
   const [message, setMessage] = useState("");
