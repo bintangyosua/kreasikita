@@ -11,10 +11,11 @@ import { toast } from "react-toastify";
 import { navigate } from "./actions";
 import { signIn } from "@/lib/api/auth";
 import { setSession } from "@/lib/session";
+import { access } from "fs";
 
 const registrationSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string().min(5),
 });
 
 export default function Client() {

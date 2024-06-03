@@ -34,6 +34,13 @@ export class UsersService {
       where: {
         username,
       },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     let { password, ...newUser } = user;
     return newUser;

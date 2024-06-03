@@ -11,6 +11,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -52,21 +53,39 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Get(':id')
+  @Get('profile')
   @HttpCode(HttpStatus.OK)
-  async getUserById(@Param('id') id: number): Promise<Response> {
-    if ((await this.usersService.findOne(id)) === null) {
+  async getUserProfileByUsername(@Req() req): Promise<Response> {
+    if (
+      (await this.usersService.findOneByUsername(req.user.username)) === null
+    ) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(id)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'Data fetched',
-        data: await this.usersService.findOne(id),
+        data: await this.usersService.findOneByUsername(req.user.username),
       };
     }
   }
+
+  // @UseGuards(AuthGuard)
+  // @ApiBearerAuth()
+  // @Get(':id')
+  // @HttpCode(HttpStatus.OK)
+  // async getUserById(@Param('id') id: number): Promise<Response> {
+  //   if ((await this.usersService.findOne(id)) === null) {
+  //     throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+  //   } else if (isNaN(id)) {
+  //     throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
+  //   } else {
+  //     return {
+  //       status: HttpStatus.OK,
+  //       message: 'Data fetched',
+  //       data: await this.usersService.findOne(id),
+  //     };
+  //   }
+  // }
 
   @ApiBearerAuth()
   @Get('category/:name')
@@ -114,16 +133,22 @@ export class UsersController {
   @Patch(':username')
   @HttpCode(HttpStatus.OK)
   async updateUser(
-    @Param('username') username: string,
     @Body() updateUserDto: UpdateUserDto,
+    @Req() req,
   ): Promise<Response> {
-    if ((await this.usersService.findOneByUsername(username)) === null) {
+    console.log({ updateUserDto, req: req.user });
+    if (
+      (await this.usersService.findOneByUsername(req.user.username)) === null
+    ) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
     } else {
       return {
         status: HttpStatus.OK,
         message: 'User berhasil diupdate',
-        data: await this.usersService.updateByUsername(username, updateUserDto),
+        data: await this.usersService.updateByUsername(
+          req.user.username,
+          updateUserDto,
+        ),
       };
     }
   }

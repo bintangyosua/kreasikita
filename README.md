@@ -1,6 +1,10 @@
-# Kreasi Kita
+<h1 style="text-align: center;">KreasiKita</h1>
 
-Website Kreasi Kita adalah platform untuk mendukung kreator dan program sosial. Pengguna dapat memberikan donasi, mendukung crowdfunding, dan menjadi member untuk kreator favorit mereka. Pengguna juga dapat berdonasi untuk program sosial, volunteer, dan membantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
+Website Kreasi Kita adalah platform untuk mendukung kreator. Pengguna dapat memberikan donasi untuk kreator favorit mereka.
+
+![Snapshot](./public/snapshot.png)
+
+embantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
 
 ## Technologies
 
@@ -14,25 +18,49 @@ Website Kreasi Kita adalah platform untuk mendukung kreator dan program sosial. 
 	<img width="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png" alt="MySQL" title="MySQL"/>
 </div>
 
+## Deploy KreasiKita di Local Environment
+
+Karena website KreasiKita terdiri dari dua environment yang berbeda, kita perlu menjalankan dua aplilkasi yang berbeda pula.
+
+### Clone
+
+1. Clone Project `git clone https://github.com/bintangyosua/kreasikita.git`
+2. Membuat database di MySQL bernama `kreasikita`.
+
+### Menjalankan Server
+
+1. Ketikkan perintah `cd server` untuk berpindah ke direktori server
+2. Edit filei `.env.example`, ubah nama file menjadi `.env` dan token Midtrans anda
+3. Lalu, ketik `npm install`
+4. Setelah itu, ketik `npx prisma migrate deploy`
+5. Ketikkan `npm prisma db seed` untuk mengenerate kategori dan default user
+6. Lalu, langkah untuk menjalankan server backend yaitu dengan mengetik perintah `npm run build && npm run start:prod`
+
+### Menjalankan Client
+
+1. Ketikkan perintah `cd client` untuk berpindah ke direktori client
+2. Edit filei `.env.example`, ubah nama file menjadi `.env` dan token Midtrans anda
+3. Lalu, ketik `npm install`
+4. Setelah itu, ketikkan `npm run build`
+5. Selanjutnya, ketik perintah `npm run start` untuk menjalankan client,
+
 ## Spesifikasi
 
 ### Daftar User
 
 - Admin
 - Kreator
-- Sosial
 
 ## Roadmap
 
-Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
+Daftar fitur yang dikerjakan beserta progres yang telah dikerjakan
 
 ### M1 Setup Website
 
 - [x] Setup client dan server
 - [x] Membuat UI/UX halaman utama
 - [x] Slicing UI/UX halaman utama ke Client
-- [ ] Membuat proses logika bisnis di Server (autentikasi dan manajemen user)
-- Nantinya, user dapat memilih akun tersebut berupa kreator atau program sosial
+- [x] Membuat proses logika bisnis di Server (autentikasi dan manajemen user)
 
 ### M2 Fitur Kreator
 
@@ -46,11 +74,4 @@ Daftar fitur yang kita kerjakan beserta progres yang telah dikerjakan
 
 ### M4 Payment Gateway
 
-- [ ] Metode Pembayaran
-
-## Referensi Belajar
-
-- Dokumentasi Resmi Next [Next Docs](https://nextjs.org/docs)
-- Belajar Next App Directory [Tutorial Next JS Bahasa Indonesia By VIP CODE STUDIO](https://www.youtube.com/playlist?list=PLmF_zPV9ZcP2aYRuoEsMla5gqNjxP-V20)
-- Dokumentasi Resmi Nestjs [Nestjs Docs](https://docs.nestjs.com/)
-- Belajar Nestjs [Tutorial NestJS Dasar (Bahasa Indonesia) by Programmer Zaman Now](https://www.youtube.com/watch?v=BXTEwuoDkDQ&t=10247s&pp=ygUPbmVzdGpzIHR1dG9yaWFs)
+- [x] Metode Pembayaran

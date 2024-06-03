@@ -38,7 +38,7 @@ model Donation {
   id                 Int      @id @default(autoincrement())
   order_id           String   @unique
   gross_amount       Int      @default(0)
-  senderUsername     String?  @db.VarChar(50)
+  senderUsername     String?  @db.VarChar(50) @default("anonymous")
   senderEmail        String?
   senderName         String   @default("Orang Baik")
   senderId           Int?

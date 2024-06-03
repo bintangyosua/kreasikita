@@ -12,8 +12,9 @@ import { getDonationsBySenderUsername } from "@/lib/api/donation";
 import { Code } from "@nextui-org/react";
 
 export default async function Page() {
-  const session = await getSession();
+  // parameter of this function (receiver username aka creator)
   const donations = await getDonationsBySenderUsername();
+
   return (
     <Layout page="supporters">
       <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">
@@ -41,7 +42,7 @@ export default async function Page() {
             />
           </div>
 
-          {donations.data.length > 0 ? (
+          {donations.data && donations.data.length > 0 ? (
             <SupportersTable supporters={donations.data} />
           ) : (
             <Code color="danger" className="h-10 flex items-center">

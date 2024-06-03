@@ -3,6 +3,7 @@
 import { updateUserByUsername } from "@/lib/api/users";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -15,6 +16,9 @@ const profileSchema = z.object({
 
 export default function Profile({ user }: { user: any }) {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  console.log({ user });
 
   const {
     register,
@@ -27,7 +31,9 @@ export default function Profile({ user }: { user: any }) {
   return (
     <form
       className="md:w-1/2"
-      onSubmit={handleSubmit(async (d) => {
+      method="POST"
+      onSubmit={handleSubmit(async (d, e) => {
+        e?.preventDefault();
         setLoading(true);
 
         try {
@@ -38,6 +44,8 @@ export default function Profile({ user }: { user: any }) {
 
           toast.success("Berhasil mengubah profile");
           setLoading(false);
+
+          router.refresh();
         } catch (error) {
           console.error(error);
         }

@@ -2,7 +2,7 @@
 
 import Layout from "@/components/dashboard/layout";
 import Section from "@/components/dashboard/section";
-import { getUser, getUserByUsername } from "@/lib/api/users";
+import { getProfile, getUser, getUserByUsername } from "@/lib/api/users";
 import { getSession } from "@/lib/session";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import ProfileSettings from "./profile";
@@ -10,7 +10,7 @@ import Password from "./password";
 
 export default async function Page() {
   const session = await getSession();
-  let user = await getUserByUsername(session.username);
+  let user = await getProfile(session.access_token);
   user = user.data;
   return (
     <Layout page="settings">

@@ -10,13 +10,15 @@ import {
   TableCell,
   Pagination,
   getKeyValue,
+  Avatar,
 } from "@nextui-org/react";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 type TSupporters = {
-  total_donation: number;
+  total: number;
   email: string;
   name: string;
-  senderUsername: string;
+  username: string;
   pfp: string | undefined;
 };
 
@@ -65,7 +67,7 @@ export default function SupportersTable({
       }}>
       <TableHeader>
         <TableColumn
-          key="senderUsername"
+          key="username"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Username
         </TableColumn>
@@ -80,19 +82,28 @@ export default function SupportersTable({
           Email
         </TableColumn>
         <TableColumn
-          key="total_donation"
+          key="total"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Jumlah (IDR)
         </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
-          <TableRow key={item.senderUsername}>
+          <TableRow key={item.username}>
             {(columnKey) => (
               <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {!(columnKey === "total_donation")
-                  ? getKeyValue(item, columnKey)
-                  : getKeyValue(item, columnKey)}
+                {columnKey === "username" ? (
+                  <div className="flex items-center gap-2">
+                    {item.pfp ? (
+                      <Avatar src={item.pfp} size="md" />
+                    ) : (
+                      <Avatar size="sm" />
+                    )}
+                    {getKeyValue(item, columnKey)}
+                  </div>
+                ) : (
+                  <>{getKeyValue(item, columnKey)}</>
+                )}
               </TableCell>
             )}
           </TableRow>
