@@ -15,16 +15,17 @@ import {
   Divider,
   Image,
 } from "@nextui-org/react";
+import { TProfile } from "@/types/profile";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const user = await getUserByUsername(params.slug);
   const session = await getSession();
 
-  const profile = await getProfile(session.access_token);
-
   if (!user.data) {
     notFound();
   }
+
+  const profile: TProfile = await getProfile(session.access_token);
 
   return (
     <HomeLayout>
@@ -70,11 +71,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div className="flex flex-col md:w-2/5 gap-5">
           {/* Payment */}
-          {profile ? (
-            <Payment profile={profile} creator={user.data} session={session} />
-          ) : (
-            <Payment creator={user.data} session={session} />
+          {profile && (
+            <Payment session={session} profile={profile} creator={user.data} />
           )}
+          {!profile && <Payment session={session} creator={user.data} />}
         </div>
       </main>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

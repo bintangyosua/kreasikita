@@ -49,23 +49,26 @@ export class DonationService {
     });
   }
 
-  async notification(data: Prisma.DonationCreateInput) {
+  async notification(
+    data: Prisma.DonationUpdateInput,
+    newData: Prisma.DonationCreateInput,
+  ) {
     return this.prisma.donation.upsert({
-      where: { order_id: data.order_id },
+      where: { order_id: newData.order_id },
       update: {
         payment_type: data.payment_type,
         transaction_status: data.transaction_status,
-        transaction_time: new Date(data.transaction_time),
+        transaction_time: newData.transaction_time,
       },
       create: {
-        order_id: data.order_id,
-        gross_amount: data.gross_amount,
+        order_id: newData.order_id,
+        gross_amount: newData.gross_amount,
         transaction_status: 'pending',
-        senderUsername: data.senderUsername,
-        senderEmail: data.senderEmail,
-        senderName: data.senderName,
-        receiverUsername: data.receiverUsername,
-        message: data.message,
+        senderUsername: newData.sender.connect.username,
+        senderEmail: newData.senderEmail,
+        senderName: newData.senderName,
+        receiverUsername: newData.receiver.connect.username,
+        message: newData.message,
       },
     });
   }

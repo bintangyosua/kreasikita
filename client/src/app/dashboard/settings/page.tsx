@@ -7,10 +7,11 @@ import { getSession } from "@/lib/session";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import ProfileSettings from "./profile";
 import Password from "./password";
+import { TProfile } from "@/types/profile";
 
 export default async function Page() {
   const session = await getSession();
-  let user = await getProfile(session.access_token);
+  let user: TProfile = await getProfile(session.access_token);
   return (
     <Layout page="settings">
       <Section>

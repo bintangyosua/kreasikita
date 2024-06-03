@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteSession, SessionType } from "@/lib/session";
+import { TProfile } from "@/types/profile";
 import {
   Dropdown,
   DropdownItem,
@@ -13,14 +14,14 @@ import React from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 
-export default function Profile({ profile }: { profile: any }) {
+export default function Profile({ profile }: { profile: TProfile }) {
   return (
     <Dropdown>
       <DropdownTrigger className="h-fit">
         {/* <Button variant="bordered">Open Menu</Button> */}
         <User
           className="hover:cursor-pointer"
-          name={profile.name}
+          name={profile?.name}
           description={`@${profile.username}`}
           avatarProps={{
             src: "https://i.pravatar.cc/150?u=a04258114e29026702d",

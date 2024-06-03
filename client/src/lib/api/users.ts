@@ -1,5 +1,6 @@
 "use server";
 
+import { TProfile } from "@/types/profile";
 import { getSession, setSession } from "../session";
 
 export async function postUser(
@@ -31,15 +32,15 @@ export async function getUser(access_token: string) {
   return await res.json();
 }
 
-export async function getProfile(access_token: string) {
+export async function getProfile(access_token: string): Promise<TProfile> {
   const res = await fetch(`${process.env.API_URL}/users/profile`, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${access_token}`,
     },
   });
 
   const data = await res.json();
+  console.log({ data });
   return data.data;
 }
 

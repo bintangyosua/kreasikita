@@ -48,8 +48,8 @@ model Donation {
   transaction_status String   @default("pending")
   message            String?  @db.Text
   transaction_time   DateTime @default(now())
-  receiver           User?    @relation("DonationReceiver", fields: [receiverId], references: [id])
-  sender             User?    @relation("DonationSender", fields: [senderId], references: [id])
+  receiver           User?    @relation("DonationReceiver", fields: [receiverUsername], references: [username])
+  sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username])
 }
 
 model Milestones {

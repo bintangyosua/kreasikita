@@ -3,6 +3,7 @@
 import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
 import { createSessionPayment, SessionType } from "@/lib/session";
+import { TProfile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
 import { redirect } from "next/navigation";
@@ -28,7 +29,7 @@ export default function Payment({
   creator,
   session,
 }: {
-  profile?: any;
+  profile?: TProfile;
   creator: any;
   session: SessionType;
 }) {
@@ -128,6 +129,7 @@ export default function Payment({
             className="bg-purple text-white"
             onClick={async () => {
               setTriggerred(true);
+              console.log({ gross_amount });
 
               setLoad(true);
               if (!gross_amount) {
