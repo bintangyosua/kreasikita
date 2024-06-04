@@ -124,12 +124,12 @@ function CardMessage2() {
           width={40}
         />
         <div className="flex flex-col">
-          <p className="text-md">NextUI</p>
-          <p className="text-small text-default-500">nextui.org</p>
+          <p className="text-md">Anonymous</p>
+          <p className="text-small text-default-500">anonymous</p>
         </div>
       </CardHeader>
       <CardBody>
-        <p>Make beautiful websites regardless of your design experience.</p>
+        <p>Hello there</p>
       </CardBody>
       <Divider />
     </Card>

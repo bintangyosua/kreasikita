@@ -129,7 +129,6 @@ export default function Payment({
             className="bg-purple text-white"
             onClick={async () => {
               setTriggerred(true);
-              console.log({ gross_amount });
 
               setLoad(true);
               if (!gross_amount) {

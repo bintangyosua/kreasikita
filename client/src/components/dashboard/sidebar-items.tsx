@@ -61,13 +61,13 @@ export default function SideBarItems({ page }: { page: string }) {
               <div className="h-9 rounded-lg bg-default-300"></div>
             </Skeleton>
           ) : (
-            <a
+            <Link
               href={`/dashboard/${navItem.link}`}
               onClick={() => {
                 setLoading(true);
-                setTimeout(() => {
-                  setLoading(false);
-                }, 1000);
+                // setTimeout(() => {
+                //   setLoading(false);
+                // }, 1000);
               }}
               className={`flex items-center gap-3 text-xl hover:cursor-pointer ${
                 navItem.id === page ? "bg-gray-200 p-1 rounded-xl" : ""
@@ -77,7 +77,7 @@ export default function SideBarItems({ page }: { page: string }) {
                 size={25}
               />
               {navItem.name}
-            </a>
+            </Link>
           )}
         </li>
       ))}

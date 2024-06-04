@@ -40,7 +40,6 @@ export async function getProfile(access_token: string): Promise<TProfile> {
   });
 
   const data = await res.json();
-  console.log({ data });
   return data.data;
 }
 
