@@ -22,7 +22,7 @@ const registrationSchema = z.object({
   name: z.string().min(5),
   username: z.string().min(5),
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string().min(5),
 });
 
 export default function Client({
@@ -186,7 +186,7 @@ export default function Client({
           type="submit"
           className="bg-purple text-white"
           isLoading={loading}>
-          Button
+          Daftar
         </Button>
       </div>
     </form>

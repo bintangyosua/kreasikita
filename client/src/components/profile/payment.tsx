@@ -3,6 +3,7 @@
 import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
 import { createSessionPayment, SessionType } from "@/lib/session";
+import { TProfile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
 import { redirect } from "next/navigation";
@@ -24,14 +25,16 @@ const registrationSchema = z.object({
 });
 
 export default function Payment({
-  session,
+  profile,
   creator,
+  session,
 }: {
-  session: SessionType;
+  profile?: TProfile;
   creator: any;
+  session: SessionType;
 }) {
-  const [name, setName] = useState(session.name);
-  const [email, setEmail] = useState(session.email);
+  const [name, setName] = useState(profile?.name || "");
+  const [email, setEmail] = useState(profile?.email || "");
   const [gross_amount, setAmount] = useState<number>();
   const [triggerred, setTriggerred] = useState(false);
   const [message, setMessage] = useState("");
@@ -151,14 +154,9 @@ export default function Payment({
                 },
               });
 
-              await createSessionPayment(
-                order_id,
-                creator.username,
-                name,
-                email
-              );
+              await createSessionPayment(order_id);
 
-              const donation = await createDonation(
+              await createDonation(
                 {
                   order_id,
                   gross_amount,
@@ -185,6 +183,7 @@ export default function Payment({
                 },
                 onClose: (result: any) => {
                   setLoad(false);
+                  window.location.href = "/payment-status";
                 },
               });
             }}>

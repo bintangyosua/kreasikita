@@ -13,7 +13,7 @@ export class DonationService {
   async findOne(id: number) {
     return this.prisma.donation.findUnique({
       where: {
-        id: parseInt(id.toString()),
+        id: id,
       },
     });
   }
@@ -30,6 +30,10 @@ export class DonationService {
     return this.prisma.donation.findMany({
       where: {
         receiverUsername: receiverUsername,
+        transaction_status: 'settlement',
+      },
+      orderBy: {
+        transaction_time: 'desc',
       },
     });
   }
@@ -48,52 +52,40 @@ export class DonationService {
     });
   }
 
-  async notification(data: Prisma.DonationCreateInput) {
+  async notification(
+    data: Prisma.DonationUpdateInput,
+    newData: Prisma.DonationCreateInput,
+  ) {
     return this.prisma.donation.upsert({
-      where: { order_id: data.order_id },
+      where: { order_id: newData.order_id },
       update: {
         payment_type: data.payment_type,
         transaction_status: data.transaction_status,
-        transaction_time: new Date(data.transaction_time),
+        transaction_time: newData.transaction_time,
       },
       create: {
-        order_id: data.order_id,
-        gross_amount: data.gross_amount,
+        order_id: newData.order_id,
+        gross_amount: newData.gross_amount,
         transaction_status: 'pending',
-        senderUsername: data.senderUsername,
-        senderEmail: data.senderEmail,
-        senderName: data.senderName,
-        receiverUsername: data.receiverUsername,
-        message: data.message,
+        senderUsername: newData.sender.connect.username,
+        senderEmail: newData.senderEmail,
+        senderName: newData.senderName,
+        receiverUsername: newData.receiver.connect.username,
+        message: newData.message,
       },
     });
   }
 
-  async findDonationsBySender() {
-    // return this.prisma.donation.groupBy({
-    //   by: ['senderUsername'],
-    //   orderBy: { gross_amount: 'desc' },
-    //   _sum: {
-    //     gross_amount: true,
-    //   },
-    // });
-
-    return this.prisma.$queryRaw(Prisma.sql`
-SELECT 
-    donation.senderUsername, 
-    SUM(donation.gross_amount) AS total_donation,
-    user.name,
-    user.email,
-    user.pfp
-FROM 
-    donation
-JOIN 
-    user 
-ON 
-    donation.senderUsername = user.username
-GROUP BY 
-    donation.senderUsername, 
-    user.name;
-`);
+  async findDonationsByReceiver(receiverUsername: string) {
+    return this.prisma.donation.groupBy({
+      by: ['senderUsername'],
+      _sum: {
+        gross_amount: true,
+      },
+      where: {
+        receiverUsername,
+        transaction_status: 'settlement',
+      },
+    });
   }
 }

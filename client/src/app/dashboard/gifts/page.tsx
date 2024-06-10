@@ -10,7 +10,7 @@ import { Code } from "@nextui-org/react";
 
 export default async function Page() {
   const session = await getSession();
-  const donations = await getDonationsByReceiver(session.username);
+  const donations = await getDonationsByReceiver();
 
   return (
     <Layout page="gifts">

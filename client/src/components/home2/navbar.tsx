@@ -11,33 +11,24 @@ import { SlLogin } from "react-icons/sl";
 import ScrollAreaLayout from "../radix/scroll-area";
 import SearchButton from "../button/search-button";
 import KreasiKita from "../svgs/KreasiKita";
-import {
-  Avatar,
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  User,
-} from "@nextui-org/react";
-import { deleteSession, SessionType } from "@/lib/session";
-import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
-import { IoIosLogOut, IoMdLogOut } from "react-icons/io";
-import { CiLogout } from "react-icons/ci";
-import { Badge, Button as RadixButton } from "@radix-ui/themes";
+import { Button } from "@nextui-org/react";
+
 import Profile from "./profile";
 
 export default function Navbar({
   currentCategory,
   session,
+  profile,
   categories,
 }: {
   currentCategory?: string;
   session: any;
+  profile?: any;
   categories: { name: string; id: string }[];
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
   return (
     <header className="border-b-gray-0 border-b-[1px] py-1">
       <div className="bg-white sm:flex sm:justify-between sm:items-center gap-3 sm:py-3 ">
@@ -83,7 +74,7 @@ export default function Navbar({
           <Link href="/category" name="Kategori" icon={<Category />} />
           <Link href="/blog" name="Blog" icon={<PiArticleMedium />} />
           {session.isSignedIn ? (
-            <Profile session={session} />
+            <Profile profile={profile} />
           ) : (
             <a href="/signin" className="flex justify-between items-center">
               <Button
@@ -101,6 +92,7 @@ export default function Navbar({
         <SearchButton />
       </div>
       <ScrollAreaLayout>
+        <></>
         <div className="flex flex-row gap-3 text-lg justify-center lg:justify-center pb-3">
           {categories.map((value) => (
             <CategoryItem

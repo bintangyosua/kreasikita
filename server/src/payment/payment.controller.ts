@@ -23,20 +23,32 @@ export class PaymentController {
     return {
       status: HttpStatus.OK,
       message: 'Notification received',
-      data: this.donationService.notification({
-        order_id: notificationPaymentDto.order_id,
-        gross_amount: parseInt(notificationPaymentDto.gross_amount),
-        receiverUsername: notificationPaymentDto.receiverUsername,
-        message: notificationPaymentDto.message,
-        payment_type: notificationPaymentDto.payment_type,
-        senderUsername: notificationPaymentDto.senderUsername,
-        senderEmail: notificationPaymentDto.senderEmail,
-        senderName: notificationPaymentDto.senderName,
-        transaction_status: notificationPaymentDto.transaction_status,
-        transaction_time:
-          notificationPaymentDto.settlement_time ||
-          notificationPaymentDto.transaction_time,
-      }),
+      data: this.donationService.notification(
+        {
+          transaction_status: notificationPaymentDto.transaction_status,
+          transaction_time:
+            notificationPaymentDto.settlement_time ||
+            notificationPaymentDto.transaction_time,
+          payment_type: notificationPaymentDto.payment_type,
+        },
+        {
+          order_id: notificationPaymentDto.order_id,
+          gross_amount: parseInt(notificationPaymentDto.gross_amount),
+          message: notificationPaymentDto.message,
+          senderEmail: notificationPaymentDto.senderEmail,
+          senderName: notificationPaymentDto.senderName,
+          sender: {
+            connect: {
+              username: notificationPaymentDto.senderUsername,
+            },
+          },
+          receiver: {
+            connect: {
+              username: notificationPaymentDto.receiverUsername,
+            },
+          },
+        },
+      ),
     };
   }
 

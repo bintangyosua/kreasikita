@@ -2,12 +2,11 @@
 
 import HomeLayout from "@/components/layouts/home-layout";
 import Payment from "@/components/profile/payment";
-import { getUserByUsername } from "@/lib/api/users";
+import { getProfile, getUserByUsername } from "@/lib/api/users";
 import { getSession } from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import React from "react";
-import { navigate } from "../(auth)/signin/actions";
 import {
   Button,
   Card,
@@ -16,15 +15,17 @@ import {
   Divider,
   Image,
 } from "@nextui-org/react";
+import { TProfile } from "@/types/profile";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const user = await getUserByUsername(params.slug);
-
   const session = await getSession();
 
   if (!user.data) {
     notFound();
   }
+
+  const profile: TProfile = await getProfile(session.access_token);
 
   return (
     <HomeLayout>
@@ -70,10 +71,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div className="flex flex-col md:w-2/5 gap-5">
           {/* Payment */}
-          <Payment
-            session={JSON.parse(JSON.stringify(session))}
-            creator={user.data}
-          />
+          {profile && (
+            <Payment session={session} profile={profile} creator={user.data} />
+          )}
+          {!profile && <Payment session={session} creator={user.data} />}
         </div>
       </main>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -123,12 +124,12 @@ function CardMessage2() {
           width={40}
         />
         <div className="flex flex-col">
-          <p className="text-md">NextUI</p>
-          <p className="text-small text-default-500">nextui.org</p>
+          <p className="text-md">Anonymous</p>
+          <p className="text-small text-default-500">anonymous</p>
         </div>
       </CardHeader>
       <CardBody>
-        <p>Make beautiful websites regardless of your design experience.</p>
+        <p>Hello there</p>
       </CardBody>
       <Divider />
     </Card>

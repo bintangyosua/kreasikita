@@ -1,8 +1,10 @@
 "use server";
 
 import { getSession, SessionType } from "../session";
+import { getProfile } from "./users";
 
 export async function createDonation(data: any, session: SessionType) {
+  const profile = await getProfile(session.access_token);
   try {
     const res = await fetch(`${process.env.API_URL}/payment/notification`, {
       method: "POST",
@@ -12,7 +14,7 @@ export async function createDonation(data: any, session: SessionType) {
       body: JSON.stringify({
         order_id: data.order_id,
         gross_amount: data.gross_amount,
-        senderUsername: session.username || "anonymous",
+        senderUsername: profile?.username || "anonymous",
         receiverUsername: data.receiverUsername,
         message: data.message,
         senderEmail: data.email,
@@ -28,18 +30,14 @@ export async function createDonation(data: any, session: SessionType) {
   }
 }
 
-export async function getDonationsByReceiver(username: string) {
+export async function getDonationsByReceiver() {
   const session = await getSession();
-
-  const res = await fetch(
-    `${process.env.API_URL}/donations/receiver/${username}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-    }
-  );
+  const res = await fetch(`${process.env.API_URL}/donations/receiver`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
 
   return await res.json();
 }

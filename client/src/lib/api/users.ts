@@ -1,6 +1,7 @@
 "use server";
 
-import { getSession } from "../session";
+import { TProfile } from "@/types/profile";
+import { getSession, setSession } from "../session";
 
 export async function postUser(
   user: any,
@@ -23,11 +24,23 @@ export async function postUser(
 export async function getUser(access_token: string) {
   const res = await fetch(`${process.env.API_URL}/auth/profile`, {
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${access_token}`,
     },
   });
 
   return await res.json();
+}
+
+export async function getProfile(access_token: string): Promise<TProfile> {
+  const res = await fetch(`${process.env.API_URL}/users/profile`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  const data = await res.json();
+  return data.data;
 }
 
 export async function getUserByUsername(username: string) {
@@ -43,7 +56,8 @@ export async function updateUserByUsername({
   description: string;
 }) {
   const session = await getSession();
-  const res = await fetch(`${process.env.API_URL}/users/${session.username}`, {
+  const profile = await getProfile(session.access_token);
+  const res = await fetch(`${process.env.API_URL}/users/${profile.username}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -55,10 +69,13 @@ export async function updateUserByUsername({
     }),
   });
 
+  await setSession(session.access_token);
+
   return await res.json();
 }
 
 export async function getUsersByCategoryName(name: string) {
+  name = name.charAt(0).toUpperCase() + name.slice(1);
   const res = await fetch(`${process.env.API_URL}/users/category/${name}`, {});
   return await res.json();
 }

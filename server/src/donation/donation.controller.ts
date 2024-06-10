@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -40,19 +41,65 @@ export class DonationController {
   @UseGuards(AuthGuard)
   @Get('groupby/sender')
   @HttpCode(HttpStatus.OK)
-  async getDonationsGroupBySender(): Promise<Response> {
+  async getDonationsGroupBySender(@Request() req): Promise<Response> {
+    const donations = await this.donationService.findDonationsByReceiver(
+      req.user.username,
+    );
+
+    const arr: {
+      username: string;
+      total: number;
+      name: string;
+      email: string;
+      pfp: string;
+    }[] = await Promise.all(
+      donations.map(async (donation) => {
+        const user = await this.userService.findOneByUsername(
+          donation.senderUsername,
+        );
+        return {
+          username: donation.senderUsername,
+          total: donation._sum.gross_amount,
+          email: user.email,
+          name: user.name,
+          pfp: user.pfp,
+        };
+      }),
+    );
+
     return {
       status: HttpStatus.OK,
       message: 'Data fetched',
-      data: await this.donationService.findDonationsBySender(),
+      data: arr,
     };
+  }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Get('receiver')
+  @HttpCode(HttpStatus.OK)
+  async getDonationsByReceiver(@Req() req): Promise<Response> {
+    if (
+      (await this.donationService.findManyByReceiver(req.user.username)) ===
+      undefined
+    ) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: await this.donationService.findManyByReceiver(req.user.username),
+      };
+    }
   }
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async getDonationById(@Param('id') id: number): Promise<Response> {
+  async getDonationById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Response> {
     if ((await this.donationService.findOne(id)) === undefined) {
       throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
     } else if (isNaN(id)) {
@@ -62,26 +109,6 @@ export class DonationController {
         status: HttpStatus.OK,
         message: 'Data fetched',
         data: await this.donationService.findOne(id),
-      };
-    }
-  }
-
-  @UseGuards(AuthGuard)
-  @ApiBearerAuth()
-  @Get('receiver/:username')
-  @HttpCode(HttpStatus.OK)
-  async getDonationsByReceiver(
-    @Param('username') username: string,
-  ): Promise<Response> {
-    if (
-      (await this.donationService.findManyByReceiver(username)) === undefined
-    ) {
-      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else {
-      return {
-        status: HttpStatus.OK,
-        message: 'Data fetched',
-        data: await this.donationService.findManyByReceiver(username),
       };
     }
   }

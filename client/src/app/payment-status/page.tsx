@@ -5,7 +5,6 @@ import {
   getSession,
   getSessionPayment,
   PaymentSessionType,
-  SessionType,
 } from "@/lib/session";
 import { CopyIcon } from "@radix-ui/react-icons";
 import { Badge, Code, DataList, Flex, IconButton } from "@radix-ui/themes";
@@ -73,7 +72,6 @@ const statuses: Statuses = {
 
 export default async function PaymentStatusPage() {
   const payment = await getSessionPayment();
-  const session = await getSession();
 
   if (!payment.order_id) {
     return renderNoPaymentMade();
@@ -141,7 +139,7 @@ function renderPaymentSuccessful(
             </Badge>
           </DataList.Value>
         </DataList.Item>
-        {payment.name && (
+        {/* {payment.name && (
           <DataList.Item>
             <DataList.Label minWidth="88px">Nama</DataList.Label>
             <DataList.Value>{payment.name}</DataList.Value>
@@ -160,7 +158,7 @@ function renderPaymentSuccessful(
         <DataList.Item>
           <DataList.Label minWidth="88px">Nama Kreator</DataList.Label>
           <DataList.Value>{payment.creator_username}</DataList.Value>
-        </DataList.Item>
+        </DataList.Item> */}
         <DataList.Item>
           <DataList.Label minWidth="88px">Nominal Dukungan</DataList.Label>
           <DataList.Value>

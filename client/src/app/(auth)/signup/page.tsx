@@ -11,7 +11,7 @@ export default async function Page() {
     <div className="container mx-auto min-h-screen flex flex-col">
       <Navbar />
       <div>
-        <Client categories={categories.data} />
+        <Client categories={categories} />
       </div>
     </div>
   );

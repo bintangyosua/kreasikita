@@ -44,7 +44,7 @@ model Donation {
   id                 Int      @id @default(autoincrement())
   order_id           String   @unique
   gross_amount       Int      @default(0)
-  senderUsername     String?  @db.VarChar(50)
+  senderUsername     String?  @db.VarChar(50) @default("anonymous")
   senderEmail        String?
   senderName         String   @default("Orang Baik")
   senderId           Int?
@@ -54,8 +54,8 @@ model Donation {
   transaction_status String   @default("pending")
   message            String?  @db.Text
   transaction_time   DateTime @default(now())
-  receiver           User?    @relation("DonationReceiver", fields: [receiverId], references: [id])
-  sender             User?    @relation("DonationSender", fields: [senderId], references: [id])
+  receiver           User?    @relation("DonationReceiver", fields: [receiverUsername], references: [username])
+  sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username])
 }
 
 model Milestones {
