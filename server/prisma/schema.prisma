@@ -24,7 +24,7 @@ model User {
   role              Role         @default(client)
   category          Category?    @relation(fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
-  donationsSent     Donation[]   @relation("DonationSender")
+  // donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
 }
@@ -56,7 +56,7 @@ model Donation {
   message            String?  @db.Text
   transaction_time   DateTime @default(now())
   receiver           User?    @relation("DonationReceiver", fields: [receiverUsername], references: [username])
-  sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username])
+  // sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username], onUpdate: Cascade)
 }
 
 model Milestones {

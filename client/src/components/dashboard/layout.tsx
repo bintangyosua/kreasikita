@@ -10,25 +10,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { RxHamburgerMenu } from "react-icons/rx";
-import KreasiKita from "../svgs/KreasiKita";
-import HomeIcon from "../svgs/HomeIcon";
-import LoveIcon from "../svgs/LoveIcon";
-import GiftIcon from "../svgs/GiftIcon";
-import SettingIcon from "../svgs/SettingIcon";
-import Dollar from "../svgs/Dollar";
-import { Divider } from "@nextui-org/react";
 import Profile from "../home2/profile";
 import { deleteValidationSession, getSession } from "@/lib/session";
 import { getProfile } from "@/lib/api/users";
-import Link from "next/link";
 import Sidebar from "./sidebar";
 
 export default async function Layout({
   children,
   page,
+  type,
 }: {
   children: React.ReactNode;
   page: string;
+  type: "dashboard" | "admin";
 }) {
   const session = await getSession();
   const profile = await getProfile(session.access_token);
@@ -63,7 +57,7 @@ export default async function Layout({
       </div>
       {/* Sidebar */}
 
-      <Sidebar page={page} />
+      <Sidebar page={page} type={type} />
 
       {/* Main Content */}
       <div className="flex flex-col gap-5 w-full items-center md:ml-64 p-5 lg:px-20 xl:px-60">

@@ -43,36 +43,34 @@ export class DonationController {
   @Get('groupby/sender')
   @HttpCode(HttpStatus.OK)
   async getDonationsGroupBySender(@Req() req): Promise<Response> {
-    const donations = await this.donationService.findDonationsByReceiver(
-      req.user.username,
-    );
+    try {
+      const donations = await this.donationService.findDonationsByReceiver(
+        req.user.username,
+      );
 
-    const arr: {
-      username: string;
-      total: number;
-      name: string;
-      email: string;
-      pfp: string;
-    }[] = await Promise.all(
-      donations.map(async (donation) => {
-        const user = await this.userService.findOneByUsername(
-          donation.senderUsername,
-        );
-        return {
-          username: donation.senderUsername,
-          total: donation._sum.gross_amount,
-          email: user.email,
-          name: user.name,
-          pfp: user.pfp,
-        };
-      }),
-    );
+      const arr = await Promise.all(
+        donations.map(async (donation) => {
+          const user = await this.userService.findOneByUsername(
+            donation.senderUsername,
+          );
+          return {
+            username: donation.senderUsername,
+            total: donation._sum?.gross_amount || 0,
+            email: user?.email || '',
+            name: user?.name || 'Anonymous',
+            pfp: user?.pfp || '',
+          };
+        }),
+      );
 
-    return {
-      status: HttpStatus.OK,
-      message: 'Data fetched',
-      data: arr,
-    };
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: arr,
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   @UseGuards(AuthGuard)

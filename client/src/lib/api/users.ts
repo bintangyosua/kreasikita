@@ -80,3 +80,19 @@ export async function getUsersByCategoryName(name: string) {
   const res = await fetch(`${process.env.API_URL}/users/category/${name}`, {});
   return await res.json();
 }
+
+export async function validateAdmin(access_token: string) {
+  try {
+    const res = await fetch(`${process.env.API_URL}/auth/validate-admin`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

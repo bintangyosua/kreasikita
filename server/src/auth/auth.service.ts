@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
@@ -26,7 +23,6 @@ export class AuthService {
       email: user.email,
       username: user.username,
       name: user.name,
-      role: user.role,
     };
     return {
       access_token: await this.jwtService.signAsync(payload),

@@ -1,3 +1,5 @@
+"use server";
+
 import Layout from "@/components/dashboard/layout";
 import Section from "@/components/dashboard/section";
 import React from "react";
@@ -8,10 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getProfile } from "@/lib/api/users";
+import { getSession } from "@/lib/session";
 
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+  const user = await getProfile(session.access_token);
+
   return (
-    <Layout page="home">
+    <Layout page="home" type="dashboard">
       <Section>
         <div className="flex flex-col gap-3 pb-10">
           <div
@@ -29,12 +36,12 @@ export default function Page() {
             </div>
             <div className="-mt-4 justify-between w-full pl-10 pr-2 hidden sm:flex">
               <div className="flex flex-col text-center">
-                <span className="font-bold text-3xl">Minuettaro</span>
-                <span className="text-gray-500">@Minuettaro</span>
+                <span className="font-bold text-3xl">{user.name}</span>
+                <span className="text-gray-500">@{user.username}</span>
               </div>
               <div className="flex flex-col">
                 <button className="rounded-full bg-red-300 px-4 py-1">
-                  Developer
+                  {user.category.name}
                 </button>
                 <span>345.000 Supporters</span>
               </div>
@@ -55,12 +62,16 @@ export default function Page() {
               </div>
             </div>
             <p className="md:mt-5 ">
-              Selamat datang di akun penuh kejutan, semoga menyenangkan dan
-              tetap gembira
+              {user.description ? user.description : "Tidak ada deskripsi"}
             </p>
             <div className="font-bold flex flex-col gap-2">
-              <h2 className="text-3xl">Pendapatan</h2>
-              <h2 className="text-4xl">IDR 10.000.000,00</h2>
+              <h2 className="text-3xl">Jumlah Dukungan</h2>
+              <h2 className="text-4xl">
+                IDR{" "}
+                {user.balance.toLocaleString("id-ID", {
+                  currency: "IDR",
+                })}
+              </h2>
             </div>
           </div>
         </div>

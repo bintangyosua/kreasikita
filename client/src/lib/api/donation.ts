@@ -2,6 +2,17 @@
 
 import { getSession, SessionType } from "../session";
 import { getProfile } from "./users";
+import { fetchAuthorized } from "./wrapper";
+
+export async function getAllDonations(access_token: string) {
+  const res = await fetchAuthorized(
+    `${process.env.API_URL}/donations`,
+    "GET",
+    access_token
+  );
+
+  return await res;
+}
 
 export async function createDonation(data: any, session: SessionType) {
   const profile = await getProfile(session.access_token);

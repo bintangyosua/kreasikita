@@ -13,7 +13,7 @@ export default async function Page() {
   const donations = await getDonationsByReceiver();
 
   return (
-    <Layout page="gifts">
+    <Layout page="gifts" type="dashboard">
       <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">My Gifts</h1>
       <Section>
         {donations.data && donations.data.length > 0 ? (

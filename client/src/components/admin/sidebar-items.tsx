@@ -17,21 +17,6 @@ export type NavType = {
   icon: any;
 };
 
-const navsAdmin: NavType[] = [
-  {
-    id: "home",
-    link: "",
-    name: "Donations",
-    icon: Dollar,
-  },
-  {
-    id: "payouts",
-    link: "payouts",
-    name: "Payouts",
-    icon: LoveIcon,
-  },
-];
-
 const navs: NavType[] = [
   {
     id: "home",
@@ -65,18 +50,11 @@ const navs: NavType[] = [
   },
 ];
 
-export default function SideBarItems({
-  page,
-  type,
-}: {
-  page: string;
-  type: "dashboard" | "admin";
-}) {
+export default function SideBarItems({ page }: { page: string }) {
   const [loading, setLoading] = useState(false);
-  let navItems = type === "admin" ? navsAdmin : navs;
   return (
     <>
-      {navItems.map((navItem) => (
+      {navs.map((navItem) => (
         <li key={navItem.id}>
           {loading ? (
             <Skeleton className="rounded-lg">
@@ -84,17 +62,12 @@ export default function SideBarItems({
             </Skeleton>
           ) : (
             <Link
-              href={`/${type === "admin" ? "admin" : "dashboard"}/${
-                navItem.link
-              }`}
+              href={`/dashboard/${navItem.link}`}
               onClick={() => {
                 setLoading(true);
-
-                if (page === navItem.id) {
-                  setTimeout(() => {
-                    setLoading(false);
-                  }, 1000); // 1000 milliseconds = 1 second
-                }
+                // setTimeout(() => {
+                //   setLoading(false);
+                // }, 1000);
               }}
               className={`flex items-center gap-3 text-xl hover:cursor-pointer ${
                 navItem.id === page ? "bg-gray-200 p-1 rounded-xl" : ""

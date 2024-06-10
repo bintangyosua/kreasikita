@@ -3,10 +3,16 @@ import { CreatePaymentDto } from './dto/createpayment.dto';
 import { Response } from 'src/types/response.type';
 import { NotificationPaymentDto } from './dto/notificationpayment.dto';
 import { DonationService } from 'src/donation/donation.service';
+import { UsersService } from 'src/users/users.service';
+import { PaymentService } from './payment.service';
 
 @Controller('payment')
 export class PaymentController {
-  constructor(private readonly donationService: DonationService) {}
+  constructor(
+    private readonly donationService: DonationService,
+    private readonly usersService: UsersService,
+    private readonly paymentService: PaymentService,
+  ) {}
 
   @Post('notification')
   async createDonation(
@@ -18,6 +24,16 @@ export class PaymentController {
         message: 'Donation deleted',
         data: this.donationService.delete(notificationPaymentDto.order_id),
       };
+    }
+
+    if (notificationPaymentDto.transaction_status === 'settlement') {
+      const receiverUsername = notificationPaymentDto.order_id.split('-')[0];
+      const balance = await this.paymentService.getBalance(receiverUsername);
+
+      await this.paymentService.updateBalance(
+        receiverUsername,
+        balance.balance + parseInt(notificationPaymentDto.gross_amount),
+      );
     }
 
     return {
@@ -37,11 +53,7 @@ export class PaymentController {
           message: notificationPaymentDto.message,
           senderEmail: notificationPaymentDto.senderEmail,
           senderName: notificationPaymentDto.senderName,
-          sender: {
-            connect: {
-              username: notificationPaymentDto.senderUsername,
-            },
-          },
+          senderUsername: notificationPaymentDto.senderUsername,
           receiver: {
             connect: {
               username: notificationPaymentDto.receiverUsername,
