@@ -4,12 +4,6 @@ ALTER TABLE `donation` DROP FOREIGN KEY `Donation_receiverId_fkey`;
 -- DropForeignKey
 ALTER TABLE `donation` DROP FOREIGN KEY `Donation_senderId_fkey`;
 
--- DropIndex
-DROP INDEX `Donation_receiverUsername_fkey` ON `donation`;
-
--- DropIndex
-DROP INDEX `Donation_senderUsername_fkey` ON `donation`;
-
 -- AlterTable
 ALTER TABLE `donation` MODIFY `senderUsername` VARCHAR(50) NULL DEFAULT 'anonymous';
 
