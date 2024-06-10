@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { DonationService } from './donation.service';
@@ -41,7 +42,7 @@ export class DonationController {
   @UseGuards(AuthGuard)
   @Get('groupby/sender')
   @HttpCode(HttpStatus.OK)
-  async getDonationsGroupBySender(@Request() req): Promise<Response> {
+  async getDonationsGroupBySender(@Req() req): Promise<Response> {
     const donations = await this.donationService.findDonationsByReceiver(
       req.user.username,
     );

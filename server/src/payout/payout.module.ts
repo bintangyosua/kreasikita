@@ -6,10 +6,14 @@ import { UsersService } from 'src/users/users.service';
 import { RolesGuard } from 'src/auth/role/roles.guard';
 
 @Module({
-  providers: [PayoutService,UsersService,{
-    provide : 'AppGuard',
-    useClass : RolesGuard
-  }],
+  providers: [
+    PayoutService,
+    UsersService,
+    {
+      provide: 'AppGuard',
+      useClass: RolesGuard,
+    },
+  ],
   controllers: [PayoutController],
   imports: [PrismaModule],
 })

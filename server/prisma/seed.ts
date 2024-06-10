@@ -66,36 +66,42 @@ async function main() {
 
   const bintang = await prisma.user.upsert({
     where: { email: 'bintang@gg.com' },
-    update: {},
+    update: {
+      password: '123456',
+    },
     create: {
       email: 'bintang@gg.com',
       username: 'bintang',
       name: 'Bintang',
-      password: '123',
+      password: '123456',
       categoryId: 1,
     },
   });
 
   const zia = await prisma.user.upsert({
     where: { email: 'zia@gg.com' },
-    update: {},
+    update: {
+      password: '123456',
+    },
     create: {
       email: 'zia@gg.com',
       username: 'zia',
       name: 'Zia',
-      password: '123',
+      password: '123456',
       categoryId: 1,
     },
   });
 
   const luthfi = await prisma.user.upsert({
     where: { email: 'luthfi@gg.com' },
-    update: {},
+    update: {
+      password: '123456',
+    },
     create: {
       email: 'luthfi@gg.com',
       username: 'luthfi',
       name: 'luthfi',
-      password: '123',
+      password: '123456',
       categoryId: 2,
     },
   });
