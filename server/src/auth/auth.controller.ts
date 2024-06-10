@@ -4,10 +4,8 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Param,
   Patch,
   Post,
-  Put,
   Request,
   UseGuards,
 } from '@nestjs/common';

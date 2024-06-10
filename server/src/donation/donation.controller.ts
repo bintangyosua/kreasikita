@@ -8,9 +8,6 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Query,
-  Req,
-  Request,
   UseGuards,
 } from '@nestjs/common';
 import { DonationService } from './donation.service';
