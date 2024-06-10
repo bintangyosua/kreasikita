@@ -16,16 +16,14 @@ export async function fetchAuthorized(
       body: JSON.stringify(body),
     });
 
-    if (res.ok) {
-      return await res.json();
-    }
+    return await res.json();
 
-    switch (res.status) {
-      case 401:
-        throw new Error("Unauthorized");
-      default:
-        throw new Error("Failed to fetch");
-    }
+    // switch (res.status) {
+    //   case 401:
+    //     throw new Error("Unauthorized");
+    //   default:
+    //     throw new Error("Failed to fetch");
+    // }
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch");

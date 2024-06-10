@@ -29,10 +29,25 @@ model User {
   milestones        Milestones[] @relation("MilestonesUser")
 }
 
-
 enum Role {
   client
   admin
+}
+
+enum Bank {
+  bca
+  bni
+  bri
+  mandiri
+  btn
+  danamon
+  bsi
+}
+
+enum PayoutStatus {
+  pending
+  approved
+  rejected
 }
 
 model Category {
@@ -72,8 +87,10 @@ model Milestones {
 model Payout {
   id          Int      @id @default(autoincrement())
   amount      Int      @default(0)
-  userId      Int
+  username    String       @unique @db.VarChar(50)
   timecreated DateTime @default(now())
-  user        User     @relation("PayoutUser", fields: [userId], references: [id])
-  status      String   @default("pending")
+  bank        Bank
+  description String?   @db.Text
+  user        User     @relation("PayoutUser", fields: [username], references: [username])
+  status      PayoutStatus   @default(pending)
 }

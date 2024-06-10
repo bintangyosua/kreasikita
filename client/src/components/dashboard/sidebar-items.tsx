@@ -52,9 +52,9 @@ const navs: NavType[] = [
     icon: GiftIcon,
   },
   {
-    id: "payout",
-    link: "payout",
-    name: "Payout",
+    id: "payouts",
+    link: "payouts",
+    name: "Payouts",
     icon: Dollar,
   },
   {

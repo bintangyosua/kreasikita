@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { PayoutService } from './payout.service';
@@ -36,7 +37,6 @@ export class PayoutController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getPayout(): Promise<Response> {
-    
     return {
       status: HttpStatus.OK,
       message: 'Data Fetched',
@@ -46,38 +46,14 @@ export class PayoutController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @Get(':id')
+  @Get('by-username')
   @HttpCode(HttpStatus.OK)
-  async getpayoutById(@Param('id') id: number): Promise<Response> {
-    if ((await this.payoutService.findOne(id)) === undefined) {
-      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(id)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
-    } else {
-      return {
-        status: HttpStatus.OK,
-        message: 'Data Fetched',
-        data: await this.payoutService.findOne(id),
-      };
-    }
-  }
-
-  @UseGuards(AuthGuard)
-  @ApiBearerAuth()
-  @Get('users/:id')
-  @HttpCode(HttpStatus.OK)
-  async getPayoutByUser(@Param('id') userId: number): Promise<Response> {
-    if ((await this.userService.findOne(userId)) === undefined) {
-      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
-    } else if (isNaN(userId)) {
-      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
-    } else {
-      return {
-        status: HttpStatus.OK,
-        message: 'Data Fetched',
-        data: await this.payoutService.findManyByUser(userId),
-      };
-    }
+  async getPayoutByUsername(@Req() req): Promise<Response> {
+    return {
+      status: HttpStatus.OK,
+      message: 'Data Fetched',
+      data: await this.payoutService.findManyByUsername(req.user.username),
+    };
   }
 
   @UseGuards(AuthGuard)
@@ -86,7 +62,7 @@ export class PayoutController {
   @HttpCode(HttpStatus.CREATED)
   async newPayout(@Body() createPayoutDto: CreatePayoutDto): Promise<Response> {
     const payout = await this.payoutService.create(createPayoutDto);
-    const user = await this.userService.findOne(payout.userId);
+    const user = await this.userService.findOneByUsername(payout.username);
     if (user.balance < payout.amount) {
       await this.payoutService.remove(payout.id);
       throw new HttpException('Saldo tidak mencukupi', HttpStatus.BAD_REQUEST);
@@ -130,7 +106,7 @@ export class PayoutController {
     @Body() status: PayoutStatus,
   ): Promise<Response> {
     const payout = await this.payoutService.findOne(id);
-    const user = await this.userService.findOne(payout.userId);
+    const user = await this.userService.findOneByUsername(payout.username);
     if (status.status === 'approved') {
       await this.userService.update(user.id, {
         balance: user.balance - payout.amount,
@@ -148,6 +124,24 @@ export class PayoutController {
       };
     } else {
       throw new HttpException('Invalid Status', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async getpayoutById(@Param('id') id: number): Promise<Response> {
+    if ((await this.payoutService.findOne(id)) === undefined) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else if (isNaN(id)) {
+      throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data Fetched',
+        data: await this.payoutService.findOne(id),
+      };
     }
   }
 }
