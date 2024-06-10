@@ -18,7 +18,7 @@ import SettingIcon from "../svgs/SettingIcon";
 import Dollar from "../svgs/Dollar";
 import { Divider } from "@nextui-org/react";
 import Profile from "../home2/profile";
-import { getSession } from "@/lib/session";
+import { deleteValidationSession, getSession } from "@/lib/session";
 import { getProfile } from "@/lib/api/users";
 import Link from "next/link";
 import Sidebar from "./sidebar";
@@ -32,6 +32,10 @@ export default async function Layout({
 }) {
   const session = await getSession();
   const profile = await getProfile(session.access_token);
+
+  if (!profile) {
+    await deleteValidationSession();
+  }
 
   return (
     <div className="w-full flex flex-col md:flex-row min-h-screen pb-20">

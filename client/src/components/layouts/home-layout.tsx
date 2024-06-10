@@ -4,8 +4,14 @@ import React from "react";
 import Navbar from "../home2/navbar";
 import Footer from "../home2/footer";
 import { getCategories } from "@/lib/api/category";
-import { getSession } from "@/lib/session";
+import {
+  deleteSession,
+  deleteValidationSession,
+  getSession,
+} from "@/lib/session";
 import { getProfile } from "@/lib/api/users";
+import { cookies } from "next/headers";
+import { useRouter } from "next/navigation";
 
 export default async function HomeLayout({
   children,
@@ -18,6 +24,10 @@ export default async function HomeLayout({
   const categories = await getCategories();
   if (session.isSignedIn) {
     const profile = await getProfile(session.access_token);
+
+    if (!profile) {
+      await deleteValidationSession();
+    }
 
     return (
       <div className="container mx-auto min-h-screen flex flex-col justify-between">

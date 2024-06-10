@@ -1,7 +1,7 @@
 "use server";
 
 import { TProfile } from "@/types/profile";
-import { getSession, setSession } from "../session";
+import { deleteSession, getSession, setSession } from "../session";
 
 export async function postUser(
   user: any,
@@ -40,6 +40,7 @@ export async function getProfile(access_token: string): Promise<TProfile> {
   });
 
   const data = await res.json();
+
   return data.data;
 }
 
