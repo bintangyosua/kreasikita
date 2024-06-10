@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Category from "../svgs/Category";
 import {
   PiArrowFatLineLeft,
@@ -14,6 +14,7 @@ import KreasiKita from "../svgs/KreasiKita";
 import { Button } from "@nextui-org/react";
 
 import Profile from "./profile";
+import { deleteSession } from "@/lib/session";
 
 export default function Navbar({
   currentCategory,

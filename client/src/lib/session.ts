@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
 import { getProfile, getUser } from "./api/users";
 import { signIn } from "./api/auth";
+import { redirect } from "next/navigation";
 
 export type SessionType = {
   access_token: string;
@@ -48,12 +49,16 @@ export async function getSession() {
   };
 }
 
+export async function deleteValidationSession() {
+  redirect("/api/auth/signout");
+}
+
 export async function deleteSession() {
   const session = await getIronSession<SessionType>(cookies(), {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita",
   });
-
+  // console.log({ session });
   session.destroy();
 }
 

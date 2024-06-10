@@ -10,7 +10,7 @@ import {
   User,
 } from "@nextui-org/react";
 import { AvatarIcon, DashboardIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 
