@@ -9,3 +9,13 @@ export async function getPayoutsByUsername(access_token: string) {
 
   return res;
 }
+
+export async function getPayoutsAdmin(access_token: string) {
+  const res = await fetchAuthorized(
+    `${process.env.API_URL}/payouts/admin`,
+    "GET",
+    access_token
+  );
+
+  return res;
+}

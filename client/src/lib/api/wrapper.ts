@@ -17,13 +17,6 @@ export async function fetchAuthorized(
     });
 
     return await res.json();
-
-    // switch (res.status) {
-    //   case 401:
-    //     throw new Error("Unauthorized");
-    //   default:
-    //     throw new Error("Failed to fetch");
-    // }
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch");

@@ -12,7 +12,6 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import PayoutsTable from "./data-table";
-import { PiBankBold, PiBankFill } from "react-icons/pi";
 import { getBanks } from "@/lib/api/bank";
 import Client from "./client";
 
@@ -20,13 +19,6 @@ export default async function Page() {
   const session = await getSession();
   const payouts = await getPayoutsByUsername(session.access_token);
   const banks = await getBanks();
-  console.log({ banks: banks.data });
-  const animals = [
-    {
-      bank_code: "bca",
-      bank_name: "BCA",
-    },
-  ];
   return (
     <Layout page="payouts" type="dashboard">
       <Section>
