@@ -10,6 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  client
+  admin
+}
+
+// enum Bank {
+//   bca
+//   bni
+//   bri
+//   mandiri
+//   btn
+//   danamon
+//   bsi
+// }
+
+enum PayoutStatus {
+  pending
+  approved
+  rejected
+}
+
 model User {
   id                Int          @id @default(autoincrement())
   username          String       @unique @db.VarChar(50)
@@ -27,27 +48,6 @@ model User {
   // donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
-}
-
-enum Role {
-  client
-  admin
-}
-
-enum Bank {
-  bca
-  bni
-  bri
-  mandiri
-  btn
-  danamon
-  bsi
-}
-
-enum PayoutStatus {
-  pending
-  approved
-  rejected
 }
 
 model Category {
@@ -89,8 +89,15 @@ model Payout {
   amount      Int      @default(0)
   username    String       @unique @db.VarChar(50)
   timecreated DateTime @default(now())
-  bank        Bank
+  bank_code   String    @db.VarChar(20)
+  bank        Bank      @relation(fields: [bank_code], references: [bank_code])
   description String?   @db.Text
   user        User     @relation("PayoutUser", fields: [username], references: [username])
   status      PayoutStatus   @default(pending)
+}
+
+model Bank {
+  bank_code String @unique @id @db.VarChar(20)
+  bank_name String
+  payout    Payout[]
 }

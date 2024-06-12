@@ -1,4 +1,3 @@
-import { Bank } from '@prisma/client';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreatePayoutDto {
@@ -7,10 +6,11 @@ export class CreatePayoutDto {
   amount: number;
 
   @IsNotEmpty()
-  bank: Bank;
+  bank_code: String;
 
   @IsNotEmpty()
   description: string;
 
   user: any;
+  bank: any;
 }

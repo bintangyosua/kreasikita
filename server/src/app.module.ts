@@ -9,6 +9,7 @@ import { DonationModule } from './donation/donation.module';
 import { PayoutModule } from './payout/payout.module';
 import { PaymentModule } from './payment/payment.module';
 import { MilestoneModule } from './milestone/milestone.module';
+import { BankModule } from './bank/bank.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MilestoneModule } from './milestone/milestone.module';
     PayoutModule,
     MilestoneModule,
     PaymentModule,
+    BankModule,
   ],
   controllers: [AppController],
   providers: [AppService],
