@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -20,6 +21,7 @@ import { UsersService } from 'src/users/users.service';
 import { Roles } from 'src/auth/role/roles.decorator';
 import { Role } from 'src/auth/role/roles.enum';
 import { RolesGuard } from 'src/auth/role/roles.guard';
+import { Request } from 'express';
 
 class PayoutStatus {
   status: string;
@@ -30,6 +32,46 @@ export class PayoutController {
     private readonly payoutService: PayoutService,
     private readonly userService: UsersService,
   ) {}
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Roles(Role.admin)
+  @Post('status/rejected/:id')
+  @HttpCode(HttpStatus.CREATED)
+  async setStatusRejected(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Response> {
+    return {
+      status: HttpStatus.CREATED,
+      message: 'Payout Status Updated to approved',
+      data: await this.payoutService.setStatus(id, 'rejected'),
+    };
+  }
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Roles(Role.admin)
+  @Post('status/approved/:id')
+  @HttpCode(HttpStatus.CREATED)
+  async setStatusApproved(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() setStatusDto,
+  ): Promise<Response> {
+    const payout = await this.payoutService.findOne(id);
+    const user = await this.userService.findOneByUsername(payout.username);
+    const userBalance = await this.userService.updateByUsername(
+      payout.username,
+      {
+        balance: user.balance - payout.amount,
+      },
+    );
+    console.log({ userBalance });
+    return {
+      status: HttpStatus.CREATED,
+      message: 'Payout Status Updated to approved',
+      data: await this.payoutService.setStatus(id, 'approved'),
+    };
+  }
 
   @UseGuards(AuthGuard, RolesGuard)
   @ApiBearerAuth()
@@ -48,7 +90,7 @@ export class PayoutController {
   @ApiBearerAuth()
   @Get('by-username')
   @HttpCode(HttpStatus.OK)
-  async getPayoutByUsername(@Req() req): Promise<Response> {
+  async getPayoutsByUsername(@Req() req): Promise<Response> {
     return {
       status: HttpStatus.OK,
       message: 'Data Fetched',
@@ -56,13 +98,36 @@ export class PayoutController {
     };
   }
 
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @Roles(Role.admin)
+  @Get('admin')
+  @HttpCode(HttpStatus.OK)
+  async getPayoutsAdmin(@Req() req): Promise<Response> {
+    return {
+      status: HttpStatus.OK,
+      message: 'Data Fetched',
+      data: await this.payoutService.findAll(),
+    };
+  }
+
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async newPayout(@Body() createPayoutDto: CreatePayoutDto): Promise<Response> {
-    const payout = await this.payoutService.create(createPayoutDto);
-    const user = await this.userService.findOneByUsername(payout.username);
+  async newPayout(
+    @Req() req,
+    @Body() createPayoutDto: CreatePayoutDto,
+  ): Promise<Response> {
+    const { bank_code, ...payoutDtoWithoutBankCode } = createPayoutDto;
+
+    console.log(req.user);
+    const payout = await this.payoutService.create({
+      user: { connect: { username: req.user.username } },
+      bank: { connect: { bank_code: createPayoutDto.bank_code } },
+      ...payoutDtoWithoutBankCode,
+    });
+    const user = await this.userService.findOneByUsername(req.user.username);
     if (user.balance < payout.amount) {
       await this.payoutService.remove(payout.id);
       throw new HttpException('Saldo tidak mencukupi', HttpStatus.BAD_REQUEST);

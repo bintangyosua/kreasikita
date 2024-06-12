@@ -33,3 +33,23 @@ export async function createPayout(access_token: string, data: TCreatePayout) {
 
   return res;
 }
+
+export async function setStatusApproved(access_token: string, id: number) {
+  const res = await fetchAuthorized(
+    `${process.env.API_URL}/payouts/status/approved/${id}`,
+    "POST",
+    access_token
+  );
+
+  return res;
+}
+
+export async function setStatusRejected(access_token: string, id: number) {
+  const res = await fetchAuthorized(
+    `${process.env.API_URL}/payouts/status/rejected/${id}`,
+    "POST",
+    access_token
+  );
+
+  return res;
+}

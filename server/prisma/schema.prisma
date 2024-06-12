@@ -87,9 +87,10 @@ model Milestones {
 model Payout {
   id          Int      @id @default(autoincrement())
   amount      Int      @default(0)
-  username    String       @unique @db.VarChar(50)
+  username    String   @db.VarChar(50)
   timecreated DateTime @default(now())
   bank_code   String    @db.VarChar(20)
+  card_number String
   bank        Bank      @relation(fields: [bank_code], references: [bank_code])
   description String?   @db.Text
   user        User     @relation("PayoutUser", fields: [username], references: [username])

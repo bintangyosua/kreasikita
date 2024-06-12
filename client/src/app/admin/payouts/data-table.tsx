@@ -15,6 +15,10 @@ import {
   Button,
 } from "@nextui-org/react";
 import { format } from "date-fns";
+import { setStatusApproved, setStatusRejected } from "@/lib/api/payout";
+import { SessionType } from "@/lib/session";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type TPayout = {
   id: number;
@@ -25,9 +29,16 @@ type TPayout = {
   status: "pending" | "approved" | "rejected";
 };
 
-export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
+export default function PayoutsTable({
+  payouts,
+  session,
+}: {
+  payouts: TPayout[];
+  session: SessionType;
+}) {
   const [page, setPage] = useState(1);
   const rowsPerPage = 10;
+  const router = useRouter();
 
   const pages = Math.ceil(payouts.length / rowsPerPage);
 
@@ -132,12 +143,46 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
                     <div className="flex items-center gap-2">
                       <Button
                         color="success"
+                        isDisabled={
+                          getKeyValue(item, "status") === "pending"
+                            ? false
+                            : true
+                        }
+                        onClick={async (e) => {
+                          try {
+                            await setStatusApproved(
+                              session.access_token,
+                              item.id
+                            );
+                            toast.success("Berhasil approve payout");
+                            router.refresh();
+                          } catch (error) {
+                            toast.error("Something went wrong");
+                          }
+                        }}
                         size="sm"
                         className="min-w-16 p-1 rounded-md text-center h-6">
                         Approve
                       </Button>
                       <Button
                         color="danger"
+                        isDisabled={
+                          getKeyValue(item, "status") === "pending"
+                            ? false
+                            : true
+                        }
+                        onClick={async (e) => {
+                          try {
+                            await setStatusRejected(
+                              session.access_token,
+                              item.id
+                            );
+                            toast.warning("Berhasil reject payout");
+                            router.refresh();
+                          } catch (error) {
+                            toast.error("Something went wrong");
+                          }
+                        }}
                         size="sm"
                         className="min-w-16 p-1 rounded-md text-center h-6">
                         Reject
@@ -160,7 +205,7 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
                         <Chip
                           size="sm"
                           color="success"
-                          className="bg-green-600 text-white text-center align-middle">
+                          className="text-center align-middle">
                           Approved
                         </Chip>
                       )}

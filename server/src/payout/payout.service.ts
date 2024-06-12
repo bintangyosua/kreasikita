@@ -1,10 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
+import { PayoutStatus, Prisma } from '@prisma/client';
 
 @Injectable()
 export class PayoutService {
   constructor(private prisma: PrismaService) {}
+
+  async setStatus(id: number, status: PayoutStatus) {
+    return this.prisma.payout.update({
+      where: {
+        id,
+      },
+      data: {
+        status,
+      },
+    });
+  }
 
   async findAll() {
     return this.prisma.payout.findMany();
@@ -31,7 +42,7 @@ export class PayoutService {
 
   async create(data: Prisma.PayoutCreateInput) {
     return this.prisma.payout.create({
-      data: data,
+      data,
     });
   }
 

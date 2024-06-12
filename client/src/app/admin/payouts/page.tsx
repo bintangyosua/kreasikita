@@ -26,7 +26,7 @@ export default async function Page() {
       <H1>Request Payout</H1>
       <Section>
         {payouts.data && payouts.data.length > 0 ? (
-          <PayoutsTable payouts={payouts.data} />
+          <PayoutsTable payouts={payouts.data} session={session} />
         ) : (
           <Code color="danger" className="h-10 flex items-center">
             Belum ada dukungan yang diberikan kepada kreator

@@ -1,15 +1,22 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { Optional } from '@nestjs/common';
+import { IsDate, IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreatePayoutDto {
   @IsNotEmpty()
-  @IsNumber()
   amount: number;
 
   @IsNotEmpty()
-  bank_code: String;
+  @IsDateString()
+  timecreated: Date;
 
   @IsNotEmpty()
-  description: string;
+  card_number: string;
+
+  @IsNotEmpty()
+  bank_code: string;
+
+  @Optional()
+  description?: string;
 
   user: any;
   bank: any;
