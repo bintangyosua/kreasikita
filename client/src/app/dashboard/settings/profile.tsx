@@ -40,12 +40,14 @@ export default function Profile({ user }: { user: any }) {
             description: d.description,
           });
 
+          console.log({ res });
           toast.success("Berhasil mengubah profile");
           setLoading(false);
 
           router.refresh();
         } catch (error) {
           console.error(error);
+          setLoading(false);
         }
       })}>
       <div className="p-5 gap-3 grid grid-cols-1 sm:grid-cols-3">

@@ -25,7 +25,7 @@ export default async function Page() {
         <h1 className="text-3xl w-full lg:w-3/3 xl:1/2 mx-auto mb-3">
           Request Payout
         </h1>
-        <Client banks={banks} />
+        <Client banks={banks} session={session} />
       </Section>
       <Section>
         {payouts.data && payouts.data.length > 0 ? (

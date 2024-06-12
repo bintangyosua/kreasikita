@@ -14,6 +14,7 @@ import {
   Badge,
   Chip,
 } from "@nextui-org/react";
+import { SessionType } from "@/lib/session";
 
 type TPayout = {
   id: number;
