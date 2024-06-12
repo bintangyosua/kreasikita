@@ -14,6 +14,9 @@ import { SignInDto } from './dto/signin.dto';
 import { AuthGuard } from './auth.guard';
 import { ChangePasswordDto } from './dto/changepassword.dto';
 import { Response } from 'src/types/response.type';
+import { RolesGuard } from './role/roles.guard';
+import { Roles } from './role/roles.decorator';
+import { Role } from './role/roles.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +31,20 @@ export class AuthController {
   @Get('profile')
   validate(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.admin)
+  @Get('validate-admin')
+  @HttpCode(HttpStatus.OK)
+  async validateAdmin(): Promise<Response> {
+    return {
+      status: HttpStatus.OK,
+      message: 'You are an admin',
+      data: {
+        isAdmin: true,
+      },
+    };
   }
 
   @UseGuards(AuthGuard)

@@ -160,7 +160,6 @@ export default function Client({
           isRequired
           placeholder="Choose category"
           variant="underlined"
-          // onChange={(value) => setCategoryId(value)}
           value={getValues("categoryId")}
           onSelectionChange={(id) => {
             setCategoryId(id);

@@ -13,7 +13,7 @@ export default async function Page() {
   const session = await getSession();
   let user: TProfile = await getProfile(session.access_token);
   return (
-    <Layout page="settings">
+    <Layout page="settings" type="dashboard">
       <Section>
         <div className="flex flex-col gap-3">
           <div

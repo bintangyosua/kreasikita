@@ -10,6 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  client
+  admin
+}
+
+// enum Bank {
+//   bca
+//   bni
+//   bri
+//   mandiri
+//   btn
+//   danamon
+//   bsi
+// }
+
+enum PayoutStatus {
+  pending
+  approved
+  rejected
+}
+
 model User {
   id                Int          @id @default(autoincrement())
   username          String       @unique @db.VarChar(50)
@@ -24,15 +45,9 @@ model User {
   role              Role         @default(client)
   category          Category?    @relation(fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
-  donationsSent     Donation[]   @relation("DonationSender")
+  // donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
-}
-
-
-enum Role {
-  client
-  admin
 }
 
 model Category {
@@ -56,7 +71,7 @@ model Donation {
   message            String?  @db.Text
   transaction_time   DateTime @default(now())
   receiver           User?    @relation("DonationReceiver", fields: [receiverUsername], references: [username])
-  sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username])
+  // sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username], onUpdate: Cascade)
 }
 
 model Milestones {
@@ -72,8 +87,18 @@ model Milestones {
 model Payout {
   id          Int      @id @default(autoincrement())
   amount      Int      @default(0)
-  userId      Int
+  username    String   @db.VarChar(50)
   timecreated DateTime @default(now())
-  user        User     @relation("PayoutUser", fields: [userId], references: [id])
-  status      String   @default("pending")
+  bank_code   String    @db.VarChar(20)
+  card_number String
+  bank        Bank      @relation(fields: [bank_code], references: [bank_code])
+  description String?   @db.Text
+  user        User     @relation("PayoutUser", fields: [username], references: [username])
+  status      PayoutStatus   @default(pending)
+}
+
+model Bank {
+  bank_code String @unique @id @db.VarChar(20)
+  bank_name String
+  payout    Payout[]
 }

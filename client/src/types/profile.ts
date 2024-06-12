@@ -8,4 +8,7 @@ export type TProfile = {
   banner?: string;
   username: string;
   description?: string;
+  category: {
+    name: string;
+  };
 };

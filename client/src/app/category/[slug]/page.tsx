@@ -1,3 +1,5 @@
+"use server";
+
 import HomeLayout from "@/components/layouts/home-layout";
 import { getUsersByCategoryName } from "@/lib/api/users";
 import {

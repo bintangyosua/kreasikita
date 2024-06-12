@@ -29,8 +29,19 @@ export class UsersService {
     });
   }
 
+  async findBalance(receiverUsername: string) {
+    return this.prisma.user.findFirst({
+      where: {
+        username: receiverUsername,
+      },
+      select: {
+        balance: true,
+      },
+    });
+  }
+
   async findOneByUsername(username: string) {
-    let user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findFirst({
       where: {
         username,
       },
@@ -42,8 +53,13 @@ export class UsersService {
         },
       },
     });
-    let { password, ...newUser } = user;
-    return newUser;
+
+    if (user) {
+      let { password, ...newUser } = user;
+      return newUser;
+    }
+
+    return user;
   }
 
   async findOneByEmail(email: string) {

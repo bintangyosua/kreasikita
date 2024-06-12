@@ -6,6 +6,11 @@ type category = {
   name: string;
 };
 
+type TBank = {
+  bank_code: string;
+  bank_name: string;
+};
+
 const categories: category[] = [
   {
     id: 1,
@@ -53,6 +58,25 @@ const categories: category[] = [
   },
 ];
 
+const banks: TBank[] = [
+  {
+    bank_code: 'bca',
+    bank_name: 'BCA',
+  },
+  {
+    bank_code: 'bri',
+    bank_name: 'BRI',
+  },
+  {
+    bank_code: 'bni',
+    bank_name: 'BNI',
+  },
+  {
+    bank_code: 'mandiri',
+    bank_name: 'Mandiri',
+  },
+];
+
 async function main() {
   categories.forEach(async (value) => {
     await prisma.category.upsert({
@@ -63,6 +87,31 @@ async function main() {
       },
     });
   });
+
+  banks.forEach(async (value) => {
+    await prisma.bank.upsert({
+      where: { bank_code: value.bank_code },
+      update: {},
+      create: {
+        bank_name: value.bank_name,
+        bank_code: value.bank_code,
+      },
+    });
+  });
+
+  // const anonymous = await prisma.user.upsert({
+  //   where: { email: 'anonymous@gg.com' },
+  //   update: {
+  //     password: '123456',
+  //   },
+  //   create: {
+  //     email: 'anonymous@gg.com',
+  //     username: 'anonymous',
+  //     name: 'Anonymous',
+  //     password: '123456',
+  //     categoryId: 1,
+  //   },
+  // });
 
   const bintang = await prisma.user.upsert({
     where: { email: 'bintang@gg.com' },

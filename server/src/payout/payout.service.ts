@@ -1,51 +1,65 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
+import { PayoutStatus, Prisma } from '@prisma/client';
 
 @Injectable()
 export class PayoutService {
-    constructor(private prisma : PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
-    async findAll() {
-        return this.prisma.payout.findMany();
-    }
+  async setStatus(id: number, status: PayoutStatus) {
+    return this.prisma.payout.update({
+      where: {
+        id,
+      },
+      data: {
+        status,
+      },
+    });
+  }
 
-    async findOne(id: number) {
-        return this.prisma.payout.findUnique({
-            where: {
-                id: parseInt(id.toString()),
-            },
-        });
-    }
+  async findAll() {
+    return this.prisma.payout.findMany();
+  }
 
-    async findManyByUser(userId: number) {
-        return this.prisma.payout.findMany({
-            where: {
-                userId: parseInt(userId.toString()),
-            },
-        });
-    }
+  async findOne(id: number) {
+    return this.prisma.payout.findUnique({
+      where: {
+        id: parseInt(id.toString()),
+      },
+    });
+  }
 
-    async create(data: Prisma.PayoutCreateInput) {
-        return this.prisma.payout.create({
-            data: data,
-        });
-    }
+  async findManyByUsername(username: string) {
+    return this.prisma.payout.findMany({
+      where: {
+        username,
+      },
+      orderBy: {
+        timecreated: 'desc',
+      },
+    });
+  }
 
-    async update(id: number, data: Prisma.PayoutUpdateInput) {
-        return this.prisma.payout.update({
-            where: {
-                id: parseInt(id.toString()),
-            },
-            data: data,
-        });
-    }
+  async create(data: Prisma.PayoutCreateInput) {
+    return this.prisma.payout.create({
+      data,
+    });
+  }
 
-    async remove(id: number) {
-        return this.prisma.payout.delete({
-            where: {
-                id: parseInt(id.toString()),
-            },
-        });
-    }
+  async update(id: number, data: Prisma.PayoutUpdateInput) {
+    return this.prisma.payout.update({
+      where: {
+        id: parseInt(id.toString()),
+      },
+      data: data,
+    });
+  }
+
+  async remove(id: number) {
+    return this.prisma.payout.delete({
+      where: {
+        id: parseInt(id.toString()),
+      },
+    });
+  }
 }

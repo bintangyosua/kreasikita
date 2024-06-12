@@ -7,7 +7,11 @@ export class DonationService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.donation.findMany();
+    return this.prisma.donation.findMany({
+      where: {
+        transaction_status: 'settlement',
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -67,7 +71,7 @@ export class DonationService {
         order_id: newData.order_id,
         gross_amount: newData.gross_amount,
         transaction_status: 'pending',
-        senderUsername: newData.sender.connect.username,
+        senderUsername: newData.senderUsername,
         senderEmail: newData.senderEmail,
         senderName: newData.senderName,
         receiverUsername: newData.receiver.connect.username,

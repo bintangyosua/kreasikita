@@ -58,7 +58,6 @@ export async function deleteSession() {
     password: "vsfZ7hdzLUmW6feA46Bi1jBZp1pHRgx6",
     cookieName: "kreasikita",
   });
-  // console.log({ session });
   session.destroy();
 }
 
