@@ -118,8 +118,6 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
               }
 
               if (columnKey === "username") {
-                console.log(<Avatar size="md" />);
-
                 return (
                   <TableCell className="py-3 border-b-1 border-b-gray-200 flex items-center gap-2">
                     <Avatar size="sm" />
