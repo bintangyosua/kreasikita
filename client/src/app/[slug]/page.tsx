@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <main className="flex flex-col md:flex-row gap-6">
         <ProfileSection user={user} profile={profile} session={session} />
         <div className="flex flex-col md:w-2/5 gap-5">
-          <Payment session={session} creator={user.data} />
+          <Payment session={session} creator={user.data} profile={profile} />
         </div>
       </main>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -94,27 +94,32 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
 };
 
 function CardMessage2({ donation }: { donation: TDonation }) {
+  console.log({ donation });
   return (
     <Card className="w-full p-0 border border-gray-300" shadow="none">
       <CardHeader className="flex gap-3">
-        <Image
+        <Avatar
           alt="Avatar"
-          height={40}
+          // height={40}
           radius="full"
-          src={donation.pfp ? donation.pfp : "https://i.pravatar.cc/300"}
-          width={40}
+          src={
+            donation.sender.pfp
+              ? `${process.env.API_URL}/public/${donation.sender.pfp}`
+              : "/images/anon.png"
+          }
+          // width={40}
         />
         <div className="flex flex-col">
           <p className="text-md">
             {donation.senderName ? donation.senderName : "Anonymous"}
           </p>
           <p className="text-small text-default-500">
-            {donation.senderUsername ? donation.senderUsername : "anonymous"}
+            @{donation.senderUsername ? donation.senderUsername : "anonymous"}
           </p>
         </div>
       </CardHeader>
       <CardBody>
-        <p>Hello there</p>
+        <p>{donation.message ? donation.message : "No description"}</p>
       </CardBody>
       <Divider />
     </Card>

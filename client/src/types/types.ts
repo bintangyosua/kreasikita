@@ -12,12 +12,10 @@ export type TDonation = {
   senderUsername?: string;
   senderEmail?: string;
   senderName?: string;
-  senderId?: number;
   message?: string;
   receiverUsername: string;
-  receiverId: number;
   payment_type: string;
   transaction_status: string;
   transaction_time: Date;
-  pfp: string;
+  sender: any;
 };

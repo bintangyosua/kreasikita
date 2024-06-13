@@ -43,6 +43,8 @@ export default function SupportersTable({
     return <p>No Data</p>;
   }
 
+  console.log({ supporters });
+
   return (
     <Table
       // removeWrapper
@@ -95,9 +97,9 @@ export default function SupportersTable({
                 {columnKey === "username" ? (
                   <div className="flex items-center gap-2">
                     {item.pfp ? (
-                      <Avatar src={item.pfp} size="md" />
+                      <Avatar src={`${item.pfp}`} size="md" />
                     ) : (
-                      <Avatar size="sm" />
+                      <Avatar size="sm" src="/images/anon.png" />
                     )}
                     {getKeyValue(item, columnKey)}
                   </div>

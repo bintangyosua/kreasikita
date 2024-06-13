@@ -67,7 +67,7 @@ export class PaymentController {
           },
           sender: {
             connect: {
-              username: 'anonymous',
+              username: notificationPaymentDto.senderUsername || 'anonymous',
             },
           },
           senderEmail: notificationPaymentDto.senderEmail,

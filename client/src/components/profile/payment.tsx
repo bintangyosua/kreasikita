@@ -2,7 +2,11 @@
 
 import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
-import { createSessionPayment, SessionType } from "@/lib/session";
+import {
+  createSessionPayment,
+  getSessionPayment,
+  SessionType,
+} from "@/lib/session";
 import { TProfile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
@@ -30,7 +34,7 @@ export default function Payment({
   creator,
   session,
 }: {
-  profile?: TProfile;
+  profile: TProfile | null;
   creator: any;
   session: SessionType;
 }) {
@@ -168,6 +172,8 @@ export default function Payment({
                       email,
                       name,
                       receiverUsername: creator.username,
+                      senderEmail: email,
+                      senderName: name,
                     },
                     session
                   );

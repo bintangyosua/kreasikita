@@ -41,6 +41,13 @@ export class DonationService {
       orderBy: {
         transaction_time: 'desc',
       },
+      include: {
+        sender: {
+          select: {
+            pfp: true,
+          },
+        },
+      },
     });
 
     return donations;
@@ -77,6 +84,8 @@ export class DonationService {
         message: newData.message,
         receiver: newData.receiver,
         sender: newData.sender,
+        senderEmail: newData.senderEmail,
+        senderName: newData.senderName,
         transaction_status: 'pending',
         transaction_time: newData.transaction_time,
       },

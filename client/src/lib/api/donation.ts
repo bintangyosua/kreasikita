@@ -64,7 +64,13 @@ export async function getDonationsByReceiver() {
     },
   });
 
-  return await res.json();
+  const json = await res.json();
+
+  json.data.forEach((value: any, key: number) => {
+    value.pfp = `${process.env.API_URL}/public/${value.sender.pfp}`;
+  });
+
+  return json;
 }
 
 export async function getDonationsBySenderUsername() {
@@ -77,5 +83,11 @@ export async function getDonationsBySenderUsername() {
     },
   });
 
-  return await res.json();
+  const json = await res.json();
+
+  json.data.forEach((value: any, key: number) => {
+    value.pfp = `${process.env.API_URL}/public/${value.pfp}`;
+  });
+
+  return json;
 }
