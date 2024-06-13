@@ -45,7 +45,7 @@ model User {
   role              Role         @default(client)
   category          Category?    @relation(fields: [categoryId], references: [id])
   donationsReceived Donation[]   @relation("DonationReceiver")
-  // donationsSent     Donation[]   @relation("DonationSender")
+  donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
 }
@@ -63,15 +63,13 @@ model Donation {
   senderUsername     String?  @db.VarChar(50) @default("anonymous")
   senderEmail        String?
   senderName         String   @default("Orang Baik")
-  senderId           Int?
   receiverUsername   String?  @db.VarChar(50)
-  receiverId         Int?  
   payment_type       String?
   transaction_status String   @default("pending")
   message            String?  @db.Text
   transaction_time   DateTime @default(now())
   receiver           User?    @relation("DonationReceiver", fields: [receiverUsername], references: [username])
-  // sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username], onUpdate: Cascade)
+  sender             User?    @relation("DonationSender", fields: [senderUsername], references: [username], onUpdate: Cascade)
 }
 
 model Milestones {
@@ -89,7 +87,7 @@ model Payout {
   amount      Int      @default(0)
   username    String   @db.VarChar(50)
   timecreated DateTime @default(now())
-  bank_code   String    @db.VarChar(20)
+  bank_code   String   @db.VarChar(20)
   card_number String
   bank        Bank      @relation(fields: [bank_code], references: [bank_code])
   description String?   @db.Text

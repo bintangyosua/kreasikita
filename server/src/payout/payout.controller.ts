@@ -65,7 +65,6 @@ export class PayoutController {
         balance: user.balance - payout.amount,
       },
     );
-    console.log({ userBalance });
     return {
       status: HttpStatus.CREATED,
       message: 'Payout Status Updated to approved',
@@ -121,7 +120,6 @@ export class PayoutController {
   ): Promise<Response> {
     const { bank_code, ...payoutDtoWithoutBankCode } = createPayoutDto;
 
-    console.log(req.user);
     const payout = await this.payoutService.create({
       user: { connect: { username: req.user.username } },
       bank: { connect: { bank_code: createPayoutDto.bank_code } },

@@ -7,7 +7,6 @@ export const PfpStore = {
   storage: diskStorage({
     destination: './public',
     filename: (req: any, file, cb) => {
-      console.log({ req });
       const fileExtension: string = path.extname(file.originalname);
       const currentDate = new Date();
       const day = currentDate.getDate().toString().padStart(2, '0');

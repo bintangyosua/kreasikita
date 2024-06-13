@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { getProfile } from "@/lib/api/users";
 import { getSession } from "@/lib/session";
+import { Avatar } from "@nextui-org/react";
 
 export default async function Page() {
   const session = await getSession();
@@ -23,16 +24,21 @@ export default async function Page() {
         <div className="flex flex-col gap-3 pb-10">
           <div
             style={{
-              backgroundColor: "#5CCCC6",
+              backgroundImage:
+                "url('https://cdn.wallpapersafari.com/22/71/Kj7nrU.png')",
+              backgroundPosition: "center",
             }}
-            className="h-32 sm:h-48 lg:h-64 w-full rounded-t-3xl"></div>
-          <div className="flex items-center justify-start px-5">
+            className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
+          <div className="flex items-center justify-start px-5 mt-3">
             <div>
-              <div
-                style={{
-                  backgroundColor: "#5B5BD6",
-                }}
-                className="w-28 h-28 rounded-full ml-16 -mt-12"></div>
+              {user.pfp ? (
+                <Avatar
+                  src={user.pfp}
+                  className="h-28 w-28 rounded-full object-cover ml-16 -mt-16"
+                />
+              ) : (
+                <Avatar />
+              )}
             </div>
             <div className="-mt-4 justify-between w-full pl-10 pr-2 hidden sm:flex">
               <div className="flex flex-col text-center">

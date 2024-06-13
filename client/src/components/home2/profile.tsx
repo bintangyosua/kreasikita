@@ -24,7 +24,7 @@ export default function Profile({ profile }: { profile: TProfile }) {
           name={profile?.name}
           description={`@${profile.username}`}
           avatarProps={{
-            src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+            src: profile.pfp,
           }}
         />
       </DropdownTrigger>
