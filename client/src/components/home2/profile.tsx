@@ -20,7 +20,7 @@ export default function Profile({ profile }: { profile: TProfile }) {
       <DropdownTrigger className="h-fit">
         {/* <Button variant="bordered">Open Menu</Button> */}
         <User
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer justify-start"
           name={profile?.name}
           description={`@${profile.username}`}
           avatarProps={{

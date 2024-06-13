@@ -94,7 +94,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
 };
 
 function CardMessage2({ donation }: { donation: TDonation }) {
-  console.log({ donation });
   return (
     <Card className="w-full p-0 border border-gray-300" shadow="none">
       <CardHeader className="flex gap-3">

@@ -1,16 +1,24 @@
+"use server";
+
 import React from "react";
 import JumlahKreator from "../svgs/JumlahKreator";
 import JumlahSupporters from "../svgs/JumlahSupporters";
 import JumlahTerkumpul from "../svgs/JumlahTerkumpul";
+import { getAllStats } from "@/lib/api/stats";
 
-export default function Stats() {
+export default async function Stats() {
+  const stats = await getAllStats();
   return (
     <div className="flex flex-col sm:flex-row w-full sm:w-fit mx-auto justify-center items-center border-gray-300 shadow-md border-separate border-spacing-1 border overflow-auto ">
-      <Card name="Kreator" count={345000} icon={JumlahKreator} />
-      <Card name="Supporters" count={3000} icon={JumlahSupporters} />
+      <Card name="Kreator" count={stats.countCreators} icon={JumlahKreator} />
+      <Card
+        name="Supporters"
+        count={stats.countSupporters}
+        icon={JumlahSupporters}
+      />
       <Card
         name="Uang yang Terkumpul (IDR)"
-        count={20431500}
+        count={stats.sumDonations._sum.gross_amount}
         icon={JumlahTerkumpul}
       />
     </div>
