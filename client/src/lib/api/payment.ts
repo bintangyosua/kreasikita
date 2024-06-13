@@ -45,6 +45,7 @@ export async function getPaymentStatus(order_id: string) {
     const data = await res.json();
     return data.data;
   } catch (error) {
+    console.error(error);
     return false;
   }
 }

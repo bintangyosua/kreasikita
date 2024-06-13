@@ -31,20 +31,31 @@ export class DonationService {
   }
 
   async findManyByReceiver(receiverUsername: string) {
-    return this.prisma.donation.findMany({
+    const donations = await this.prisma.donation.findMany({
       where: {
-        receiverUsername: receiverUsername,
+        receiver: {
+          username: receiverUsername,
+        },
         transaction_status: 'settlement',
       },
       orderBy: {
         transaction_time: 'desc',
       },
+      include: {
+        sender: {
+          select: {
+            pfp: true,
+          },
+        },
+      },
     });
+
+    return donations;
   }
 
   async create(data: Prisma.DonationCreateInput) {
     return this.prisma.donation.create({
-      data: data,
+      data,
     });
   }
 
@@ -61,21 +72,22 @@ export class DonationService {
     newData: Prisma.DonationCreateInput,
   ) {
     return this.prisma.donation.upsert({
-      where: { order_id: newData.order_id },
+      where: { order_id: newData.order_id as string },
       update: {
         payment_type: data.payment_type,
         transaction_status: data.transaction_status,
-        transaction_time: newData.transaction_time,
+        transaction_time: data.transaction_time,
       },
       create: {
         order_id: newData.order_id,
         gross_amount: newData.gross_amount,
-        transaction_status: 'pending',
-        senderUsername: newData.senderUsername,
+        message: newData.message,
+        receiver: newData.receiver,
+        sender: newData.sender,
         senderEmail: newData.senderEmail,
         senderName: newData.senderName,
-        receiverUsername: newData.receiver.connect.username,
-        message: newData.message,
+        transaction_status: 'pending',
+        transaction_time: newData.transaction_time,
       },
     });
   }

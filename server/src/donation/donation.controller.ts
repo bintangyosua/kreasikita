@@ -73,6 +73,24 @@ export class DonationController {
     }
   }
 
+  @Get('profile/:username')
+  @HttpCode(HttpStatus.OK)
+  async getDonationsByProfile(
+    @Param('username') username: string,
+  ): Promise<Response> {
+    if (
+      (await this.donationService.findManyByReceiver(username)) === undefined
+    ) {
+      throw new HttpException('Data Not Found', HttpStatus.NOT_FOUND);
+    } else {
+      return {
+        status: HttpStatus.OK,
+        message: 'Data fetched',
+        data: await this.donationService.findManyByReceiver(username),
+      };
+    }
+  }
+
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @Get('receiver')

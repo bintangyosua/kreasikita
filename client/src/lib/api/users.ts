@@ -2,6 +2,7 @@
 
 import { TProfile } from "@/types/profile";
 import { deleteSession, getSession, setSession } from "../session";
+import { fetchAuthorized } from "./wrapper";
 
 export async function postUser(
   user: any,
@@ -39,7 +40,9 @@ export async function getProfile(access_token: string): Promise<TProfile> {
     },
   });
 
-  const data = await res.json();
+  let data = await res.json();
+
+  data.data.pfp = `${process.env.API_URL}/public/${data.data.pfp}`;
 
   return data.data;
 }
@@ -95,4 +98,23 @@ export async function validateAdmin(access_token: string) {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function uploadAvatarServer(
+  formData: FormData,
+  access_token: string
+) {
+  const user = await getProfile(access_token);
+  const res = await fetch(`${process.env.API_URL}/users/${user.username}/pfp`, {
+    method: "POST",
+    headers: {
+      // "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${access_token}`,
+    },
+    body: formData,
+  });
+
+  return {
+    status: 200,
+  };
 }

@@ -1,8 +1,9 @@
 "use server";
 
+import { TDonation } from "@/types/types";
 import { getSession, SessionType } from "../session";
 import { getProfile } from "./users";
-import { fetchAuthorized } from "./wrapper";
+import { fetchAuthorized, fetchUnAuthorized } from "./wrapper";
 
 export async function getAllDonations(access_token: string) {
   const res = await fetchAuthorized(
@@ -15,7 +16,9 @@ export async function getAllDonations(access_token: string) {
 }
 
 export async function createDonation(data: any, session: SessionType) {
-  const profile = await getProfile(session.access_token);
+  const profile = session.access_token
+    ? await getProfile(session.access_token)
+    : null;
   try {
     const res = await fetch(`${process.env.API_URL}/payment/notification`, {
       method: "POST",
@@ -31,7 +34,7 @@ export async function createDonation(data: any, session: SessionType) {
         senderEmail: data.email,
         senderName: data.name,
         transaction_status: "pending",
-        settlement_time: new Date().toISOString(),
+        transaction_time: new Date().toISOString(),
       }),
     });
 
@@ -39,6 +42,17 @@ export async function createDonation(data: any, session: SessionType) {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function getDonationsByProfile(
+  username: string
+): Promise<TDonation[]> {
+  const res = await fetchUnAuthorized(
+    `${process.env.API_URL}/donations/profile/${username}`,
+    "GET"
+  );
+
+  return res.data;
 }
 
 export async function getDonationsByReceiver() {
@@ -50,7 +64,13 @@ export async function getDonationsByReceiver() {
     },
   });
 
-  return await res.json();
+  const json = await res.json();
+
+  json.data.forEach((value: any, key: number) => {
+    value.pfp = `${process.env.API_URL}/public/${value.sender.pfp}`;
+  });
+
+  return json;
 }
 
 export async function getDonationsBySenderUsername() {
@@ -63,5 +83,11 @@ export async function getDonationsBySenderUsername() {
     },
   });
 
-  return await res.json();
+  const json = await res.json();
+
+  json.data.forEach((value: any, key: number) => {
+    value.pfp = `${process.env.API_URL}/public/${value.pfp}`;
+  });
+
+  return json;
 }

@@ -10,6 +10,9 @@ import { PayoutModule } from './payout/payout.module';
 import { PaymentModule } from './payment/payment.module';
 import { MilestoneModule } from './milestone/milestone.module';
 import { BankModule } from './bank/bank.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -22,6 +25,11 @@ import { BankModule } from './bank/bank.module';
     MilestoneModule,
     PaymentModule,
     BankModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'public'),
+      serveRoot: '/public/',
+    }),
+    StatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

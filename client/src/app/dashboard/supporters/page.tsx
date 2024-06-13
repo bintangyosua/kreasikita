@@ -10,10 +10,19 @@ import DollarIcon from "@/components/svgs/Dollar";
 import { getSession } from "@/lib/session";
 import { getDonationsBySenderUsername } from "@/lib/api/donation";
 import { Code } from "@nextui-org/react";
+import { getStatsByProfile } from "@/lib/api/stats";
+import { getProfile } from "@/lib/api/users";
 
 export default async function Page() {
   // parameter of this function (receiver username aka creator)
   const donations = await getDonationsBySenderUsername();
+
+  const session = await getSession();
+  const profile = await getProfile(session.access_token);
+  const statsByProfile = await getStatsByProfile(
+    profile.username,
+    session.access_token
+  );
 
   return (
     <Layout page="supporters" type="dashboard">
@@ -26,18 +35,22 @@ export default async function Page() {
         <div>
           <div className="w-full flex flex-col gap-3 sm:flex-row mb-4">
             <CardLayout
-              name="Supporters"
-              num={"345"}
+              name="Donations"
+              num={statsByProfile.countDonations}
               icon={LoveIcon({ color: "gray", size: 20 })}
             />
             <CardLayout
               name="Last 30 days"
-              num={"Rp345.000,-"}
+              num={`IDR ${(
+                statsByProfile.sumDonations as number
+              ).toLocaleString("id-ID")}`}
               icon={CalendarIcon({ color: "gray", size: 22 })}
             />
             <CardLayout
               name="All-time"
-              num={"Rp412.000,-"}
+              num={`IDR ${(
+                statsByProfile.sumAllDonations as number
+              ).toLocaleString("id-ID")}`}
               icon={DollarIcon({ color: "gray", size: 20 })}
             />
           </div>

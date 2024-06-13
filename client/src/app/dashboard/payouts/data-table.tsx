@@ -14,7 +14,7 @@ import {
   Badge,
   Chip,
 } from "@nextui-org/react";
-import { SessionType } from "@/lib/session";
+import { format } from "date-fns";
 
 type TPayout = {
   id: number;
@@ -98,34 +98,48 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
       <TableBody items={items}>
         {(item) => (
           <TableRow key={`${item.id}`}>
-            {(columnKey) => (
-              <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {columnKey === "status" ? (
-                  <div className="flex items-center gap-2">
-                    {getKeyValue(item, columnKey) === "pending" && (
-                      <Chip size="sm" color="warning">
-                        Pending
-                      </Chip>
-                    )}
-                    {getKeyValue(item, columnKey) === "approved" && (
-                      <Chip
-                        size="sm"
-                        color="success"
-                        className="bg-green-600 text-white text-center align-middle">
-                        Approved
-                      </Chip>
-                    )}
-                    {getKeyValue(item, columnKey) === "rejected" && (
-                      <Chip size="sm" color="danger" className="text-white">
-                        Rejected
-                      </Chip>
-                    )}
-                  </div>
-                ) : (
-                  <>{getKeyValue(item, columnKey)}</>
-                )}
-              </TableCell>
-            )}
+            {(columnKey) => {
+              if (columnKey === "timecreated") {
+                return (
+                  <TableCell className="py-3 border-b-1 border-b-gray-200">
+                    {format(getKeyValue(item, columnKey), "dd MMM yyyy, HH:mm")}
+                  </TableCell>
+                );
+              }
+
+              if (columnKey === "status") {
+                return (
+                  <TableCell className="py-3 border-b-1 border-b-gray-200">
+                    <div className="flex items-center gap-2">
+                      {getKeyValue(item, columnKey) === "pending" && (
+                        <Chip size="sm" color="warning">
+                          Pending
+                        </Chip>
+                      )}
+                      {getKeyValue(item, columnKey) === "approved" && (
+                        <Chip
+                          size="sm"
+                          color="success"
+                          className="bg-green-600 text-white text-center align-middle">
+                          Approved
+                        </Chip>
+                      )}
+                      {getKeyValue(item, columnKey) === "rejected" && (
+                        <Chip size="sm" color="danger" className="text-white">
+                          Rejected
+                        </Chip>
+                      )}
+                    </div>
+                  </TableCell>
+                );
+              }
+
+              return (
+                <TableCell className="py-3 border-b-1 border-b-gray-200">
+                  {getKeyValue(item, columnKey)}
+                </TableCell>
+              );
+            }}
           </TableRow>
         )}
       </TableBody>

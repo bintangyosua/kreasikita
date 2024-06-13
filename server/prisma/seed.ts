@@ -99,19 +99,19 @@ async function main() {
     });
   });
 
-  // const anonymous = await prisma.user.upsert({
-  //   where: { email: 'anonymous@gg.com' },
-  //   update: {
-  //     password: '123456',
-  //   },
-  //   create: {
-  //     email: 'anonymous@gg.com',
-  //     username: 'anonymous',
-  //     name: 'Anonymous',
-  //     password: '123456',
-  //     categoryId: 1,
-  //   },
-  // });
+  const anonymous = await prisma.user.upsert({
+    where: { email: 'anonymous@gg.com' },
+    update: {
+      password: '123456',
+    },
+    create: {
+      email: 'anonymous@gg.com',
+      username: 'anonymous',
+      name: 'Anonymous',
+      password: '123456',
+      categoryId: 1,
+    },
+  });
 
   const bintang = await prisma.user.upsert({
     where: { email: 'bintang@gg.com' },

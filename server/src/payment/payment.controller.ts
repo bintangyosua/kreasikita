@@ -32,33 +32,47 @@ export class PaymentController {
 
       await this.paymentService.updateBalance(
         receiverUsername,
-        balance.balance + parseInt(notificationPaymentDto.gross_amount),
+        balance.balance +
+          parseInt(notificationPaymentDto.gross_amount as string),
       );
     }
+
+    const { settlement_time, ...newNotif } = notificationPaymentDto;
+    const date = new Date(
+      settlement_time
+        ? settlement_time
+        : notificationPaymentDto.transaction_time,
+    );
+    const date2 = new Date(notificationPaymentDto.transaction_time);
 
     return {
       status: HttpStatus.OK,
       message: 'Notification received',
       data: this.donationService.notification(
         {
-          transaction_status: notificationPaymentDto.transaction_status,
-          transaction_time:
-            notificationPaymentDto.settlement_time ||
-            notificationPaymentDto.transaction_time,
           payment_type: notificationPaymentDto.payment_type,
+          gross_amount: notificationPaymentDto.gross_amount as number,
+          transaction_time: date,
+          transaction_status: notificationPaymentDto.transaction_status,
         },
         {
+          gross_amount: parseInt(notificationPaymentDto.gross_amount as string),
+          transaction_time: date2,
           order_id: notificationPaymentDto.order_id,
-          gross_amount: parseInt(notificationPaymentDto.gross_amount),
           message: notificationPaymentDto.message,
-          senderEmail: notificationPaymentDto.senderEmail,
-          senderName: notificationPaymentDto.senderName,
-          senderUsername: notificationPaymentDto.senderUsername,
           receiver: {
             connect: {
-              username: notificationPaymentDto.receiverUsername,
+              username: notificationPaymentDto.order_id.split('-')[0],
             },
           },
+          sender: {
+            connect: {
+              username: notificationPaymentDto.senderUsername || 'anonymous',
+            },
+          },
+          senderEmail: notificationPaymentDto.senderEmail,
+          senderName: notificationPaymentDto.senderName,
+          transaction_status: 'pending',
         },
       ),
     };

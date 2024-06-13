@@ -2,7 +2,11 @@
 
 import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
-import { createSessionPayment, SessionType } from "@/lib/session";
+import {
+  createSessionPayment,
+  getSessionPayment,
+  SessionType,
+} from "@/lib/session";
 import { TProfile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
@@ -10,6 +14,7 @@ import { redirect } from "next/navigation";
 import { exit } from "process";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import * as z from "zod";
 
 declare global {
@@ -29,7 +34,7 @@ export default function Payment({
   creator,
   session,
 }: {
-  profile?: TProfile;
+  profile: TProfile | null;
   creator: any;
   session: SessionType;
 }) {
@@ -139,53 +144,66 @@ export default function Payment({
               const order_id = `${creator.username}-${Math.random()
                 .toString(36)
                 .slice(2)}`;
-              const res = await createPayment({
-                order_id,
-                gross_amount: gross_amount!,
-                name: name === "" ? "Orang baik" : name,
-                email,
-                item_details: {
-                  id: creator.username,
-                  name: creator.name,
-                  category: creator.category.name,
-                  url: `${process.env.BASE_URL}/${creator.username}`,
-                  price: gross_amount,
-                  quantity: 1,
-                },
-              });
 
-              await createSessionPayment(order_id);
-
-              await createDonation(
-                {
+              try {
+                const res = await createPayment({
                   order_id,
-                  gross_amount,
-                  message,
+                  gross_amount: gross_amount!,
+                  name: name === "" ? "Orang baik" : name,
                   email,
-                  name,
-                  receiverUsername: creator.username,
-                },
-                session
-              );
+                  item_details: {
+                    id: creator.username,
+                    name: creator.name,
+                    category: creator.category.name,
+                    url: `${process.env.BASE_URL}/${creator.username}`,
+                    price: gross_amount,
+                    quantity: 1,
+                  },
+                });
 
-              window.snap.pay(res.data.token, {
-                onSuccess: (result: any) => {
-                  console.log("success", result);
-                  window.location.href = "/payment-status";
-                },
-                onPending: (result: any) => {
-                  console.log("pending transaction", result);
-                  window.location.href = "/payment-status";
-                },
-                onError: (result: any) => {
-                  console.log("error transaction", result);
-                  window.location.href = "/payment-status";
-                },
-                onClose: (result: any) => {
-                  setLoad(false);
-                  window.location.href = "/payment-status";
-                },
-              });
+                await createSessionPayment(order_id);
+
+                try {
+                  await createDonation(
+                    {
+                      order_id,
+                      gross_amount,
+                      message,
+                      email,
+                      name,
+                      receiverUsername: creator.username,
+                      senderEmail: email,
+                      senderName: name,
+                    },
+                    session
+                  );
+
+                  window.snap.pay(res.data.token, {
+                    onSuccess: (result: any) => {
+                      console.log("success", result);
+                      window.location.href = "/payment-status";
+                    },
+                    onPending: (result: any) => {
+                      console.log("pending transaction", result);
+                      window.location.href = "/payment-status";
+                    },
+                    onError: (result: any) => {
+                      console.log("error transaction", result);
+                      window.location.href = "/payment-status";
+                    },
+                    onClose: (result: any) => {
+                      setLoad(false);
+                      window.location.href = "/payment-status";
+                    },
+                  });
+                } catch (error) {
+                  console.error(error);
+                  toast.error("Gagal melakukan donasi, silahkan coba lagi");
+                }
+              } catch (error) {
+                console.error(error);
+                toast.error("Sesuatu terjadi, silahkan coba lagi");
+              }
             }}>
             Berikan Dukungan
           </Button>

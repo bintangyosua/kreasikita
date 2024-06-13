@@ -12,6 +12,7 @@ import {
   getKeyValue,
   Avatar,
 } from "@nextui-org/react";
+import { format } from "date-fns";
 
 type TDonation = {
   order_id: number;
@@ -45,7 +46,6 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
 
   return (
     <Table
-      // removeWrapper
       aria-label="Example table with client side pagination"
       className="overflow-hidden"
       bottomContent={
@@ -55,10 +55,6 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
           }`}>
           <Pagination
             color="secondary"
-            // isCompact
-            // showControls
-            // showShadow
-            // color=""
             page={page}
             total={pages}
             onChange={(page) => setPage(page)}
@@ -71,15 +67,16 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
       }}>
       <TableHeader>
         <TableColumn
-          key="transaction_time"
-          className="text-md py-4 bg-white border-b-2 border-b-zinc-200">
-          Waktu
-        </TableColumn>
-        <TableColumn
           key="senderUsername"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Username
         </TableColumn>
+        <TableColumn
+          key="transaction_time"
+          className="text-md py-4 bg-white border-b-2 border-b-zinc-200">
+          Waktu
+        </TableColumn>
+
         <TableColumn
           key="senderName"
           className="text-md bg-white border-b-2 border-b-zinc-200">
@@ -104,25 +101,35 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
       <TableBody items={items}>
         {(item) => (
           <TableRow key={item.order_id}>
-            {(columnKey) => (
-              // <TableCell className="py-3 border-b-1 border-b-gray-200">
-              //   {getKeyValue(item, columnKey)}
-              // </TableCell>
-              <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {columnKey === "username" ? (
-                  <div className="flex items-center gap-2">
-                    {item.pfp ? (
-                      <Avatar src={item.pfp} size="sm" />
-                    ) : (
-                      <Avatar size="sm" />
-                    )}
-                    {getKeyValue(item, columnKey)}
-                  </div>
-                ) : (
-                  <>{getKeyValue(item, columnKey)}</>
-                )}
-              </TableCell>
-            )}
+            {(columnKey) => {
+              if (columnKey === "transaction_time") {
+                return (
+                  <TableCell className="py-3 border-b-1 border-b-gray-200">
+                    {format(getKeyValue(item, columnKey), "dd MMM yyyy HH:mm")}
+                  </TableCell>
+                );
+              }
+
+              if (columnKey === "senderUsername") {
+                return (
+                  <TableCell className="py-3 border-b-1 border-b-gray-200">
+                    <div className="flex items-center gap-2">
+                      {item.pfp ? (
+                        <Avatar src={item.pfp} size="sm" />
+                      ) : (
+                        <Avatar size="sm" />
+                      )}
+                      {getKeyValue(item, columnKey)}
+                    </div>
+                  </TableCell>
+                );
+              }
+              return (
+                <TableCell className="py-3 border-b-1 border-b-gray-200">
+                  {getKeyValue(item, columnKey)}
+                </TableCell>
+              );
+            }}
           </TableRow>
         )}
       </TableBody>

@@ -40,7 +40,6 @@ export default function Profile({ user }: { user: any }) {
             description: d.description,
           });
 
-          console.log({ res });
           toast.success("Berhasil mengubah profile");
           setLoading(false);
 

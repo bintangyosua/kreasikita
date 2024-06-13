@@ -1,4 +1,5 @@
 import {
+  IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -9,6 +10,7 @@ export class NotificationPaymentDto {
   settlement_time?: string;
 
   @IsOptional()
+  @IsDateString()
   transaction_time?: string;
 
   @IsOptional()
@@ -24,7 +26,7 @@ export class NotificationPaymentDto {
   order_id: string;
 
   @IsNotEmpty()
-  gross_amount: string;
+  gross_amount: number | string;
 
   @IsOptional()
   @IsString()

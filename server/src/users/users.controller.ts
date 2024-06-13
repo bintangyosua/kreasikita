@@ -173,7 +173,7 @@ export class UsersController {
   @UseInterceptors(FileInterceptor('file', PfpStore))
   @HttpCode(HttpStatus.OK)
   async uploadPfp(
-    @Param('id') id: number,
+    @Req() req,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Response> {
     try {
@@ -183,15 +183,24 @@ export class UsersController {
           'Invalid file type, only JPEG and PNG are allowed',
         );
       }
-      const user = await this.usersService.findOne(id);
+      const user = await this.usersService.findOne(req.user.sub);
       if (!user) {
         throw new BadRequestException('User not found');
       }
       if (user.pfp && user.pfp !== 'default') {
-        fs.unlinkSync(user.pfp);
+        try {
+          fs.unlinkSync(user.pfp);
+        } catch (error) {}
       }
-      const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
-      await this.usersService.update(id, { pfp: filePath });
+
+      if (user.pfp !== 'default' && user.pfp) {
+        const path = join(__dirname, '..', '..', '..', 'public', user.pfp);
+        fs.unlinkSync(path);
+      }
+
+      await this.usersService.update(req.user.sub, {
+        pfp: file.filename,
+      });
 
       return {
         status: HttpStatus.OK,
@@ -228,7 +237,14 @@ export class UsersController {
       if (user.banner && user.banner !== 'default') {
         fs.unlinkSync(user.banner);
       }
-      const filePath = join(__dirname, '..', '..', 'uploads', file.filename);
+      const filePath = join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'public',
+        file.filename,
+      );
       await this.usersService.update(id, { banner: filePath });
 
       return {

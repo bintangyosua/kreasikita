@@ -49,12 +49,10 @@ export default function Client({
         setLoading(true);
 
         try {
-          console.log("masuk sini");
           const res = await createPayout(
             session.access_token,
             d as TCreatePayout
           );
-          console.log({ res });
           if (res.statusCode === 400) {
             toast.error("Saldo tidak mencukupi");
             setLoading(false);
