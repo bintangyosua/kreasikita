@@ -149,7 +149,7 @@ export default function Payment({
                     id: creator.username,
                     name: creator.name,
                     category: creator.category.name,
-                    url: `${process.env.BASE_URL}/${creator.username}`,
+                    url: `/${creator.username}`,
                     price: gross_amount,
                     quantity: 1,
                   },
