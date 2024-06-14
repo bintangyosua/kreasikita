@@ -2,16 +2,10 @@
 
 import { createDonation } from "@/lib/api/donation";
 import { createPayment } from "@/lib/api/payment";
-import {
-  createSessionPayment,
-  getSessionPayment,
-  SessionType,
-} from "@/lib/session";
+import { createSessionPayment, SessionType } from "@/lib/session";
 import { TProfile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, Input, Button, Textarea } from "@nextui-org/react";
-import { redirect } from "next/navigation";
-import { exit } from "process";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
