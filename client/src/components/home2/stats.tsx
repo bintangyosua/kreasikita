@@ -40,7 +40,7 @@ function Card({
         {icon()}
         <div>
           <p className="text-2xl text-purple text-center">
-            {count.toLocaleString("id-Id")}
+            {count?.toLocaleString("id-Id") || 0}
           </p>
           <p className="text-sm text-center ">{name}</p>
         </div>
