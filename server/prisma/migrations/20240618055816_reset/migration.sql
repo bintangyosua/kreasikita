@@ -8,6 +8,7 @@ CREATE TABLE `User` (
     `pfp` TEXT NULL,
     `banner` TEXT NULL,
     `categoryId` INTEGER NULL,
+    `hidden` BOOLEAN NOT NULL DEFAULT false,
     `description` MEDIUMTEXT NULL,
     `balance` INTEGER NOT NULL DEFAULT 0,
     `role` ENUM('client', 'admin') NOT NULL DEFAULT 'client',
