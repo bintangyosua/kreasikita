@@ -126,6 +126,7 @@ async function main() {
       name: 'Bintang',
       password: '123456',
       categoryId: 1,
+      role: 'admin',
     },
   });
 
