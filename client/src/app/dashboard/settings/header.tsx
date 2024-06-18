@@ -146,6 +146,7 @@ export default function Header({
                     pfp: res[0].url,
                   }
                 );
+                console.log({ yay });
                 toast.success("Berhasil mengganti avatar");
                 router.refresh();
               }}

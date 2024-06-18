@@ -83,6 +83,7 @@ async function main() {
       where: { id: value.id },
       update: {},
       create: {
+        id: value.id,
         name: value.name,
       },
     });
@@ -110,6 +111,7 @@ async function main() {
       name: 'Anonymous',
       password: '123456',
       categoryId: 1,
+      hidden: true,
     },
   });
 
