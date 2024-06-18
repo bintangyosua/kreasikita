@@ -83,6 +83,7 @@ export class UsersService {
   async findManyByCategoryName(name: string) {
     return this.prisma.user.findMany({
       where: {
+        hidden: false,
         category: {
           name,
         },
