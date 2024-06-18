@@ -42,14 +42,14 @@ export default async function Page() {
             <CardLayout
               name="Last 30 days"
               num={`IDR ${(
-                statsByProfile.sumDonations as number
+                statsByProfile.sumDonations | (0 as number)
               ).toLocaleString("id-ID")}`}
               icon={CalendarIcon({ color: "gray", size: 22 })}
             />
             <CardLayout
               name="All-time"
               num={`IDR ${(
-                statsByProfile.sumAllDonations as number
+                statsByProfile.sumAllDonations | (0 as number)
               ).toLocaleString("id-ID")}`}
               icon={DollarIcon({ color: "gray", size: 20 })}
             />

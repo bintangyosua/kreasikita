@@ -1,11 +1,17 @@
 "use client";
-import { getProfile, uploadAvatarServer } from "@/lib/api/users";
+import {
+  getProfile,
+  updateUserByUsername2,
+  uploadAvatarServer,
+} from "@/lib/api/users";
 import { SessionType } from "@/lib/session";
+import { UploadButton } from "@/lib/uploadthing";
 import { TProfile } from "@/types/profile";
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, Button, User } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { UTApi } from "uploadthing/server";
 
 export default function Header({
   profile,
@@ -14,7 +20,7 @@ export default function Header({
   profile: TProfile;
   session: SessionType;
 }) {
-  const [avatar, setAvatar] = useState<File | null>(null);
+  let [avatar, setAvatar] = useState<File | null>(null);
   const [previewAvatar, setPreviewAvatar] = useState<string | null>();
 
   const [avatarLoading, setAvatarLoading] = useState(false);
@@ -32,10 +38,12 @@ export default function Header({
     const uploadAvatar = async () => {
       if (avatar) {
         const formData = new FormData();
+        // const utapi = new UTApi();
         formData.append("file", avatar);
 
         try {
-          await uploadAvatarServer(formData, session.access_token);
+          // await uploadAvatarServer(formData, session.access_token);
+          // const response = await utapi.uploadFiles(avatar);
           toast.success("Avatar berhasil diperbarui");
           setAvatarLoading(false);
           router.refresh();
@@ -62,20 +70,27 @@ export default function Header({
         className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
       <div className="flex items-center justify-start px-5 mt-3">
         <div>
-          {previewAvatar || profile.pfp ? (
-            <Avatar
-              src={previewAvatar || profile.pfp}
-              className="h-28 w-28 rounded-full object-cover ml-16 -mt-16"
+          {
+            <User
+              name={profile.name}
+              description={`@${profile.username}`}
+              classNames={{
+                name: "text-3xl font-bold mt-4",
+                base: "-mt-10",
+
+                description: "text-md text-gray-500",
+              }}
+              avatarProps={{
+                src: profile.pfp,
+                className: "w-28 h-28 rounded-full object-cover ml-16 -mt-4",
+                classNames: {
+                  name: "text-3xl",
+                },
+              }}
             />
-          ) : (
-            <Avatar />
-          )}
+          }
         </div>
-        <div className="flex flex-row items-center justify-between w-full">
-          <div className="-mt-4 flex-col justify-between w-full pl-10 pr-2 hidden sm:flex">
-            <span className="font-bold text-3xl">{profile.name}</span>
-            <span className="text-sm text-gray-700">@{profile.username}</span>
-          </div>
+        <div className="flex flex-row items-center justify-end w-full">
           <div className="flex flex-col gap-1">
             <input
               type="file"
@@ -86,6 +101,7 @@ export default function Header({
                 if (e.target.files && e.target.files.length > 0) {
                   setAvatarLoading(true);
                   const file = e.target.files[0];
+                  // file.name = `${profile.username}-${file.name}`;
                   setAvatar(file);
                   const reader = new FileReader();
                   reader.onloadend = () => {
@@ -95,13 +111,13 @@ export default function Header({
                 }
               }}
             />
-            <input
+            {/* <input
               type="file"
               className="hidden"
               ref={inputBanner}
               id="inputBanner"
-            />
-            <Button
+            /> */}
+            {/* <Button
               size="sm"
               className="h-6"
               color="primary"
@@ -113,7 +129,31 @@ export default function Header({
             </Button>
             <Button size="sm" className="h-6" color="primary">
               Change Banner
-            </Button>
+            </Button> */}
+            <UploadButton
+              appearance={{
+                button: {
+                  backgroundColor: "#5B5BD6",
+                },
+              }}
+              endpoint="imageUploader"
+              onClientUploadComplete={async (res) => {
+                // Do something with the response
+                const yay = await updateUserByUsername2(
+                  session.access_token,
+                  profile.username,
+                  {
+                    pfp: res[0].url,
+                  }
+                );
+                toast.success("Berhasil mengganti avatar");
+                router.refresh();
+              }}
+              onUploadError={(error: Error) => {
+                // Do something with the error.
+                toast.error(`Gagal upload! ${error.message}`);
+              }}
+            />
           </div>
         </div>
       </div>

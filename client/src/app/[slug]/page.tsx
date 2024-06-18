@@ -19,6 +19,7 @@ import {
 import { TProfile } from "@/types/profile";
 import { getDonationsByProfile } from "@/lib/api/donation";
 import { TDonation } from "@/types/types";
+import { format } from "date-fns";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const user = await getUserByUsername(params.slug);
@@ -67,7 +68,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
         }}
         className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
       <Avatar
-        src={`${process.env.API_URL}/public/${user.data.pfp}`}
+        src={`${user.data.pfp}`}
         className="w-28 h-28 rounded-full mx-auto -mt-12"
       />
       <div className="-mt-12 flex justify-between xl:justify-evenly pl-10 pr-2">
@@ -94,28 +95,36 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
 };
 
 function CardMessage2({ donation }: { donation: TDonation }) {
+  console.log({ donation });
   return (
     <Card className="w-full p-0 border border-gray-300" shadow="none">
-      <CardHeader className="flex gap-3">
-        <Avatar
-          alt="Avatar"
-          // height={40}
-          radius="full"
-          src={
-            donation.sender.pfp
-              ? `${process.env.API_URL}/public/${donation.sender.pfp}`
-              : "/images/anon.png"
-          }
-          // width={40}
-        />
-        <div className="flex flex-col">
-          <p className="text-md">
-            {donation.senderName ? donation.senderName : "Anonymous"}
-          </p>
-          <p className="text-small text-default-500">
-            @{donation.senderUsername ? donation.senderUsername : "anonymous"}
-          </p>
+      <CardHeader className="flex justify-between items-center">
+        <div className="flex gap-3 items-center">
+          <Avatar
+            alt="Avatar"
+            // height={40}
+            radius="full"
+            src={
+              donation.sender.pfp
+                ? `${donation.sender.pfp}`
+                : "/images/anon.png"
+            }
+            // width={40}
+          />
+          <div className="flex flex-col">
+            <p className="text-md">
+              {donation.senderName ? donation.senderName : "Anonymous"}
+            </p>
+            <p className="text-small text-default-500">
+              @{donation.senderUsername ? donation.senderUsername : "anonymous"}
+            </p>
+          </div>
         </div>
+        <span className="text-sm text-gray-600 text-right">
+          {format(donation.transaction_time, "dd MMM yyyy")}
+          <br />
+          {format(donation.transaction_time, "HH mm")}
+        </span>
       </CardHeader>
       <CardBody>
         <p>{donation.message ? donation.message : "No description"}</p>

@@ -11,4 +11,5 @@ export type TProfile = {
   category: {
     name: string;
   };
+  role: "admin" | "client";
 };

@@ -32,6 +32,7 @@ export async function createPayment({
       email,
       item_details,
     }),
+    cache: "no-store",
   });
 
   return await res.json();
@@ -40,7 +41,8 @@ export async function createPayment({
 export async function getPaymentStatus(order_id: string) {
   try {
     const res = await fetch(
-      `${process.env.API_URL}/payment/status/${order_id}`
+      `${process.env.API_URL}/payment/status/${order_id}`,
+      { cache: "no-store" }
     );
     const data = await res.json();
     return data.data;

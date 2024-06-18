@@ -10,6 +10,7 @@ export default function SearchButton() {
         <CiSearch size={18} />
       </div>
       <input
+        disabled
         type="text"
         placeholder="Cari kreator"
         className="appearance-none border-none outline-none w-full"

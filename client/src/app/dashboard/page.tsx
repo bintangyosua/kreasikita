@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { getProfile } from "@/lib/api/users";
 import { getSession } from "@/lib/session";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, User } from "@nextui-org/react";
 
 export default async function Page() {
   const session = await getSession();
@@ -31,20 +31,31 @@ export default async function Page() {
             className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
           <div className="flex items-center justify-start px-5 mt-3">
             <div>
-              {user.pfp ? (
-                <Avatar
-                  src={user.pfp}
-                  className="h-28 w-28 rounded-full object-cover ml-16 -mt-16"
+              {
+                <User
+                  name={user.name}
+                  description={`@${user.username}`}
+                  classNames={{
+                    name: "text-3xl font-bold mt-4",
+                    base: "-mt-10",
+                    description: "text-md text-gray-500",
+                  }}
+                  avatarProps={{
+                    src: user.pfp,
+                    className:
+                      "w-28 h-28 rounded-full object-cover ml-16 -mt-4",
+                    classNames: {
+                      name: "text-3xl",
+                    },
+                  }}
                 />
-              ) : (
-                <Avatar />
-              )}
+              }
             </div>
-            <div className="-mt-4 justify-between w-full pl-10 pr-2 hidden sm:flex">
-              <div className="flex flex-col text-center">
+            <div className="-mt-4 justify-end w-full pl-10 pr-2 hidden sm:flex">
+              {/* <div className="flex flex-col text-center">
                 <span className="font-bold text-3xl">{user.name}</span>
                 <span className="text-gray-500">@{user.username}</span>
-              </div>
+              </div> */}
               <div className="flex flex-col">
                 <button className="rounded-full bg-red-300 px-4 py-1">
                   {user.category.name}

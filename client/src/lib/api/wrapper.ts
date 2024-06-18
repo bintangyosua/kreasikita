@@ -14,6 +14,7 @@ export async function fetchAuthorized(
       },
       method,
       body: JSON.stringify(body),
+      cache: "no-store",
     });
 
     return await res.json();
@@ -35,6 +36,7 @@ export async function fetchUnAuthorized(
       },
       method,
       body: JSON.stringify(body),
+      cache: "no-store",
     });
 
     if (res.ok) {

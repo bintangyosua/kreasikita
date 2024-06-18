@@ -27,6 +27,7 @@ type TPayout = {
   bank_code: string;
   description: string;
   status: "pending" | "approved" | "rejected";
+  user: any;
 };
 
 export default function PayoutsTable({
@@ -52,6 +53,8 @@ export default function PayoutsTable({
   if (!payouts) {
     return <p>No Data</p>;
   }
+
+  console.log({ payouts });
 
   return (
     <Table
@@ -131,7 +134,11 @@ export default function PayoutsTable({
               if (columnKey === "username") {
                 return (
                   <TableCell className="py-3 border-b-1 border-b-gray-200 flex items-center gap-2">
-                    <Avatar size="sm" />
+                    {item.user.pfp ? (
+                      <Avatar src={item.user.pfp} size="sm" />
+                    ) : (
+                      <Avatar size="sm" />
+                    )}
                     {getKeyValue(item, columnKey)}
                   </TableCell>
                 );

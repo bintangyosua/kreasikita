@@ -64,7 +64,7 @@ export default function Navbar({
             </button>
           </div>
         </div>
-        <div className="hidden lg:block lg:w-3/5">
+        <div className="hidden lg:block lg:w-4/5">
           <SearchButton />
         </div>
         <nav
@@ -73,7 +73,7 @@ export default function Navbar({
             open ? "block" : "hidden"
           }`}>
           <Link href="/category" name="Kategori" icon={<Category />} />
-          <Link href="/blog" name="Blog" icon={<PiArticleMedium />} />
+          {/* <Link href="/blog" name="Blog" icon={<PiArticleMedium />} /> */}
           {session.isSignedIn ? (
             <Profile profile={profile} />
           ) : (

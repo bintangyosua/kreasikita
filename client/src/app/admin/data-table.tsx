@@ -12,6 +12,7 @@ import {
   getKeyValue,
   Avatar,
 } from "@nextui-org/react";
+import { format } from "date-fns";
 
 type TDonation = {
   order_id: number;
@@ -109,22 +110,29 @@ export default function DonationsTable({
         {(item) => (
           <TableRow key={item.order_id}>
             {(columnKey) => (
-              // <TableCell className="py-3 border-b-1 border-b-gray-200">
-              //   {getKeyValue(item, columnKey)}
-              // </TableCell>
               <TableCell className="py-3 border-b-1 border-b-gray-200">
-                {columnKey === "username" ? (
+                {columnKey === "username" && (
                   <div className="flex items-center gap-2">
-                    {item.pfp ? (
+                    {item.pfp && item.senderUsername !== "anonymous" ? (
                       <Avatar src={item.pfp} size="sm" />
                     ) : (
                       <Avatar size="sm" />
                     )}
                     {getKeyValue(item, columnKey)}
                   </div>
-                ) : (
-                  <>{getKeyValue(item, columnKey)}</>
                 )}
+
+                {columnKey === "transaction_time" && (
+                  <>
+                    {format(getKeyValue(item, columnKey), "dd MMM yyyy HH:mm")}
+                  </>
+                )}
+
+                {/* Render for other columns that are not "username" or "transaction_time" */}
+                {columnKey !== "username" &&
+                  columnKey !== "transaction_time" && (
+                    <>{getKeyValue(item, columnKey)}</>
+                  )}
               </TableCell>
             )}
           </TableRow>
