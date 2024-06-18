@@ -24,7 +24,7 @@ type TDonation = {
   message?: string;
   receiverUsername: string;
   transaction_status: string;
-  pfp: string;
+  sender: any;
 };
 
 export default function GiftsTable({ donations }: { donations: TDonation[] }) {
@@ -114,12 +114,18 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
                 return (
                   <TableCell className="py-3 border-b-1 border-b-gray-200">
                     <div className="flex items-center gap-2">
-                      {item.pfp ? (
-                        <Avatar src={item.pfp} size="sm" />
-                      ) : (
-                        <Avatar size="sm" />
+                      {item.sender.pfp && (
+                        <>
+                          <Avatar src={item.sender.pfp} size="sm" />
+                          {getKeyValue(item, columnKey)}
+                        </>
                       )}
-                      {getKeyValue(item, columnKey)}
+                      {item.senderUsername === "anonymous" && (
+                        <>
+                          <Avatar src={item.sender.pfp} size="sm" />
+                          {getKeyValue(item, columnKey)}
+                        </>
+                      )}
                     </div>
                   </TableCell>
                 );

@@ -13,6 +13,7 @@ export async function signIn(email: string, password: string) {
         email,
         password,
       }),
+      cache: "no-store",
     });
 
     const data = await res.json();
@@ -32,6 +33,7 @@ export async function changePassword(password: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ password }),
+      cache: "no-store",
     });
 
     return res.json();
@@ -46,6 +48,7 @@ export async function validate(access_token: string) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${access_token}`,
     },
+    cache: "no-store",
   });
 
   return res.json();

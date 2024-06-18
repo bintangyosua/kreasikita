@@ -17,9 +17,25 @@ export async function postUser(
       ...user,
       categoryId,
     }),
+    cache: "no-store",
   });
 
   return res.json();
+}
+
+export async function updateUserByUsername2(
+  access_token: string,
+  username: string,
+  data: any
+) {
+  const res = await fetchAuthorized(
+    `${process.env.API_URL}/users/${username}`,
+    "PATCH",
+    access_token,
+    data
+  );
+
+  return res;
 }
 
 export async function getUser(access_token: string) {
@@ -28,6 +44,7 @@ export async function getUser(access_token: string) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${access_token}`,
     },
+    cache: "no-store",
   });
 
   return await res.json();
@@ -38,17 +55,20 @@ export async function getProfile(access_token: string): Promise<TProfile> {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    cache: "no-store",
   });
 
   let data = await res.json();
 
-  data.data.pfp = `${process.env.API_URL}/public/${data.data.pfp}`;
+  // data.data.pfp = `${process.env.API_URL}/public/${data.data.pfp}`;
 
   return data.data;
 }
 
 export async function getUserByUsername(username: string) {
-  const res = await fetch(`${process.env.API_URL}/users?username=${username}`);
+  const res = await fetch(`${process.env.API_URL}/users?username=${username}`, {
+    cache: "no-store",
+  });
   return await res.json();
 }
 
@@ -71,6 +91,7 @@ export async function updateUserByUsername({
       name,
       description,
     }),
+    cache: "no-store",
   });
 
   await setSession(session.access_token);
@@ -80,7 +101,9 @@ export async function updateUserByUsername({
 
 export async function getUsersByCategoryName(name: string) {
   name = name.charAt(0).toUpperCase() + name.slice(1);
-  const res = await fetch(`${process.env.API_URL}/users/category/${name}`, {});
+  const res = await fetch(`${process.env.API_URL}/users/category/${name}`, {
+    cache: "no-store",
+  });
   return await res.json();
 }
 
@@ -91,6 +114,7 @@ export async function validateAdmin(access_token: string) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${access_token}`,
       },
+      cache: "no-store",
     });
 
     const data = await res.json();
@@ -112,6 +136,7 @@ export async function uploadAvatarServer(
       Authorization: `Bearer ${access_token}`,
     },
     body: formData,
+    cache: "no-store",
   });
 
   return {

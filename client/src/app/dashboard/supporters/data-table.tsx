@@ -43,6 +43,8 @@ export default function SupportersTable({
     return <p>No Data</p>;
   }
 
+  console.log({ supporters });
+
   return (
     <Table
       // removeWrapper
@@ -94,12 +96,18 @@ export default function SupportersTable({
               <TableCell className="py-3 border-b-1 border-b-gray-200">
                 {columnKey === "username" ? (
                   <div className="flex items-center gap-2">
-                    {item.pfp ? (
-                      <Avatar src={`${item.pfp}`} size="md" />
-                    ) : (
-                      <Avatar size="sm" src="/images/anon.png" />
+                    {item.pfp && (
+                      <>
+                        <Avatar src={item.pfp} size="sm" />
+                        {getKeyValue(item, columnKey)}
+                      </>
                     )}
-                    {getKeyValue(item, columnKey)}
+                    {item.username === "anonymous" && (
+                      <>
+                        <Avatar src={item.pfp} size="sm" />
+                        {getKeyValue(item, columnKey)}
+                      </>
+                    )}
                   </div>
                 ) : (
                   <>{getKeyValue(item, columnKey)}</>

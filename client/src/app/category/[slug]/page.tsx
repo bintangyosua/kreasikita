@@ -3,6 +3,7 @@
 import HomeLayout from "@/components/layouts/home-layout";
 import { getUsersByCategoryName } from "@/lib/api/users";
 import {
+  Avatar,
   Card,
   CardBody,
   CardFooter,
@@ -30,6 +31,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   key={key}
                   name={value.name}
                   username={value.username}
+                  profileImg={value.pfp}
+                  shortDesc={value.description}
                 />
               ))}
           </section>
@@ -64,15 +67,18 @@ function CardLayout({
       <CardHeader
         style={{
           height: "80px",
-          backgroundImage: `url('https://png.pngtree.com/thumb_back/fh260/back_pic/00/04/53/9356248ab92ec6a.jpg')`,
+          backgroundImage: `url('https://cdn.wallpapersafari.com/22/71/Kj7nrU.png')`,
+          backgroundSize: "cover",
+          backgroundPosition: "right",
         }}></CardHeader>
       <CardHeader className="flex gap-3">
-        <Image
+        <Avatar
           alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
+          // height={60}
+          radius="full"
+          size="md"
+          src={profileImg}
+          // width={60}
         />
         <div className="flex flex-col">
           <p className="text-md">{name}</p>
@@ -83,11 +89,8 @@ function CardLayout({
       <CardBody>
         <p>
           {shortDesc
-            ? shortDesc
-            : `Veniam excepteur sint anim aute veniam et. Aliqua nulla sunt do aliqua pariatur reprehenderit eiusmod sunt cupidatat in reprehenderit deserunt esse officia. Anim tempor duis amet aute dolore aliqua consectetur. Nostrud tempor eiusmod id et aliquip sint pariatur cillum.`.slice(
-                0,
-                70
-              )}
+            ? shortDesc.slice(0, 70) + "..."
+            : `Tanpa deskripsi`.slice(0, 70)}
         </p>
       </CardBody>
       <Divider />

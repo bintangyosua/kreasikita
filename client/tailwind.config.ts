@@ -1,6 +1,7 @@
 import { nextui } from "@nextui-org/react";
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import { withUt } from "uploadthing/tw";
 
 const config = {
   darkMode: "class",
@@ -8,7 +9,7 @@ const config = {
     // "./pages/**/*.{ts,tsx}",
     // "./components/**/*.{ts,tsx}",
     // "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     // "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -48,4 +49,4 @@ const config = {
   plugins: [nextui()],
 } satisfies Config;
 
-export default config;
+export default withUt(config);

@@ -36,6 +36,7 @@ export async function createDonation(data: any, session: SessionType) {
         transaction_status: "pending",
         transaction_time: new Date().toISOString(),
       }),
+      cache: "no-store",
     });
 
     // const json = await res.json();
@@ -62,6 +63,7 @@ export async function getDonationsByReceiver() {
       "Content-Type": "application/json",
       Authorization: `Bearer ${session.access_token}`,
     },
+    cache: "no-store",
   });
 
   const json = await res.json();
@@ -81,13 +83,10 @@ export async function getDonationsBySenderUsername() {
       "Content-Type": "application/json",
       Authorization: `Bearer ${session.access_token}`,
     },
+    cache: "no-store",
   });
 
   const json = await res.json();
-
-  json.data.forEach((value: any, key: number) => {
-    value.pfp = `${process.env.API_URL}/public/${value.pfp}`;
-  });
 
   return json;
 }
