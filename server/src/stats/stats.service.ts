@@ -28,6 +28,7 @@ export class StatsService {
         gross_amount: true,
       },
       where: {
+        receiverUsername: username,
         transaction_time: {
           lte: new Date(),
           gte: new Date(new Date().setDate(new Date().getDate() - 30)),
