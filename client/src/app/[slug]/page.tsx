@@ -84,7 +84,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
               {user.data.category.name}
             </Button>
           </a>
-          <span>345.000 Supporters</span>
+          {/* <span>345.000 Supporters</span> */}
         </div>
       </div>
       <p className="text-center mt-5 p-3 md:w-2/3 mx-auto">
@@ -95,7 +95,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
 };
 
 function CardMessage2({ donation }: { donation: TDonation }) {
-  console.log({ donation });
   return (
     <Card className="w-full p-0 border border-gray-300" shadow="none">
       <CardHeader className="flex justify-between items-center">

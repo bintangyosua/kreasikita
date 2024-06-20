@@ -121,6 +121,14 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async createUser(@Body() createUserDto: CreateUserDto): Promise<Response> {
+    if (await this.usersService.findOneByUsername(createUserDto.username)) {
+      throw new BadRequestException('Username already exists');
+    }
+
+    if (await this.usersService.findOneByEmail(createUserDto.email)) {
+      throw new BadRequestException('Email already used');
+    }
+
     return {
       status: HttpStatus.CREATED,
       message: 'User berhasil dibuat',

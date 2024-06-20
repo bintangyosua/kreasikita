@@ -14,8 +14,8 @@ export async function postUser(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      categoryId: Number(categoryId),
       ...user,
-      categoryId,
     }),
     cache: "no-store",
   });

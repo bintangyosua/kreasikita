@@ -81,13 +81,18 @@ export class UsersService {
   }
 
   async findManyByCategoryName(name: string) {
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       where: {
         hidden: false,
         category: {
           name,
         },
       },
+    });
+
+    return users.map((user) => {
+      const { password, ...newUser } = user;
+      return newUser;
     });
   }
 

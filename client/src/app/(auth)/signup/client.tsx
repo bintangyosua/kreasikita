@@ -19,10 +19,10 @@ import { signIn } from "@/lib/api/auth";
 import { setSession } from "@/lib/session";
 
 const registrationSchema = z.object({
-  name: z.string().min(5),
-  username: z.string().min(5),
+  name: z.string().min(4, "Name must be at least 4 characters"),
+  username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email(),
-  password: z.string().min(5),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export default function Client({
@@ -37,6 +37,7 @@ export default function Client({
     register,
     getValues,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registrationSchema),
@@ -45,34 +46,48 @@ export default function Client({
   const [loading, setLoading] = useState(false);
 
   const [categoryId, setCategoryId] = useState<number | string>();
+  const [clicked, setClicked] = useState(false);
 
   const [isVisible, setIsVisible] = React.useState<any>(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <form
-      className="grid place-items-center w-full h-full"
-      onSubmit={handleSubmit(async (d) => {
-        setLoading(true);
-        const { class: _, ...newUser } = d;
-        const res = await postUser(newUser, Number(categoryId));
+    <div className="grid place-items-center w-full h-full">
+      <form
+        className="flex flex-col gap-4 w-full justify-between px-5 max-w-[400px] mt-16"
+        onSubmit={handleSubmit(async (d) => {
+          setClicked(true);
+          setLoading(true);
+          if (!categoryId) {
+            return setLoading(false);
+          }
+          const { class: _, ...newUser } = d;
+          const res = await postUser(newUser, categoryId);
+          console.log({ res });
 
-        if (res.status === 201) {
-          toast.success(res.message);
-          const { access_token } = await signIn(
-            getValues("email"),
-            getValues("password")
-          );
+          if (res.statusCode === 400) {
+            toast.error(res.message);
+            setClicked(false);
+            setLoading(false);
+            return;
+          }
 
-          await setSession(access_token);
-          navigate();
-        } else {
-          toast.error("Password yang anda masukkan salah");
-          setLoading(false);
-        }
-      })}>
-      <div className="flex flex-col gap-4 w-full justify-between px-5 max-w-[400px] mt-16">
+          if (res.status === 201) {
+            toast.success(res.message);
+            const { access_token } = await signIn(
+              getValues("email"),
+              getValues("password")
+            );
+
+            await setSession(access_token);
+            navigate();
+          } else {
+            toast.error("Password yang anda masukkan salah");
+            setClicked(false);
+            setLoading(false);
+          }
+        })}>
         <h1 className="text-3xl sm:text-4xl mb-6 font-bold text-center">
           Selamat Datang
         </h1>
@@ -83,11 +98,9 @@ export default function Client({
           label="Name"
           name="name"
           placeholder="Enter your name"
+          isInvalid={errors.name?.message ? true : false}
+          errorMessage={errors.name?.message?.toString()}
         />
-
-        {errors.root?.message && (
-          <p className="text-red-500">{errors.root?.message}</p>
-        )}
 
         <Input
           {...register("username")}
@@ -96,6 +109,8 @@ export default function Client({
           label="Username"
           name="username"
           placeholder="Enter your username"
+          isInvalid={errors.username?.message ? true : false}
+          errorMessage={errors.username?.message?.toString()}
         />
         <Input
           {...register("email")}
@@ -105,6 +120,8 @@ export default function Client({
           name="email"
           placeholder="Enter your email"
           startContent={<CiMail />}
+          isInvalid={errors.email?.message ? true : false}
+          errorMessage={errors.email?.message?.toString()}
         />
         <Input
           {...register("password")}
@@ -114,6 +131,8 @@ export default function Client({
           width={"100%"}
           name="password"
           placeholder="Enter your password"
+          isInvalid={errors.password?.message ? true : false}
+          errorMessage={errors.password?.message?.toString()}
           endContent={
             <button
               className="focus:outline-none"
@@ -130,42 +149,20 @@ export default function Client({
           className="max-w-full"
         />
 
-        {/* Confirm Password */}
-        {/* <Input
-          {...register("confirmPassword")}
-          label="Confirm Password"
-          variant="underlined"
-          fullWidth
-          width={"100%"}
-          name="confirmPassword"
-          placeholder="Enter your password"
-          endContent={
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={toggleVisibility}>
-              {isVisible ? (
-                <EyeClosedIcon className="text-2xl text-default-400 pointer-events-none" />
-              ) : (
-                <EyeOpenIcon className="text-2xl text-default-400 pointer-events-none" />
-              )}
-            </button>
-          }
-          type={isVisible ? "text" : "password"}
-          className="max-w-full"
-        /> */}
         <Autocomplete
           {...register("categoryId")}
           label="Kategori"
           isRequired
           placeholder="Choose category"
           variant="underlined"
-          value={getValues("categoryId")}
+          defaultSelectedKey={categoryId}
+          isInvalid={categoryId ? false : true && clicked}
+          errorMessage={"Category must be selected"}
           onSelectionChange={(id) => {
             setCategoryId(id);
           }}
           defaultItems={categories}
-          selectedKey={categoryId}
+          value={categoryId}
           name="categoryId">
           {categories &&
             categories.map((value) => (
@@ -187,7 +184,7 @@ export default function Client({
           isLoading={loading}>
           Daftar
         </Button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }

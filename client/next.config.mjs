@@ -1,8 +1,11 @@
+import withMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     domains: ["cdn.inflact.com", "kreasikita.rplinformatika.my.id"],
   },
+  pageExtensions: ["js", "jsx", "mdx", "md", "ts", "tsx"],
   experimental: {
     serverActions: {
       allowedOrigins: [],
@@ -10,4 +13,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withMDX()(nextConfig);

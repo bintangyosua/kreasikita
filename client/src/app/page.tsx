@@ -40,7 +40,7 @@ export default async function Page() {
       <>
         <Hero />
         <Stats />
-        <section className="flex flex-col items-center w-full md:w-2/3 justify-center mx-auto gap-6">
+        <section className="flex flex-col items-center w-full md:w-2/3 justify-center mx-auto gap-6 mt-10">
           <h2 className="mx-auto text-3xl sm:text-4xl md:text-5xl font-bold sm:text-center">
             Tentang KreasiKita
           </h2>

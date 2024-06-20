@@ -43,8 +43,6 @@ export default function SupportersTable({
     return <p>No Data</p>;
   }
 
-  console.log({ supporters });
-
   return (
     <Table
       // removeWrapper

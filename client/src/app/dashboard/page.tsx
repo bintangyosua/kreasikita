@@ -60,7 +60,7 @@ export default async function Page() {
                 <button className="rounded-full bg-red-300 px-4 py-1">
                   {user.category.name}
                 </button>
-                <span>345.000 Supporters</span>
+                {/* <span>345.000 Supporters</span> */}
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ import { access } from "fs";
 
 const registrationSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(5),
+  password: z.string().min(6),
 });
 
 export default function Client() {
@@ -59,6 +59,8 @@ export default function Client() {
           variant={"underlined"}
           label="Email"
           name="email"
+          isInvalid={errors.email ? true : false}
+          errorMessage={errors.email?.message?.toString()}
           placeholder="Enter your email"
           startContent={<CiMail />}
         />
@@ -69,6 +71,8 @@ export default function Client() {
           fullWidth
           width={"100%"}
           name="password"
+          isInvalid={errors.password ? true : false}
+          errorMessage={errors.password?.message?.toString()}
           placeholder="Enter your password"
           endContent={
             <button

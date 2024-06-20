@@ -54,8 +54,6 @@ export default function PayoutsTable({
     return <p>No Data</p>;
   }
 
-  console.log({ payouts });
-
   return (
     <Table
       // removeWrapper

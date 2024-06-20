@@ -10,8 +10,6 @@ import {
   getSession,
 } from "@/lib/session";
 import { getProfile } from "@/lib/api/users";
-import { cookies } from "next/headers";
-import { useRouter } from "next/navigation";
 
 export default async function HomeLayout({
   children,
@@ -38,7 +36,7 @@ export default async function HomeLayout({
             categories={categories}
             currentCategory={category}
           />
-          <>{children}</>
+          <div>{children}</div>
         </div>
         <Footer />
       </div>
@@ -53,7 +51,7 @@ export default async function HomeLayout({
           categories={categories}
           currentCategory={category}
         />
-        <>{children}</>
+        <div>{children}</div>
       </div>
       <Footer />
     </div>
