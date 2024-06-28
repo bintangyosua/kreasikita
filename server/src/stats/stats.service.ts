@@ -22,7 +22,11 @@ export class StatsService {
   }
 
   async findStatsByUsername(username: string) {
-    const countSupporters = await this.prismaService.donation.count();
+    const countSupporters = await this.prismaService.donation.count({
+      where: {
+        receiverUsername: username,
+      },
+    });
     const sumDonations = await this.prismaService.donation.aggregate({
       _sum: {
         gross_amount: true,
@@ -38,6 +42,9 @@ export class StatsService {
     const sumAllDonations = await this.prismaService.donation.aggregate({
       _sum: {
         gross_amount: true,
+      },
+      where: {
+        receiverUsername: username,
       },
     });
 
