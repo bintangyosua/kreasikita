@@ -82,7 +82,7 @@ export default async function Page() {
               {user.description ? user.description : "Tidak ada deskripsi"}
             </p>
             <div className="font-bold flex flex-col gap-2">
-              <h2 className="text-3xl">Jumlah Dukungan</h2>
+              <h2 className="text-3xl">Wallet</h2>
               <h2 className="text-4xl">
                 IDR{" "}
                 {user.balance.toLocaleString("id-ID", {

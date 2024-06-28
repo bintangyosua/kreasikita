@@ -106,6 +106,12 @@ export default function SupportersTable({
                         {getKeyValue(item, columnKey)}
                       </>
                     )}
+                    {!item.pfp && item.username !== "anonymous" && (
+                      <>
+                        <Avatar src={item.pfp} size="sm" />
+                        {getKeyValue(item, columnKey)}
+                      </>
+                    )}
                   </div>
                 ) : (
                   <>{getKeyValue(item, columnKey)}</>

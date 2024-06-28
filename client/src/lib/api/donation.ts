@@ -72,6 +72,8 @@ export async function getDonationsByReceiver() {
     value.pfp = `${process.env.API_URL}/public/${value.sender.pfp}`;
   });
 
+  console.log({ json });
+
   return json;
 }
 

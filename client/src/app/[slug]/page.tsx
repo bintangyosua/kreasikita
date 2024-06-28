@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <Payment session={session} creator={user.data} profile={profile} />
         </div>
       </main>
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {donations.length > 0 &&
           donations.map((value: any, key: any) => (
             <CardMessage2 key={key} donation={value} />

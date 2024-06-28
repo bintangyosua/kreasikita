@@ -33,9 +33,7 @@ export class DonationService {
   async findManyByReceiver(receiverUsername: string) {
     const donations = await this.prisma.donation.findMany({
       where: {
-        receiver: {
-          username: receiverUsername,
-        },
+        receiverUsername: receiverUsername,
         transaction_status: 'settlement',
       },
       orderBy: {

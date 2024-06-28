@@ -132,7 +132,7 @@ export default function PayoutsTable({
               if (columnKey === "username") {
                 return (
                   <TableCell className="py-3 border-b-1 border-b-gray-200 flex items-center gap-2">
-                    {item.user.pfp ? (
+                    {item.user?.pfp ? (
                       <Avatar src={item.user.pfp} size="sm" />
                     ) : (
                       <Avatar size="sm" />

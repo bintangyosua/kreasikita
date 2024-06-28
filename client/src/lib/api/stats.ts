@@ -17,5 +17,7 @@ export async function getStatsByProfile(
     access_token
   );
 
+  console.log({ res });
+
   return res.data;
 }
