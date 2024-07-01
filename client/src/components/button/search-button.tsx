@@ -4,8 +4,7 @@ import { CiSearch } from "react-icons/ci";
 
 export default function SearchButton() {
   return (
-    <div
-      className={`flex items-center gap-2 border border-gray-300 px-3 py-2 shadow-md`}>
+    <div className={``}>
       <div>
         <CiSearch size={18} />
       </div>
