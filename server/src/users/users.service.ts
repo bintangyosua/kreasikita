@@ -58,8 +58,6 @@ export class UsersService {
         },
       },
     });
-    console.log('hello');
-    console.log({ users });
 
     return users;
   }

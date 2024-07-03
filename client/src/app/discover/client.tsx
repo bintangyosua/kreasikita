@@ -13,7 +13,6 @@ import { Callout } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 
 export default function Client({ users }: { users: any }) {
-  console.log({ users });
   return (
     <>
       {users.length > 0 ? (

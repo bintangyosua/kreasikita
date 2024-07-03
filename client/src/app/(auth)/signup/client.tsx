@@ -64,7 +64,6 @@ export default function Client({
           }
           const { class: _, ...newUser } = d;
           const res = await postUser(newUser, categoryId);
-          console.log({ res });
 
           if (res.statusCode === 400) {
             toast.error(res.message);

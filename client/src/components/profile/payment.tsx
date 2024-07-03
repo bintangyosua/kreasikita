@@ -34,7 +34,7 @@ export default function Payment({
 }) {
   const [name, setName] = useState(profile?.name || "");
   const [email, setEmail] = useState(profile?.email || "");
-  const [gross_amount, setAmount] = useState<number>();
+  const [gross_amount, setAmount] = useState<number>(0);
   const [triggerred, setTriggerred] = useState(false);
   const [message, setMessage] = useState("");
   const [load, setLoad] = useState(false);
@@ -84,14 +84,26 @@ export default function Payment({
             className={`${session.isSignedIn ? "hidden" : ""}`}
           />
           <Input
-            type="number"
-            onChange={(e) => setAmount(parseInt(e.target.value))}
+            type="text"
+            onChange={(e) => {
+              const value = e.target.value;
+
+              // Menghapus karakter non-numerik kecuali tanda desimal
+              const cleanedValue = value.replace(/[^0-9,-]+/g, "");
+
+              // Mengubah koma menjadi titik untuk penanganan angka desimal yang benar
+              const numberValue = Number(cleanedValue.replace(/,/g, "."));
+
+              setAmount(numberValue); // Update nilai asli
+            }}
             name="gross_amount"
             placeholder="000,00"
             labelPlacement="outside"
             isInvalid={triggerred && !gross_amount}
             errorMessage="Nominal harus diisi"
-            value={gross_amount?.toString()}
+            value={gross_amount.toLocaleString("id-ID", {
+              currency: "IDR",
+            })}
             startContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-default-400 text-small">IDR</span>

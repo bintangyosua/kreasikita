@@ -111,7 +111,6 @@ export default function GiftsTable({ donations }: { donations: TDonation[] }) {
               }
 
               if (columnKey === "senderUsername") {
-                console.log({ item });
                 return (
                   <TableCell className="py-3 border-b-1 border-b-gray-200">
                     <div className="flex items-center gap-2">
