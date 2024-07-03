@@ -1,16 +1,24 @@
 "use server";
 
+import BackButton from "@/components/button/back-button";
 import { getPaymentStatus } from "@/lib/api/payment";
 import {
   getSession,
   getSessionPayment,
   PaymentSessionType,
 } from "@/lib/session";
+import { Button } from "@nextui-org/react";
 import { CopyIcon } from "@radix-ui/react-icons";
 import { Badge, Code, DataList, Flex, IconButton } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
-import { FaCheck, FaClock, FaDiagramSuccessor } from "react-icons/fa6";
+import {
+  FaBackward,
+  FaCheck,
+  FaClock,
+  FaDiagramSuccessor,
+} from "react-icons/fa6";
+import { IoIosArrowRoundBack, IoMdArrowRoundBack } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 
 interface Status {
@@ -96,6 +104,7 @@ function renderNoPaymentMade() {
           Please order first and then come back later.
         </p>
       </div>
+      <BackButton />
     </div>
   );
 }
@@ -115,10 +124,6 @@ function renderPaymentSuccessful(
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
-
-    // These options are needed to round to whole numbers if that's what you want.
-    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
 
   return (
@@ -181,6 +186,7 @@ function renderPaymentSuccessful(
           <DataList.Value>{paymentStatus.expiry_time}</DataList.Value>
         </DataList.Item>
       </DataList.Root>
+      <BackButton />
     </div>
   );
 }

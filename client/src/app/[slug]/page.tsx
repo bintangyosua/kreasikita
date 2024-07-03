@@ -27,7 +27,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const donations = await getDonationsByProfile(params.slug);
 
   if (!user.data) {
-    notFound();
+    return notFound();
+  }
+
+  if (user.data.hidden == true) {
+    return notFound();
   }
 
   const profile = session.access_token

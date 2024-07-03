@@ -2,20 +2,27 @@
 
 import { Button } from "@nextui-org/react";
 import { Box, Flex, TextField } from "@radix-ui/themes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { SlBasketLoaded } from "react-icons/sl";
 
 export default function SearchButton() {
   const router = useRouter();
-  const [value, setValue] = useState<string>("");
+
+  const searchParams = useSearchParams();
+  const [value, setValue] = useState<string>(searchParams.get("search") || "");
+  const [loading, setLoading] = useState(false);
   return (
     <form
       className="flex gap-2 items-center"
       method="POST"
       onSubmit={(e) => {
         e.preventDefault();
+        setLoading(true);
+        setTimeout(() => {}, 1000);
         const url = encodeURI(value);
+        setLoading(false);
         router.push(`/discover?search=${url}`);
       }}>
       <div
@@ -25,14 +32,16 @@ export default function SearchButton() {
         </div>
         <input
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) =>
+            setValue(e.target.value.replace(/[^a-zA-Z0-9]/g, ""))
+          }
           type="text"
-          // required
           placeholder="Cari kreator"
           className="appearance-none border-none outline-none w-full"
         />
       </div>
       <Button
+        isLoading={loading}
         type="submit"
         className="rounded-none border border-gray-300 shadow-md bg-purple text-white font-bold p-0 max-w-fit"
         isIconOnly
