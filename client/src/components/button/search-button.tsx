@@ -33,7 +33,7 @@ export default function SearchButton() {
         <input
           value={value}
           onChange={(e) =>
-            setValue(e.target.value.replace(/[^a-zA-Z0-9]/g, ""))
+            setValue(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ""))
           }
           type="text"
           placeholder="Cari kreator"
