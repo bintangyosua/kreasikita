@@ -71,15 +71,15 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
           backgroundPosition: "center",
         }}
         className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
-      <Avatar
-        src={`${user.data.pfp}`}
-        className="w-28 h-28 rounded-full mx-auto -mt-12"
-      />
-      <div className="-mt-12 flex justify-between xl:justify-evenly pl-10 pr-2">
+      <div className="flex justify-center mx-5 mt-4 gap-5">
         <div className="flex flex-col text-center">
           <span className="font-bold text-3xl">{user.data.name}</span>
           <span className="text-gray-500">@{user.data.username}</span>
         </div>
+        <Avatar
+          src={`${user.data.pfp}`}
+          className="w-28 h-28 rounded-full -mt-16"
+        />
         <div className="flex flex-col">
           <a href={`/category/${user.data.category.name.toLowerCase()}`}>
             <Button
