@@ -63,14 +63,7 @@ function CardLayout({
           backgroundPosition: "right",
         }}></CardHeader>
       <CardHeader className="flex gap-3">
-        <Avatar
-          alt="nextui logo"
-          // height={60}
-          radius="full"
-          size="md"
-          src={profileImg}
-          // width={60}
-        />
+        <Avatar alt="Profile" radius="full" size="md" src={profileImg} />
         <div className="flex flex-col">
           <p className="text-md">{name}</p>
           <p className="text-small text-default-500">@{username}</p>

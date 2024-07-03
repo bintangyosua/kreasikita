@@ -71,24 +71,28 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ user }) => {
           backgroundPosition: "center",
         }}
         className="h-28 sm:h-32 lg:h-48 w-full rounded-t-3xl"></div>
-      <div className="flex justify-center mx-5 mt-4 gap-5">
-        <div className="flex flex-col text-center">
-          <span className="font-bold text-3xl">{user.data.name}</span>
-          <span className="text-gray-500">@{user.data.username}</span>
+      <div className="flex justify-start items-center mx-5 mt-2 gap-5">
+        <div className="w-fit">
+          <Avatar
+            src={`${user.data.pfp ?? ""}`}
+            className="w-28 h-28 rounded-full -mt-16"
+          />
         </div>
-        <Avatar
-          src={`${user.data.pfp}`}
-          className="w-28 h-28 rounded-full -mt-16"
-        />
-        <div className="flex flex-col">
-          <a href={`/category/${user.data.category.name.toLowerCase()}`}>
-            <Button
-              className="rounded-full w-full bg-purple text-md text-white px-4 py-1"
-              size="sm">
-              {user.data.category.name}
-            </Button>
-          </a>
-          {/* <span>345.000 Supporters</span> */}
+        <div className="w-full sm:flex sm:flex-row sm:justify-between items-center">
+          <div className="flex flex-col text-center">
+            <span className="font-bold text-3xl">{user.data.name}</span>
+            <span className="text-gray-500">@{user.data.username}</span>
+          </div>
+          <div className="flex flex-col w-fit mx-auto sm:mx-0">
+            <a href={`/category/${user.data.category.name.toLowerCase()}`}>
+              <Button
+                className="rounded-full w-full bg-purple text-md text-white px-4 py-1"
+                size="sm">
+                {user.data.category.name}
+              </Button>
+            </a>
+            {/* <span>345.000 Supporters</span> */}
+          </div>
         </div>
       </div>
       <p className="text-center mt-5 p-3 md:w-2/3 mx-auto">
