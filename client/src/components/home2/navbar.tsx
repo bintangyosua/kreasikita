@@ -64,7 +64,7 @@ export default function Navbar({
             </button>
           </div>
         </div>
-        <div className="hidden lg:hidden lg:w-4/5">
+        <div className="hidden lg:block lg:w-4/5">
           <SearchButton />
         </div>
         <nav
@@ -89,7 +89,7 @@ export default function Navbar({
           )}
         </nav>
       </div>
-      <div className="hidden lg:hidden mb-2">
+      <div className="block lg:hidden mb-2">
         <SearchButton />
       </div>
       <ScrollAreaLayout>

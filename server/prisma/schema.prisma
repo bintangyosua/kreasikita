@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -49,6 +50,8 @@ model User {
   donationsSent     Donation[]   @relation("DonationSender")
   payouts           Payout[]     @relation("PayoutUser")
   milestones        Milestones[] @relation("MilestonesUser")
+
+  @@fulltext([username, name, description])
 }
 
 model Category {

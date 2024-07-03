@@ -18,6 +18,9 @@ export class UsersService {
         balance: true,
         email: true,
       },
+      where: {
+        hidden: false,
+      },
     });
   }
 
@@ -38,6 +41,27 @@ export class UsersService {
         balance: true,
       },
     });
+  }
+
+  async search(keyword: string) {
+    const users = await this.prisma.user.findMany({
+      where: {
+        hidden: false,
+        description: {
+          search: keyword,
+        },
+        name: {
+          search: keyword,
+        },
+        username: {
+          search: keyword,
+        },
+      },
+    });
+    console.log('hello');
+    console.log({ users });
+
+    return users;
   }
 
   async findOneByUsername(username: string) {

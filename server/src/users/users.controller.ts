@@ -69,6 +69,16 @@ export class UsersController {
     }
   }
 
+  @Get('search/:keywords')
+  @HttpCode(HttpStatus.OK)
+  async searchUsers(@Param('keywords') keywords: string): Promise<Response> {
+    return {
+      status: HttpStatus.OK,
+      message: 'Data fetched',
+      data: await this.usersService.search(keywords),
+    };
+  }
+
   // @UseGuards(AuthGuard)
   // @ApiBearerAuth()
   // @Get(':id')

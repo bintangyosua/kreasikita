@@ -2,7 +2,21 @@
 
 import { TProfile } from "@/types/profile";
 import { deleteSession, getSession, setSession } from "../session";
-import { fetchAuthorized } from "./wrapper";
+import { fetchAuthorized, fetchUnAuthorized } from "./wrapper";
+
+export async function searchUsers(keywords: string) {
+  const res = await fetchUnAuthorized(
+    `${process.env.API_URL}/users/search/${keywords}`,
+    "GET"
+  );
+
+  return res;
+}
+
+export async function getUsers() {
+  const res = await fetchUnAuthorized(`${process.env.API_URL}/users`, "GET");
+  return res;
+}
 
 export async function postUser(
   user: any,
