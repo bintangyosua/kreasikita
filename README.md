@@ -53,4 +53,4 @@ Karena website KreasiKita terdiri dari dua environment yang berbeda, kita perlu 
 
 ### License
 
-Copyright @ 2024 [@bintangyosua](https://github.com/bintangyosua) [@luthfi](https://github.com/ellfataa) [@zia](https://github.com/ZiaKfa). This project is open-source licensed under the MIT License.
+Copyright @ 2024 [@bintangyosua](https://github.com/bintangyosua), [@ellfataa](https://github.com/ellfataa), and [@ZiaKfa](https://github.com/ZiaKfa). This project is open-source licensed under the MIT License.
