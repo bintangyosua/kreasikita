@@ -4,7 +4,7 @@ Website Kreasi Kita adalah platform untuk mendukung kreator. Pengguna dapat memb
 
 ![Snapshot](./public/snapshot.png)
 
-embantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
+Membantu penggalangan dana. Platform ini menyediakan proses donasi yang mudah dan aman, transparansi, dan komunitas yang suportif. Mari bergabung dan dukung kreativitas dan kepedulian!
 
 ## Technologies
 
@@ -51,27 +51,6 @@ Karena website KreasiKita terdiri dari dua environment yang berbeda, kita perlu 
 - Admin
 - Kreator
 
-## Roadmap
+### License
 
-Daftar fitur yang dikerjakan beserta progres yang telah dikerjakan
-
-### M1 Setup Website
-
-- [x] Setup client dan server
-- [x] Membuat UI/UX halaman utama
-- [x] Slicing UI/UX halaman utama ke Client
-- [x] Membuat proses logika bisnis di Server (autentikasi dan manajemen user)
-
-### M2 Fitur Kreator
-
-- [x] Halaman daftar kreator
-- [x] Halaman Kreator
-
-### M3 Fitur Donasi
-
-- [x] Halaman daftar donasi
-- [x] Halaman per donasi
-
-### M4 Payment Gateway
-
-- [x] Metode Pembayaran
+Copyright @ 2024 [@bintangyosua](https://github.com/bintangyosua) [@luthfi](https://github.com/ellfataa) [@zia](https://github.com/ZiaKfa). This project is open-source licensed under the MIT License.
