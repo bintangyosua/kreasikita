@@ -38,6 +38,8 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
     return payouts.slice(start, end);
   }, [page, payouts]);
 
+  console.log({ payouts });
+
   if (!payouts) {
     return <p>No Data</p>;
   }
@@ -75,9 +77,14 @@ export default function PayoutsTable({ payouts }: { payouts: TPayout[] }) {
           Waktu
         </TableColumn>
         <TableColumn
-          key="bank"
+          key="bank_code"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Bank
+        </TableColumn>
+        <TableColumn
+          key="card_number"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Card Number
         </TableColumn>
         <TableColumn
           key="amount"

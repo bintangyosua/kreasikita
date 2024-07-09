@@ -97,6 +97,11 @@ export default function PayoutsTable({
           Bank Code
         </TableColumn>
         <TableColumn
+          key="card_number"
+          className="text-md bg-white border-b-2 border-b-zinc-200">
+          Card Number
+        </TableColumn>
+        <TableColumn
           key="description"
           className="text-md bg-white border-b-2 border-b-zinc-200">
           Description
